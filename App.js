@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   View,
   Text,
@@ -18,6 +18,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 const { width, height } = Dimensions.get('window');
 
 export default function App() {
+  const [showSplash, setShowSplash] = useState(true);
   const [screen, setScreen] = useState('home');
   const [notes, setNotes] = useState('');
   const [image, setImage] = useState(null);
@@ -25,6 +26,47 @@ export default function App() {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [showResult, setShowResult] = useState(false);
   const [isInputFocused, setIsInputFocused] = useState(false);
+
+  // Splash screen animations
+  const logoScale = useRef(new Animated.Value(0)).current;
+  const logoRotation = useRef(new Animated.Value(0)).current;
+  const textOpacity = useRef(new Animated.Value(0)).current;
+  const particleAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    if (showSplash) {
+      // Start splash screen animations
+      Animated.sequence([
+        Animated.timing(logoScale, {
+          toValue: 1,
+          duration: 800,
+          useNativeDriver: true,
+        }),
+        Animated.parallel([
+          Animated.timing(logoRotation, {
+            toValue: 1,
+            duration: 1000,
+            useNativeDriver: true,
+          }),
+          Animated.timing(textOpacity, {
+            toValue: 1,
+            duration: 800,
+            useNativeDriver: true,
+          }),
+          Animated.timing(particleAnim, {
+            toValue: 1,
+            duration: 1200,
+            useNativeDriver: true,
+          }),
+        ])
+      ]).start();
+
+      // Hide splash screen after 3 seconds
+      setTimeout(() => {
+        setShowSplash(false);
+      }, 3000);
+    }
+  }, [showSplash]);
 
   const handlePickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -60,6 +102,119 @@ export default function App() {
   const handleQuizAnswer = (answer) => {
     setSelectedAnswer(answer);
     setShowResult(true);
+  };
+
+  const SplashScreen = () => {
+    const spin = logoRotation.interpolate({
+      inputRange: [0, 1],
+      outputRange: ['0deg', '360deg'],
+    });
+
+    const particleTranslateY = particleAnim.interpolate({
+      inputRange: [0, 1],
+      outputRange: [50, -50],
+    });
+
+    return (
+      <LinearGradient
+        colors={['#4f46e5', '#7c3aed', '#a855f7']}
+        locations={[0, 0.6, 1]}
+        style={styles.splashContainer}
+      >
+        <StatusBar barStyle="light-content" />
+        
+        {/* Animated floating particles */}
+        <Animated.View 
+          style={[
+            styles.particle,
+            styles.particle1,
+            {
+              transform: [
+                { translateY: particleTranslateY },
+                { rotate: spin },
+              ],
+            },
+          ]}
+        >
+          <Text style={styles.particleText}>🌍</Text>
+        </Animated.View>
+        
+        <Animated.View 
+          style={[
+            styles.particle,
+            styles.particle2,
+            {
+              transform: [
+                { translateY: particleTranslateY },
+                { rotate: spin },
+              ],
+            },
+          ]}
+        >
+          <Text style={styles.particleText}>💬</Text>
+        </Animated.View>
+        
+        <Animated.View 
+          style={[
+            styles.particle,
+            styles.particle3,
+            {
+              transform: [
+                { translateY: particleTranslateY },
+                { rotate: spin },
+              ],
+            },
+          ]}
+        >
+          <Text style={styles.particleText}>🧠</Text>
+        </Animated.View>
+
+        {/* Main Logo */}
+        <View style={styles.logoContainer}>
+          <Animated.View
+            style={[
+              styles.logoBackground,
+              {
+                transform: [
+                  { scale: logoScale },
+                  { rotate: spin },
+                ],
+              },
+            ]}
+          >
+            {/* Custom PolyTalk Logo */}
+            <View style={styles.logoInner}>
+              <View style={styles.logoLetterP}>
+                <Text style={styles.logoMainText}>P</Text>
+              </View>
+              <View style={styles.logoSpeechBubbles}>
+                <View style={styles.speechBubble1}>
+                  <Text style={styles.speechBubbleText}>Hi</Text>
+                </View>
+                <View style={styles.speechBubble2}>
+                  <Text style={styles.speechBubbleText}>你好</Text>
+                </View>
+                <View style={styles.speechBubble3}>
+                  <Text style={styles.speechBubbleText}>¡Hola!</Text>
+                </View>
+              </View>
+            </View>
+          </Animated.View>
+        </View>
+
+        {/* App Title */}
+        <Animated.View style={[styles.splashTextContainer, { opacity: textOpacity }]}>
+          <Text style={styles.splashTitle}>PolyTalk</Text>
+          <Text style={styles.splashSubtitle}>Speak Any Language, Anywhere</Text>
+          <Text style={styles.splashTagline}>AI-Powered Language Learning</Text>
+        </Animated.View>
+
+        {/* Powered by text */}
+        <Animated.View style={[styles.poweredByContainer, { opacity: textOpacity }]}>
+          <Text style={styles.poweredByText}>Powered by Zander</Text>
+        </Animated.View>
+      </LinearGradient>
+    );
   };
 
   const HomeScreen = () => (
@@ -393,11 +548,17 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      {screen === 'home' && <HomeScreen />}
-      {screen === 'upload' && <UploadScreen />}
-      {screen === 'review' && <ReviewScreen />}
-      {screen === 'quiz' && <QuizScreen />}
-      {screen === 'progress' && <ProgressScreen />}
+      {showSplash ? (
+        <SplashScreen />
+      ) : (
+        <>
+          {screen === 'home' && <HomeScreen />}
+          {screen === 'upload' && <UploadScreen />}
+          {screen === 'review' && <ReviewScreen />}
+          {screen === 'quiz' && <QuizScreen />}
+          {screen === 'progress' && <ProgressScreen />}
+        </>
+      )}
     </View>
   );
 }
@@ -834,5 +995,161 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#666',
     textAlign: 'center',
+  },
+  // Splash Screen Styles
+  splashContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'relative',
+  },
+  logoContainer: {
+    alignItems: 'center',
+    marginBottom: 40,
+  },
+  logoBackground: {
+    width: 160,
+    height: 160,
+    borderRadius: 80,
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.3,
+    shadowRadius: 16,
+    elevation: 12,
+  },
+  logoInner: {
+    width: 140,
+    height: 140,
+    borderRadius: 70,
+    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'relative',
+  },
+  logoLetterP: {
+    position: 'absolute',
+    top: 10,
+    left: 15,
+  },
+  logoMainText: {
+    fontSize: 72,
+    fontWeight: 'bold',
+    color: '#4f46e5',
+    textShadowColor: 'rgba(124, 58, 237, 0.3)',
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 4,
+  },
+  logoSpeechBubbles: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+  },
+  speechBubble1: {
+    position: 'absolute',
+    top: 15,
+    right: 8,
+    backgroundColor: '#FF6B6B',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  speechBubble2: {
+    position: 'absolute',
+    bottom: 40,
+    left: 5,
+    backgroundColor: '#4CAF50',
+    paddingHorizontal: 6,
+    paddingVertical: 3,
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  speechBubble3: {
+    position: 'absolute',
+    bottom: 15,
+    right: 15,
+    backgroundColor: '#FF9500',
+    paddingHorizontal: 7,
+    paddingVertical: 3,
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  speechBubbleText: {
+    fontSize: 10,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+  },
+  particle: {
+    position: 'absolute',
+  },
+  particle1: {
+    top: '20%',
+    left: '15%',
+  },
+  particle2: {
+    top: '25%',
+    right: '10%',
+  },
+  particle3: {
+    bottom: '30%',
+    left: '10%',
+  },
+  particleText: {
+    fontSize: 32,
+    opacity: 0.7,
+  },
+  splashTextContainer: {
+    alignItems: 'center',
+    marginBottom: 60,
+  },
+  splashTitle: {
+    fontSize: 48,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+    marginBottom: 8,
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 6,
+  },
+  splashSubtitle: {
+    fontSize: 18,
+    color: '#FFFFFF',
+    opacity: 0.9,
+    marginBottom: 6,
+    textAlign: 'center',
+  },
+  splashTagline: {
+    fontSize: 14,
+    color: '#FFFFFF',
+    opacity: 0.8,
+    textAlign: 'center',
+    fontStyle: 'italic',
+  },
+  poweredByContainer: {
+    position: 'absolute',
+    bottom: 80,
+    alignSelf: 'center',
+  },
+  poweredByText: {
+    fontSize: 12,
+    color: '#FFFFFF',
+    opacity: 0.7,
+    textAlign: 'center',
+    fontStyle: 'italic',
   },
 });
