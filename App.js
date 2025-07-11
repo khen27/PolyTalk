@@ -150,6 +150,221 @@ const AwardIcon = ({ size = 24, color = "#fff" }) => (
   </Svg>
 );
 
+const MicrophoneIcon = ({ size = 24, color = "#fff" }) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <G clipPath="url(#clip0_4418_3500)">
+      <Path d="M12 15.5C14.21 15.5 16 13.71 16 11.5V6C16 3.79 14.21 2 12 2C9.79 2 8 3.79 8 6V11.5C8 13.71 9.79 15.5 12 15.5Z" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <Path d="M4.35 9.65V11.5C4.35 15.92 7.58 19.5 12 19.5C16.42 19.5 19.65 15.92 19.65 11.5V9.65" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <Path d="M10.61 6.43C11.51 6.1 12.49 6.1 13.39 6.43" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <Path d="M11.2 8.55C11.73 8.41 12.27 8.41 12.8 8.55" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <Path d="M12 19.5V22" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </G>
+    <Defs>
+      <ClipPath id="clip0_4418_3500">
+        <Rect width="24" height="24" fill="white"/>
+      </ClipPath>
+    </Defs>
+  </Svg>
+);
+
+const BackArrowIcon = ({ size = 24, color = "#fff" }) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <Path d="M13.98 5.31975L10.77 8.52975L8.79999 10.4897C7.96999 11.3197 7.96999 12.6697 8.79999 13.4997L13.98 18.6797C14.66 19.3597 15.82 18.8697 15.82 17.9197V12.3097V6.07975C15.82 5.11975 14.66 4.63975 13.98 5.31975Z" fill={color} />
+  </Svg>
+);
+
+// Challenge Carousel Component
+const ChallengeCarousel = ({ challenges, onChallengeSelect, getBadgeConfig }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const scrollViewRef = useRef();
+
+  const handleScroll = (event) => {
+    const { contentOffset, layoutMeasurement } = event.nativeEvent;
+    const currentPage = Math.floor(contentOffset.x / layoutMeasurement.width);
+    setCurrentIndex(currentPage);
+  };
+
+  return (
+    <View style={styles.carouselContainer}>
+      <ScrollView
+        ref={scrollViewRef}
+        horizontal
+        pagingEnabled
+        showsHorizontalScrollIndicator={false}
+        onScroll={handleScroll}
+        scrollEventThrottle={16}
+        style={styles.carouselScrollView}
+        contentContainerStyle={styles.carouselContent}
+      >
+        {challenges.map((challenge, index) => (
+          <View key={challenge.id} style={styles.carouselCardContainer}>
+            <TouchableOpacity
+              style={styles.carouselCard}
+              onPress={() => onChallengeSelect(challenge)}
+              activeOpacity={0.9}
+            >
+              <View style={styles.challengeCardContent}>
+                {/* Header with badge */}
+                <View style={styles.challengeCardHeader}>
+                  <View style={styles.challengeTypeContainer}>
+                    <AwardIcon size={14} color="#6B7280" />
+                    <Text style={styles.challengeTypeText}>
+                      {challenge.type}
+                    </Text>
+                  </View>
+                  <View style={[
+                    styles.dynamicBadge, 
+                    { backgroundColor: getBadgeConfig(challenge.badge).backgroundColor }
+                  ]}>
+                    <Text style={[
+                      styles.dynamicBadgeText,
+                      { color: getBadgeConfig(challenge.badge).textColor }
+                    ]}>
+                      {getBadgeConfig(challenge.badge).text}
+                    </Text>
+                  </View>
+                </View>
+                
+                {/* Challenge Info */}
+                <Text style={styles.challengeTitle} numberOfLines={2}>
+                  {challenge.title}
+                </Text>
+                <Text style={styles.challengeSubtitle} numberOfLines={2}>
+                  {challenge.subtitle}
+                </Text>
+                
+                {/* Challenge Details */}
+                <View style={styles.challengeDetailsContainer}>
+                  <Text style={styles.challengePoints}>+{challenge.points} pts</Text>
+                  <Text style={styles.challengeTime}>{challenge.timeLimit}</Text>
+                </View>
+                
+                {/* Difficulty */}
+                <Text style={styles.challengeDifficulty}>{challenge.difficulty}</Text>
+              </View>
+              
+              {/* Pagination Dots Overlay */}
+              <View style={styles.cardPaginationOverlay}>
+                {challenges.map((_, dotIndex) => (
+                  <View
+                    key={dotIndex}
+                    style={[
+                      styles.cardPaginationDot,
+                      dotIndex === currentIndex ? styles.activeDot : styles.inactiveDot
+                    ]}
+                  />
+                ))}
+              </View>
+            </TouchableOpacity>
+          </View>
+        ))}
+      </ScrollView>
+    </View>
+  );
+};
+
+// Lessons Carousel Component
+const LessonsCarousel = ({ lessons, onLessonSelect, getBadgeConfig }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const scrollViewRef = useRef();
+
+  const handleScroll = (event) => {
+    const { contentOffset, layoutMeasurement } = event.nativeEvent;
+    const currentPage = Math.floor(contentOffset.x / layoutMeasurement.width);
+    setCurrentIndex(currentPage);
+  };
+
+  return (
+    <View style={styles.carouselContainer}>
+      <ScrollView
+        ref={scrollViewRef}
+        horizontal
+        pagingEnabled
+        showsHorizontalScrollIndicator={false}
+        onScroll={handleScroll}
+        scrollEventThrottle={16}
+        style={styles.carouselScrollView}
+        contentContainerStyle={styles.carouselContent}
+      >
+        {lessons.map((lesson, index) => (
+          <View key={lesson.id} style={styles.carouselCardContainer}>
+            <TouchableOpacity
+              style={styles.carouselCard}
+              onPress={() => onLessonSelect(lesson)}
+              activeOpacity={0.9}
+            >
+              <View style={styles.lessonCardContent}>
+                {/* Header with dynamic badge */}
+                <View style={styles.lessonCardHeader}>
+                  <View style={styles.lessonTypeContainer}>
+                    {lesson.type === 'notes' ? (
+                      <DocumentIcon size={14} color="#6B7280" />
+                    ) : (
+                      <CameraIcon size={14} color="#6B7280" />
+                    )}
+                    <Text style={styles.lessonTypeText}>
+                      {lesson.type === 'notes' ? 'Notes' : 'Photo'}
+                    </Text>
+                  </View>
+                  <View style={[
+                    styles.dynamicBadge, 
+                    { backgroundColor: getBadgeConfig(lesson.badge).backgroundColor }
+                  ]}>
+                    <Text style={[
+                      styles.dynamicBadgeText,
+                      { color: getBadgeConfig(lesson.badge).textColor }
+                    ]}>
+                      {getBadgeConfig(lesson.badge).text}
+                    </Text>
+                  </View>
+                </View>
+                
+                {/* Lesson Info */}
+                <Text style={styles.lessonTitle} numberOfLines={2}>
+                  {lesson.title}
+                </Text>
+                <Text style={styles.lessonSubtitle} numberOfLines={2}>
+                  {lesson.subtitle}
+                </Text>
+                <Text style={styles.lessonDate}>{lesson.date}</Text>
+                
+                {/* Progress Bar */}
+                <View style={styles.lessonProgressContainer}>
+                  <View style={styles.lessonProgressBar}>
+                    <View 
+                      style={[
+                        styles.lessonProgressFill, 
+                        { width: `${lesson.progress}%` }
+                      ]} 
+                    />
+                  </View>
+                  <Text style={styles.lessonProgressText}>{lesson.progress}%</Text>
+                </View>
+                
+                {/* Last Studied */}
+                <Text style={styles.lastStudiedText}>{lesson.lastStudied}</Text>
+              </View>
+              
+              {/* Pagination Dots Overlay */}
+              <View style={styles.cardPaginationOverlay}>
+                {lessons.map((_, dotIndex) => (
+                  <View
+                    key={dotIndex}
+                    style={[
+                      styles.cardPaginationDot,
+                      dotIndex === currentIndex ? styles.activeDot : styles.inactiveDot
+                    ]}
+                  />
+                ))}
+              </View>
+            </TouchableOpacity>
+          </View>
+        ))}
+      </ScrollView>
+    </View>
+  );
+};
+
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
   const [screen, setScreen] = useState('home');
@@ -194,6 +409,50 @@ export default function App() {
       badge: "practice",
       lastStudied: "3 days ago",
       difficulty: "beginner"
+    }
+  ]);
+
+  // Daily challenges state
+  const [dailyChallenges] = useState([
+    {
+      id: 1,
+      title: "Morning Quiz",
+      subtitle: "Start your day with 5 quick questions",
+      type: "quiz",
+      badge: "new",
+      difficulty: "easy",
+      points: 25,
+      timeLimit: "3 min"
+    },
+    {
+      id: 2,
+      title: "Speed Round",
+      subtitle: "Translate 20 words in 60 seconds",
+      type: "speed",
+      badge: "new",
+      difficulty: "hard",
+      points: 100,
+      timeLimit: "1 min"
+    },
+    {
+      id: 3,
+      title: "Grammar Master",
+      subtitle: "Advanced conjugation patterns",
+      type: "grammar",
+      badge: "practice",
+      difficulty: "expert",
+      points: 150,
+      timeLimit: "10 min"
+    },
+    {
+      id: 4,
+      title: "Listening Challenge",
+      subtitle: "Understand native speaker audio",
+      type: "audio",
+      badge: "new",
+      difficulty: "hard",
+      points: 120,
+      timeLimit: "7 min"
     }
   ]);
 
@@ -257,6 +516,17 @@ export default function App() {
     }
   };
 
+  const handleVoiceRecord = () => {
+    // Mock voice recording functionality
+    setReview(
+      `🧠 AI Review from Voice Recording:\n\n` +
+      `📘 Vocabulary:\n- conversar (to converse)\n- pronunciar (to pronounce)\n- practicar (to practice)\n- escuchar (to listen)\n\n` +
+      `💬 Practice Phrases:\n"Quiero mejorar mi pronunciación."\n"Vamos a conversar en español."\n"Necesito practicar más."\n\n` +
+      `📝 Interactive Quiz:\nReady to test your listening skills?`
+    );
+    setScreen('review');
+  };
+
   const handleTextSubmit = () => {
     if (notes.trim().length > 0) {
       setReview(
@@ -289,32 +559,52 @@ export default function App() {
     setScreen('review');
   };
 
+  const handleChallengeSelect = (challenge) => {
+    // Set mock challenge content
+    setReview(
+      `🚀 Challenge: ${challenge.title}\n\n` +
+      `🎯 Challenge Details:\n` +
+      `- Difficulty: ${challenge.difficulty}\n` +
+      `- Points: ${challenge.points}\n` +
+      `- Time Limit: ${challenge.timeLimit}\n\n` +
+      `💡 Challenge Description:\n` +
+      `${challenge.subtitle}\n\n` +
+      `📝 Ready to take the challenge?`
+    );
+    setScreen('quiz');
+  };
+
   // Badge configuration function
   const getBadgeConfig = (badgeType) => {
     const badgeConfigs = {
       review: {
         text: "Review!",
-        backgroundColor: "#FF6B6B",
+        backgroundColor: "#3AB1FF",
         textColor: "#FFFFFF"
       },
       practice: {
         text: "Practice",
-        backgroundColor: "#FF9500", 
+        backgroundColor: "#58CC67", 
         textColor: "#FFFFFF"
       },
       mastered: {
         text: "Mastered",
-        backgroundColor: "#4CAF50",
+        backgroundColor: "#7C3AED",
         textColor: "#FFFFFF"
       },
       new: {
         text: "New!",
-        backgroundColor: "#7C3AED",
+        backgroundColor: "#A855F7",
         textColor: "#FFFFFF"
       },
       complete: {
         text: "Complete",
-        backgroundColor: "#10B981",
+        backgroundColor: "#58CC67",
+        textColor: "#FFFFFF"
+      },
+      daily: {
+        text: "DAILY",
+        backgroundColor: "#7C3AED",
         textColor: "#FFFFFF"
       }
     };
@@ -452,80 +742,61 @@ export default function App() {
                 showsVerticalScrollIndicator={false}
               >
                 <View style={styles.homeContainer}>
-        <View style={styles.profileContainer}>
-          <Image source={require('./assets/zander.jpg')} style={styles.profileImage} />
-          <View style={styles.onlineIndicator} />
-        </View>
-        <View style={styles.headerContainer}>
-          <Image 
-            source={require('./assets/polytalk-logo.png')} 
-            style={styles.homeLogo}
-            resizeMode="contain"
-          />
-          <Text style={styles.appTitle}>Poly Talk</Text>
-          <Text style={styles.tagline}>Lets make today's practice easy. Ready to upload your lesson?</Text>
-          <Text style={styles.creator}>Creator: Zander</Text>
-        </View>
-        
-        <View style={styles.streakContainer}>
-          <View style={styles.streakIconContainer}>
-            <FireIcon size={20} color="#FF6B6B" />
+        <View style={styles.topSection}>
+          <View style={styles.profileRow}>
+            <TouchableOpacity 
+              style={styles.profileContainer}
+              onPress={() => setScreen('progress')}
+              activeOpacity={0.8}
+            >
+              <Image source={require('./assets/zander.jpg')} style={styles.profileImage} />
+            </TouchableOpacity>
           </View>
-          <Text style={styles.streakText}>3 Day Streak!</Text>
+          <View style={styles.headerContainer}>
+            <Image 
+              source={require('./assets/polytalk-logo.png')} 
+              style={styles.homeLogo}
+              resizeMode="contain"
+            />
+            <Text style={styles.appTitle}>PolyTalk</Text>
+          </View>
         </View>
 
         <View style={styles.actionContainer}>
           <TouchableOpacity 
-            style={styles.primaryButton} 
+            style={styles.premiumPillButton} 
             onPress={() => setScreen('upload')}
+            activeOpacity={0.85}
           >
             <LinearGradient
-              colors={['#58CC67', '#42B883']}
-              style={styles.buttonGradient}
+              colors={['#58CC67', '#40E0D0']}
+              start={{x: 0, y: 0}}
+              end={{x: 1, y: 1}}
+              style={styles.premiumPillGradient}
             >
-              <View style={styles.buttonContent}>
+              <View style={styles.premiumButtonContent}>
                 <RocketIcon size={18} color="#FFFFFF" />
-                <Text style={styles.primaryButtonText}>Start Today's Lesson</Text>
+                <Text style={styles.premiumPillText}>START TODAY'S LESSON</Text>
               </View>
             </LinearGradient>
           </TouchableOpacity>
-          
-          <TouchableOpacity 
-            style={styles.secondaryButton} 
-            onPress={() => setScreen('progress')}
-          >
-            <View style={styles.buttonContent}>
-              <ChartIcon size={18} color="#58CC67" />
-              <Text style={styles.secondaryButtonText}>View Progress</Text>
-            </View>
-          </TouchableOpacity>
         </View>
 
-        {/* Daily Challenge Section */}
-        <View style={styles.dailyChallengeContainer}>
-          <View style={styles.challengeCard}>
-            <View style={styles.challengeHeader}>
-              <View style={styles.challengeIconContainer}>
-                <AwardIcon size={20} color="#7C3AED" />
-              </View>
-              <View style={styles.challengeBadge}>
-                <Text style={styles.challengeBadgeText}>DAILY</Text>
-              </View>
+        {/* Daily Challenges Section */}
+        <View style={styles.dailyChallengesContainer}>
+          <View style={styles.sectionHeader}>
+            <View style={styles.sectionTitleContainer}>
+              <AwardIcon size={22} color="#FFFFFF" />
+              <Text style={styles.sectionTitle}>Daily Challenges</Text>
             </View>
-            <Text style={styles.challengeTitle}>Daily Challenge</Text>
-            <Text style={styles.challengePrompt}>Up for a quick quiz from the last two weeks?</Text>
-            <TouchableOpacity 
-              style={styles.challengeButton}
-              onPress={() => setScreen('quiz')}
-            >
-                              <LinearGradient
-                  colors={['#7C3AED', '#A855F7']}
-                  style={styles.challengeButtonGradient}
-                >
-                <Text style={styles.challengeButtonText}>Take Challenge</Text>
-              </LinearGradient>
-            </TouchableOpacity>
+            <Text style={styles.sectionSubtitle}>Test your skills and earn rewards</Text>
           </View>
+          
+          <ChallengeCarousel 
+            challenges={dailyChallenges}
+            onChallengeSelect={handleChallengeSelect}
+            getBadgeConfig={getBadgeConfig}
+          />
         </View>
 
         {/* Recent Lessons Section */}
@@ -538,87 +809,11 @@ export default function App() {
             <Text style={styles.sectionSubtitle}>Pick up where you left off</Text>
           </View>
           
-          <ScrollView 
-            horizontal 
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.lessonsScrollContainer}
-            style={styles.lessonsScroll}
-          >
-            {recentLessons.map((lesson) => (
-              <TouchableOpacity 
-                key={lesson.id}
-                style={styles.lessonCard}
-                onPress={() => handleLessonSelect(lesson)}
-              >
-                <View style={styles.lessonCardContent}>
-                  {/* Header with dynamic badge */}
-                  <View style={styles.lessonCardHeader}>
-                    <View style={styles.lessonTypeContainer}>
-                      {lesson.type === 'notes' ? (
-                        <DocumentIcon size={14} color="#6B7280" />
-                      ) : (
-                        <CameraIcon size={14} color="#6B7280" />
-                      )}
-                      <Text style={styles.lessonTypeText}>
-                        {lesson.type === 'notes' ? 'Notes' : 'Photo'}
-                      </Text>
-                    </View>
-                    <View style={[
-                      styles.dynamicBadge, 
-                      { backgroundColor: getBadgeConfig(lesson.badge).backgroundColor }
-                    ]}>
-                      <Text style={[
-                        styles.dynamicBadgeText,
-                        { color: getBadgeConfig(lesson.badge).textColor }
-                      ]}>
-                        {getBadgeConfig(lesson.badge).text}
-                      </Text>
-                    </View>
-                  </View>
-                  
-                  {/* Lesson Info */}
-                  <Text style={styles.lessonTitle} numberOfLines={2}>
-                    {lesson.title}
-                  </Text>
-                  <Text style={styles.lessonSubtitle} numberOfLines={2}>
-                    {lesson.subtitle}
-                  </Text>
-                  <Text style={styles.lessonDate}>{lesson.date}</Text>
-                  
-                  {/* Progress Bar */}
-                  <View style={styles.lessonProgressContainer}>
-                    <View style={styles.lessonProgressBar}>
-                      <View 
-                        style={[
-                          styles.lessonProgressFill, 
-                          { width: `${lesson.progress}%` }
-                        ]} 
-                      />
-                    </View>
-                    <Text style={styles.lessonProgressText}>{lesson.progress}%</Text>
-                  </View>
-                  
-                  {/* Last Studied */}
-                  <Text style={styles.lastStudiedText}>{lesson.lastStudied}</Text>
-                </View>
-              </TouchableOpacity>
-            ))}
-          </ScrollView>
-        </View>
-        
-        <View style={styles.quickStatsContainer}>
-          <View style={styles.statItem}>
-            <Text style={styles.statNumber}>150</Text>
-            <Text style={styles.statLabel}>Points</Text>
-          </View>
-          <View style={styles.statItem}>
-            <Text style={styles.statNumber}>5</Text>
-            <Text style={styles.statLabel}>Lessons</Text>
-          </View>
-          <View style={styles.statItem}>
-            <Text style={styles.statNumber}>12</Text>
-            <Text style={styles.statLabel}>Words</Text>
-          </View>
+          <LessonsCarousel 
+            lessons={recentLessons}
+            onLessonSelect={handleLessonSelect}
+            getBadgeConfig={getBadgeConfig}
+          />
         </View>
       </View>
               </ScrollView>
@@ -635,74 +830,84 @@ export default function App() {
       <StatusBar barStyle="light-content" />
       <SafeAreaView style={styles.safeArea}>
         <ScrollView contentContainerStyle={styles.uploadContainer}>
-        <View style={styles.backButton}>
-          <TouchableOpacity onPress={() => setScreen('home')}>
-            <Text style={styles.backButtonText}>← Back</Text>
-          </TouchableOpacity>
-        </View>
-        
-        <View style={styles.screenTitleContainer}>
-          <BookIcon size={28} color="#FFFFFF" />
-          <Text style={styles.screenTitle}>Upload Study Material</Text>
-        </View>
-        <Text style={styles.screenSubtitle}>Share your notes or snap a photo of your materials</Text>
-        
-        <View style={styles.uploadOptions}>
-          <View style={styles.inputContainer}>
-            <TextInput
-              placeholder="Type or paste your class notes here..."
-              placeholderTextColor="#999"
-              value={notes}
-              onChangeText={setNotes}
-              style={[styles.textInput, isInputFocused && styles.textInputFocused]}
-              multiline={true}
-              numberOfLines={6}
-              textAlignVertical="top"
-              autoCapitalize="sentences"
-              autoCorrect={true}
-              returnKeyType="default"
-              blurOnSubmit={false}
-              onFocus={() => setIsInputFocused(true)}
-              onBlur={() => setIsInputFocused(false)}
-            />
+          <View style={styles.uploadBackButton}>
+            <TouchableOpacity onPress={() => setScreen('home')}>
+              <Text style={styles.backButtonText}>← Back</Text>
+            </TouchableOpacity>
           </View>
           
-          <Text style={styles.orText}>— OR —</Text>
+          <View style={styles.uploadHeaderContainer}>
+            <Image 
+              source={require('./assets/polytalk-logo.png')} 
+              style={styles.uploadLogo}
+              resizeMode="contain"
+            />
+            <Text style={styles.uploadTitle}>Your Lesson for Today</Text>
+            <Text style={styles.uploadSubtitle}>Photo, voice, or text—choose how you learn</Text>
+          </View>
           
-          <TouchableOpacity style={styles.imageButton} onPress={handlePickImage}>
-            <LinearGradient
-              colors={['#3AB1FF', '#7C3AED']}
-              style={styles.buttonGradient}
-            >
-              <View style={styles.buttonContent}>
-                <CameraIcon size={18} color="#FFFFFF" />
-                <Text style={styles.imageButtonText}>Take Photo</Text>
-              </View>
-            </LinearGradient>
-          </TouchableOpacity>
-          
-          {image && (
-            <View style={styles.imagePreviewContainer}>
-              <Image source={{ uri: image }} style={styles.imagePreview} />
-              <Text style={styles.imagePreviewText}>✅ Image uploaded successfully!</Text>
+          <View style={styles.uploadCard}>
+            <View style={styles.uploadTextContainer}>
+              <TextInput
+                placeholder="Type or paste your class notes here..."
+                placeholderTextColor="#999"
+                value={notes}
+                onChangeText={setNotes}
+                style={[styles.uploadTextInput, isInputFocused && styles.uploadTextInputFocused]}
+                multiline={true}
+                numberOfLines={6}
+                textAlignVertical="top"
+                autoCapitalize="sentences"
+                autoCorrect={true}
+                returnKeyType="default"
+                blurOnSubmit={false}
+                onFocus={() => setIsInputFocused(true)}
+                onBlur={() => setIsInputFocused(false)}
+              />
             </View>
-          )}
+            
+            <View style={styles.uploadButtonsContainer}>
+              <TouchableOpacity 
+                style={styles.uploadIconButton} 
+                onPress={handlePickImage}
+                activeOpacity={0.8}
+              >
+                <CameraIcon size={24} color="#6B7280" />
+                <Text style={styles.uploadIconButtonText}>📷 Photo</Text>
+              </TouchableOpacity>
+              
+              <TouchableOpacity 
+                style={styles.uploadIconButton} 
+                onPress={handleVoiceRecord}
+                activeOpacity={0.8}
+              >
+                <MicrophoneIcon size={24} color="#6B7280" />
+                <Text style={styles.uploadIconButtonText}>🎤 Voice</Text>
+              </TouchableOpacity>
+            </View>
+            
+            {image && (
+              <View style={styles.uploadImagePreview}>
+                <Image source={{ uri: image }} style={styles.uploadPreviewImage} />
+                <Text style={styles.uploadPreviewText}>✅ Image uploaded successfully!</Text>
+              </View>
+            )}
+          </View>
           
           <TouchableOpacity 
-            style={[styles.generateButton, (!notes.trim() && !image) && styles.disabledButton]} 
+            style={[styles.uploadGenerateButton, (!notes.trim() && !image) && styles.disabledButton]} 
             onPress={handleTextSubmit}
             disabled={!notes.trim() && !image}
           >
             <LinearGradient
-              colors={(!notes.trim() && !image) ? ['#ccc', '#999'] : ['#58CC67', '#42B883']}
+              colors={(!notes.trim() && !image) ? ['#ccc', '#999'] : ['#58CC67', '#3AB1FF']}
               style={styles.buttonGradient}
             >
               <Text style={styles.generateButtonText}>✨ Generate AI Review</Text>
             </LinearGradient>
           </TouchableOpacity>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+        </ScrollView>
+      </SafeAreaView>
     </LinearGradient>
   );
 
@@ -844,56 +1049,109 @@ export default function App() {
     >
       <StatusBar barStyle="light-content" />
       <SafeAreaView style={styles.safeArea}>
-        <View style={styles.progressScreenContainer}>
-        <View style={styles.backButton}>
-          <TouchableOpacity onPress={() => setScreen('home')}>
-            <Text style={styles.backButtonText}>← Back</Text>
-          </TouchableOpacity>
-        </View>
-        
-        <Text style={styles.screenTitle}>📊 Your Progress</Text>
-        
-        <View style={styles.achievementCard}>
-          <Text style={styles.achievementTitle}>🏆 Today's Achievement</Text>
-          <Text style={styles.achievementText}>Completed 1 lesson!</Text>
-        </View>
-        
-        <View style={styles.statsGrid}>
-          <View style={styles.statCard}>
-            <Text style={styles.statEmoji}>🔥</Text>
-            <Text style={styles.statValue}>3</Text>
-            <Text style={styles.statName}>Day Streak</Text>
+        <ScrollView 
+          contentContainerStyle={styles.progressScrollContainer}
+          showsVerticalScrollIndicator={false}
+          bounces={false}
+        >
+          {/* Header Section */}
+          <View style={styles.progressHeader}>
+            <TouchableOpacity 
+              onPress={() => setScreen('home')}
+              style={styles.progressBackButton}
+            >
+              <BackArrowIcon size={24} color="#FFFFFF" />
+            </TouchableOpacity>
           </View>
-          
-          <View style={styles.statCard}>
-            <Text style={styles.statEmoji}>⭐</Text>
-            <Text style={styles.statValue}>150</Text>
-            <Text style={styles.statName}>Total Points</Text>
+
+          {/* Greeting Section */}
+          <View style={styles.gradientGreetingSection}>
+            <Text style={styles.gradientGreetingText}>Hi Zander</Text>
+            <Text style={styles.gradientGreetingSubtext}>Great progress today! Keep it up!</Text>
           </View>
-          
-          <View style={styles.statCard}>
-            <Text style={styles.statEmoji}>📚</Text>
-            <Text style={styles.statValue}>5</Text>
-            <Text style={styles.statName}>Lessons Done</Text>
+
+          {/* Centered Avatar */}
+          <View style={styles.centeredAvatarSection}>
+            <Image source={require('./assets/zander.jpg')} style={styles.centeredAvatar} />
           </View>
-          
-          <View style={styles.statCard}>
-            <Text style={styles.statEmoji}>🎯</Text>
-            <Text style={styles.statValue}>85%</Text>
-            <Text style={styles.statName}>Accuracy</Text>
+
+          {/* Stats Row - Single Horizontal Line */}
+          <View style={styles.gradientStatsSection}>
+            <View style={styles.gradientStatsRow}>
+              <View style={styles.gradientStatItem}>
+                <View style={styles.gradientStatIconCircle}>
+                  <BookIcon size={20} color="#FFFFFF" />
+                </View>
+                <Text style={styles.gradientStatValue}>2</Text>
+                <Text style={styles.gradientStatLabel}>Courses</Text>
+              </View>
+              
+              <View style={styles.gradientStatItem}>
+                <View style={styles.gradientStatIconCircle}>
+                  <FireIcon size={20} color="#FFFFFF" />
+                </View>
+                <Text style={styles.gradientStatValue}>5</Text>
+                <Text style={styles.gradientStatLabel}>Streak</Text>
+              </View>
+              
+              <View style={styles.gradientStatItem}>
+                <View style={styles.gradientStatIconCircle}>
+                  <AwardIcon size={20} color="#FFFFFF" />
+                </View>
+                <Text style={styles.gradientStatValue}>8</Text>
+                <Text style={styles.gradientStatLabel}>Friends</Text>
+              </View>
+              
+              <View style={styles.gradientStatItem}>
+                <View style={styles.gradientStatIconCircle}>
+                  <ChartIcon size={20} color="#FFFFFF" />
+                </View>
+                <Text style={styles.gradientStatValue}>10</Text>
+                <Text style={styles.gradientStatLabel}>Badges</Text>
+              </View>
+            </View>
           </View>
-        </View>
-        
-        <TouchableOpacity style={styles.primaryButton} onPress={() => setScreen('home')}>
-          <LinearGradient
-            colors={['#58CC67', '#42B883']}
-            style={styles.buttonGradient}
-          >
-            <Text style={styles.primaryButtonText}>🏠 Back to Home</Text>
-          </LinearGradient>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+
+          {/* Premium Action Cards */}
+          <View style={styles.premiumActionCardsSection}>
+            <TouchableOpacity style={styles.premiumActionCard}>
+              <LinearGradient
+                colors={['rgba(255, 255, 255, 0.15)', 'rgba(255, 255, 255, 0.05)']}
+                style={styles.premiumActionCardGradient}
+              >
+                <View style={styles.premiumActionIconContainer}>
+                  <BookIcon size={24} color="#FFFFFF" />
+                </View>
+                <View style={styles.premiumActionContent}>
+                  <Text style={styles.premiumActionTitle}>Courses Enrolled</Text>
+                  <Text style={styles.premiumActionSubtitle}>2 active courses • Spanish & French</Text>
+                </View>
+                <View style={styles.premiumActionArrow}>
+                  <Text style={styles.premiumActionArrowText}>›</Text>
+                </View>
+              </LinearGradient>
+            </TouchableOpacity>
+            
+            <TouchableOpacity style={styles.premiumActionCard}>
+              <LinearGradient
+                colors={['rgba(255, 255, 255, 0.15)', 'rgba(255, 255, 255, 0.05)']}
+                style={styles.premiumActionCardGradient}
+              >
+                <View style={styles.premiumActionIconContainer}>
+                  <AwardIcon size={24} color="#FFFFFF" />
+                </View>
+                <View style={styles.premiumActionContent}>
+                  <Text style={styles.premiumActionTitle}>Achievements</Text>
+                  <Text style={styles.premiumActionSubtitle}>10 earned • 5 new this week</Text>
+                </View>
+                <View style={styles.premiumActionArrow}>
+                  <Text style={styles.premiumActionArrowText}>›</Text>
+                </View>
+              </LinearGradient>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
     </LinearGradient>
   );
 
@@ -950,18 +1208,30 @@ const styles = StyleSheet.create({
   },
   homeContainer: {
     flex: 1,
-    padding: 20,
-    justifyContent: 'space-between',
   },
   homeScrollContainer: {
     flexGrow: 1,
-    minHeight: height - 100, // Ensure full height scrollability
+    paddingBottom: 20,
   },
-  profileContainer: {
+  topSection: {
+    paddingTop: 20,
+    paddingBottom: 32,
+  },
+  profileRow: {
     position: 'absolute',
-    top: 50,
+    top: 20,
     right: 20,
     zIndex: 10,
+  },
+  profileContainer: {
+    borderRadius: 28,
+    padding: 3,
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 6,
   },
   profileImage: {
     width: 50,
@@ -975,39 +1245,29 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
-  onlineIndicator: {
-    position: 'absolute',
-    bottom: 2,
-    right: 2,
-    width: 14,
-    height: 14,
-    borderRadius: 7,
-    backgroundColor: '#4CAF50',
-    borderWidth: 2,
-    borderColor: '#FFFFFF',
-  },
+
   headerContainer: {
     alignItems: 'center',
-    marginTop: 40,
+    justifyContent: 'center',
+    paddingHorizontal: 20,
   },
   homeLogo: {
-    width: 60,
-    height: 60,
-    marginBottom: 12,
+    width: 80,
+    height: 80,
+    marginBottom: 16,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 8,
-    elevation: 6,
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.3,
+    shadowRadius: 12,
+    elevation: 8,
   },
   appTitle: {
     fontSize: 32,
     fontWeight: '700',
     color: '#FFFFFF',
-    marginBottom: 16,
-    textShadowColor: 'rgba(0, 0, 0, 0.2)',
-    textShadowOffset: { width: 0, height: 2 },
-    textShadowRadius: 8,
+    textShadowColor: 'rgba(0, 0, 0, 0.4)',
+    textShadowOffset: { width: 0, height: 3 },
+    textShadowRadius: 12,
     letterSpacing: -0.5,
     fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
   },
@@ -1032,37 +1292,14 @@ const styles = StyleSheet.create({
     marginTop: 8,
     fontStyle: 'italic',
   },
-  streakContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#FFFFFF',
-    paddingHorizontal: 20,
-    paddingVertical: 12,
-    borderRadius: 30,
-    marginTop: 24,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 12,
-    elevation: 8,
-  },
-  streakIconContainer: {
-    marginRight: 8,
-  },
 
-  streakText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#FF6B6B',
-    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
-  },
   actionContainer: {
-    marginTop: 40,
+    marginTop: 0,
+    marginBottom: 32,
+    paddingHorizontal: 20,
   },
   primaryButton: {
     borderRadius: 24,
-    marginBottom: 16,
     shadowColor: '#58CC67',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.25,
@@ -1070,10 +1307,12 @@ const styles = StyleSheet.create({
     elevation: 8,
   },
   buttonGradient: {
-    paddingVertical: 16,
+    paddingVertical: 12,
     paddingHorizontal: 32,
     borderRadius: 24,
     alignItems: 'center',
+    height: 48,
+    justifyContent: 'center',
   },
   buttonContent: {
     flexDirection: 'row',
@@ -1087,47 +1326,8 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
   },
-  secondaryButton: {
-    backgroundColor: '#FFFFFF',
-    paddingVertical: 16,
-    paddingHorizontal: 32,
-    borderRadius: 24,
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#E5E7EB',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 8,
-    elevation: 4,
-  },
-  secondaryButtonText: {
-    color: '#58CC67',
-    fontSize: 16,
-    fontWeight: '600',
-    marginLeft: 8,
-    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
-  },
-  quickStatsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginTop: 30,
-    marginBottom: 20,
-  },
-  statItem: {
-    alignItems: 'center',
-  },
-  statNumber: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#FFFFFF',
-  },
-  statLabel: {
-    fontSize: 14,
-    color: '#FFFFFF',
-    opacity: 0.8,
-    marginTop: 4,
-  },
+
+
   backButton: {
     alignSelf: 'flex-start',
     marginTop: 10,
@@ -1162,79 +1362,136 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   uploadContainer: {
-    padding: 20,
-    minHeight: height - 100,
+    flexGrow: 1,
+    paddingBottom: 32,
   },
-  uploadOptions: {
-    flex: 1,
-  },
-  inputContainer: {
-    marginBottom: 20,
-  },
-     textInput: {
-     backgroundColor: 'rgba(255, 255, 255, 0.95)',
-     borderRadius: 16,
-     padding: 20,
-     fontSize: 16,
-     minHeight: 150,
-     maxHeight: 200,
-     textAlignVertical: 'top',
-     shadowColor: '#000',
-     shadowOffset: { width: 0, height: 2 },
-     shadowOpacity: 0.1,
-     shadowRadius: 4,
-     elevation: 3,
-     borderWidth: 1,
-     borderColor: 'rgba(255, 255, 255, 0.3)',
-     color: '#333',
-   },
-   textInputFocused: {
-     borderColor: '#4CAF50',
-     borderWidth: 2,
-     shadowOpacity: 0.2,
-     shadowRadius: 6,
-     elevation: 5,
-   },
-  orText: {
-    textAlign: 'center',
-    color: '#FFFFFF',
-    fontSize: 16,
-    marginVertical: 20,
-    opacity: 0.8,
-  },
-  imageButton: {
-    borderRadius: 24,
-    marginBottom: 16,
-    shadowColor: '#3AB1FF',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.25,
-    shadowRadius: 12,
-    elevation: 8,
-  },
-  imageButtonText: {
-    color: '#FFFFFF',
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginLeft: 10,
-  },
-  imagePreviewContainer: {
-    alignItems: 'center',
-    marginVertical: 20,
-  },
-  imagePreview: {
-    width: 200,
-    height: 200,
-    borderRadius: 16,
-    marginBottom: 10,
-  },
-  imagePreviewText: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  generateButton: {
-    borderRadius: 24,
+  uploadBackButton: {
+    alignSelf: 'flex-start',
     marginTop: 20,
+    marginLeft: 20,
+    marginBottom: 32,
+  },
+  uploadHeaderContainer: {
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    marginBottom: 32,
+  },
+  uploadLogo: {
+    width: 64,
+    height: 64,
+    marginBottom: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 6,
+  },
+  uploadTitle: {
+    fontSize: 28,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    textAlign: 'center',
+    marginBottom: 12,
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 8,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+  },
+  uploadSubtitle: {
+    fontSize: 16,
+    color: '#FFFFFF',
+    opacity: 0.9,
+    textAlign: 'center',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  uploadCard: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 20,
+    padding: 24,
+    marginHorizontal: 20,
+    marginBottom: 32,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.1,
+    shadowRadius: 16,
+    elevation: 12,
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+  },
+  uploadTextContainer: {
+    marginBottom: 24,
+  },
+  uploadTextInput: {
+    backgroundColor: '#F9FAFB',
+    borderRadius: 16,
+    padding: 20,
+    fontSize: 16,
+    minHeight: 140,
+    maxHeight: 200,
+    textAlignVertical: 'top',
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+    color: '#1F2937',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  uploadTextInputFocused: {
+    borderColor: '#58CC67',
+    borderWidth: 2,
+    backgroundColor: '#FFFFFF',
+  },
+  uploadButtonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    gap: 16,
+  },
+  uploadIconButton: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 16,
+    paddingHorizontal: 12,
+    backgroundColor: '#F9FAFB',
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  uploadIconButtonText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#6B7280',
+    marginTop: 8,
+    textAlign: 'center',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  uploadImagePreview: {
+    alignItems: 'center',
+    marginTop: 20,
+    padding: 16,
+    backgroundColor: '#F0FDF4',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#BBF7D0',
+  },
+  uploadPreviewImage: {
+    width: 120,
+    height: 120,
+    borderRadius: 12,
+    marginBottom: 8,
+  },
+  uploadPreviewText: {
+    color: '#059669',
+    fontSize: 14,
+    fontWeight: '600',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  uploadGenerateButton: {
+    borderRadius: 24,
+    marginHorizontal: 20,
     shadowColor: '#58CC67',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.25,
@@ -1245,6 +1502,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 18,
     fontWeight: 'bold',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
   },
   disabledButton: {
     shadowOpacity: 0.1,
@@ -1582,87 +1840,114 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
   },
   
-  // Daily Challenge Section Styles
-  dailyChallengeContainer: {
-    marginTop: 25,
+  // Daily Challenges Section Styles
+  dailyChallengesContainer: {
+    marginTop: 0,
     marginBottom: 20,
   },
+  challengesScroll: {
+    marginHorizontal: -20,
+  },
+  challengesScrollContainer: {
+    paddingHorizontal: 20,
+    paddingRight: 40,
+  },
   challengeCard: {
+    width: 260,
+    marginRight: 16,
+    borderRadius: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.12,
+    shadowRadius: 16,
+    elevation: 12,
+  },
+  challengeCardContent: {
     backgroundColor: '#FFFFFF',
     borderRadius: 20,
-    padding: 20,
-    marginHorizontal: 4,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.08,
-    shadowRadius: 12,
-    elevation: 8,
+    padding: 18,
+    height: 180,
     borderWidth: 1,
-    borderColor: '#F3F4F6',
+    borderColor: 'rgba(255, 255, 255, 0.8)',
+    justifyContent: 'space-between',
   },
-  challengeHeader: {
+  challengeCardHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     marginBottom: 12,
   },
-  challengeIconContainer: {
-    marginRight: 4,
-  },
-  challengeBadge: {
-    backgroundColor: '#7C3AED',
+  challengeTypeContainer: {
+    backgroundColor: '#F8F9FA',
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#E9ECEF',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 1,
   },
-  challengeBadgeText: {
-    fontSize: 10,
-    fontWeight: 'bold',
-    color: '#FFFFFF',
+  challengeTypeText: {
+    fontSize: 9,
+    fontWeight: '600',
+    color: '#6B7280',
+    textTransform: 'uppercase',
+    marginLeft: 4,
     letterSpacing: 0.5,
   },
   challengeTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#1F2937',
-    marginBottom: 8,
-    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
-  },
-  challengePrompt: {
-    fontSize: 14,
-    color: '#6B7280',
-    lineHeight: 20,
-    marginBottom: 16,
-    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
-  },
-  challengeButton: {
-    borderRadius: 16,
-    shadowColor: '#7C3AED',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 8,
-    elevation: 6,
-  },
-  challengeButtonGradient: {
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 16,
-    alignItems: 'center',
-  },
-  challengeButtonText: {
-    color: '#FFFFFF',
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: 'bold',
+    color: '#1F2937',
+    marginBottom: 6,
+    lineHeight: 19,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  challengeSubtitle: {
+    fontSize: 12,
+    color: '#6B7280',
+    marginBottom: 10,
+    fontStyle: 'italic',
+    lineHeight: 17,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  challengeDetailsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  challengePoints: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: '#7C3AED',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  challengeTime: {
+    fontSize: 11,
+    color: '#9CA3AF',
+    fontWeight: '500',
+  },
+  challengeDifficulty: {
+    fontSize: 10,
+    color: '#9CA3AF',
+    fontStyle: 'italic',
+    marginTop: 2,
   },
 
   // Recent Lessons Section Styles
   recentLessonsContainer: {
-    marginTop: 25,
-    marginBottom: 20,
+    marginTop: 0,
+    marginBottom: 40,
   },
   sectionHeader: {
-    marginBottom: 15,
-    paddingHorizontal: 5,
+    marginBottom: 16,
+    paddingHorizontal: 20,
   },
   sectionTitleContainer: {
     flexDirection: 'row',
@@ -1672,17 +1957,20 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '600',
     color: '#FFFFFF',
-    textShadowColor: 'rgba(0, 0, 0, 0.2)',
-    textShadowOffset: { width: 0, height: 1 },
-    textShadowRadius: 2,
+    textShadowColor: 'rgba(0, 0, 0, 0.4)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 6,
     marginLeft: 8,
     fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
   },
   sectionSubtitle: {
     fontSize: 14,
     color: '#FFFFFF',
-    opacity: 0.8,
+    opacity: 0.9,
     marginTop: 2,
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 3,
   },
   lessonsScroll: {
     marginHorizontal: -20, // Offset container padding for full-width scroll
@@ -1692,12 +1980,12 @@ const styles = StyleSheet.create({
     paddingRight: 40, // Extra padding at end
   },
   lessonCard: {
-    width: 240,
+    width: 260,
     marginRight: 16,
     borderRadius: 20,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.12,
     shadowRadius: 16,
     elevation: 12,
   },
@@ -1705,9 +1993,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderRadius: 20,
     padding: 18,
-    minHeight: 180,
+    height: 180,
     borderWidth: 1,
-    borderColor: '#E5E7EB',
+    borderColor: 'rgba(255, 255, 255, 0.8)',
     justifyContent: 'space-between',
   },
   lessonCardHeader: {
@@ -1758,8 +2046,8 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: 'bold',
     color: '#1F2937',
-    marginBottom: 4,
-    lineHeight: 18,
+    marginBottom: 6,
+    lineHeight: 19,
     fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
   },
   lessonSubtitle: {
@@ -1767,19 +2055,19 @@ const styles = StyleSheet.create({
     color: '#6B7280',
     marginBottom: 8,
     fontStyle: 'italic',
-    lineHeight: 16,
+    lineHeight: 17,
     fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
   },
   lessonDate: {
     fontSize: 11,
     color: '#9CA3AF',
-    marginBottom: 10,
+    marginBottom: 12,
     fontWeight: '500',
   },
   lessonProgressContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 8,
   },
   lessonProgressBar: {
     flex: 1,
@@ -1804,6 +2092,676 @@ const styles = StyleSheet.create({
     fontSize: 10,
     color: '#9CA3AF',
     fontStyle: 'italic',
-    marginTop: 2,
+    marginTop: 0,
+  },
+
+  // Carousel Styles
+  carouselContainer: {
+    marginTop: 0,
+  },
+  carouselScrollView: {
+    marginHorizontal: 0,
+  },
+  carouselContent: {
+    alignItems: 'center',
+    paddingHorizontal: 0,
+  },
+  carouselCardContainer: {
+    width: width,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+  },
+  carouselCard: {
+    width: width - 40, // Full width minus padding
+    borderRadius: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.12,
+    shadowRadius: 16,
+    elevation: 12,
+    position: 'relative',
+  },
+  cardPaginationOverlay: {
+    position: 'absolute',
+    bottom: 16,
+    left: 0,
+    right: 0,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 10,
+    paddingHorizontal: 20,
+  },
+  cardPaginationDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    marginHorizontal: 4,
+  },
+  activeDot: {
+    backgroundColor: '#374151',
+    opacity: 1,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 4,
+  },
+  inactiveDot: {
+    backgroundColor: '#D1D5DB',
+    opacity: 1,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.15,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+
+  // Progress Screen Styles
+  progressScrollContainer: {
+    flexGrow: 1,
+    paddingBottom: 40,
+  },
+  progressHeader: {
+    paddingTop: 32,
+    paddingHorizontal: 20,
+    paddingBottom: 24,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  progressBackButton: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  progressBackText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: '600',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  progressTitleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center',
+    marginRight: 60, // Offset for back button
+  },
+  progressTitle: {
+    fontSize: 24,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    marginLeft: 8,
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+  },
+
+  // Hero Achievement Section
+  heroAchievementSection: {
+    paddingHorizontal: 20,
+    marginBottom: 32,
+  },
+  greetingContainer: {
+    marginBottom: 24,
+  },
+  greetingText: {
+    fontSize: 32,
+    fontWeight: '800',
+    color: '#FFFFFF',
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 6,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+  },
+  greetingSubtext: {
+    fontSize: 16,
+    color: '#FFFFFF',
+    opacity: 0.9,
+    marginTop: 4,
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 3,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  todayAchievementCard: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 24,
+    padding: 24,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.15,
+    shadowRadius: 20,
+    elevation: 12,
+  },
+  achievementHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  achievementIconContainer: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: '#FEF3C7',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 16,
+  },
+  achievementTitle: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#1F2937',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+  },
+  achievementDescription: {
+    fontSize: 16,
+    color: '#6B7280',
+    marginBottom: 16,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  achievementBadge: {
+    backgroundColor: '#F0FDF4',
+    borderRadius: 12,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    alignSelf: 'flex-start',
+    borderWidth: 1,
+    borderColor: '#BBF7D0',
+  },
+  achievementBadgeText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#166534',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+
+  // Profile Stats Section
+  profileStatsSection: {
+    paddingHorizontal: 20,
+    marginBottom: 32,
+  },
+  profileCard: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 24,
+    padding: 24,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.15,
+    shadowRadius: 20,
+    elevation: 12,
+  },
+  profileImageContainer: {
+    position: 'relative',
+    marginBottom: 16,
+  },
+  progressProfileImage: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    borderWidth: 4,
+    borderColor: '#FFFFFF',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 6,
+  },
+  profileStreakBadge: {
+    position: 'absolute',
+    top: -8,
+    right: -8,
+    backgroundColor: '#F59E0B',
+    borderRadius: 16,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    flexDirection: 'row',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 4,
+  },
+  profileStreakText: {
+    color: '#FFFFFF',
+    fontSize: 12,
+    fontWeight: '700',
+    marginLeft: 4,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  profileName: {
+    fontSize: 24,
+    fontWeight: '700',
+    color: '#1F2937',
+    marginBottom: 4,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+  },
+  profileTitle: {
+    fontSize: 16,
+    color: '#6B7280',
+    marginBottom: 24,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  profileStatsGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  profileStatItem: {
+    width: '48%',
+    backgroundColor: '#F9FAFB',
+    borderRadius: 16,
+    padding: 16,
+    alignItems: 'center',
+    marginBottom: 12,
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+  },
+  profileStatIcon: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#FFFFFF',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  profileStatValue: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#1F2937',
+    marginBottom: 4,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+  },
+  profileStatLabel: {
+    fontSize: 12,
+    color: '#6B7280',
+    fontWeight: '500',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+
+  // Detailed Stats Section
+  detailedStatsSection: {
+    paddingHorizontal: 20,
+    marginBottom: 32,
+  },
+  sectionHeaderContainer: {
+    marginBottom: 20,
+  },
+  sectionHeaderTitle: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    marginBottom: 4,
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+  },
+  sectionHeaderSubtitle: {
+    fontSize: 14,
+    color: '#FFFFFF',
+    opacity: 0.8,
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  detailedStatsGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
+  detailedStatCard: {
+    width: '48%',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 20,
+    padding: 20,
+    marginBottom: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.12,
+    shadowRadius: 16,
+    elevation: 8,
+  },
+  statCardHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 12,
+  },
+  statIconContainer: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: '#F9FAFB',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+  },
+  statCardValue: {
+    fontSize: 28,
+    fontWeight: '800',
+    color: '#1F2937',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+  },
+  statCardLabel: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#374151',
+    marginBottom: 4,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  statCardDetail: {
+    fontSize: 12,
+    color: '#6B7280',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+
+  // Action Sections
+  actionSectionsContainer: {
+    paddingHorizontal: 20,
+    marginBottom: 32,
+  },
+  actionCard: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 20,
+    marginBottom: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 12,
+    elevation: 6,
+  },
+  actionCardContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 20,
+  },
+  actionIconContainer: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: '#F9FAFB',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 16,
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+  },
+  actionTextContainer: {
+    flex: 1,
+  },
+  actionTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#1F2937',
+    marginBottom: 4,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  actionSubtitle: {
+    fontSize: 14,
+    color: '#6B7280',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  actionArrow: {
+    fontSize: 18,
+    color: '#9CA3AF',
+    fontWeight: '600',
+  },
+
+  // Back to Home Button
+  backToHomeButton: {
+    marginHorizontal: 20,
+    marginBottom: 20,
+    borderRadius: 24,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.15,
+    shadowRadius: 16,
+    elevation: 8,
+  },
+  backToHomeGradient: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 18,
+    paddingHorizontal: 24,
+    borderRadius: 24,
+  },
+  backToHomeText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    marginLeft: 8,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+
+  // Premium Pill Button Styles
+  premiumPillButton: {
+    borderRadius: 30,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.3)',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.12,
+    shadowRadius: 20,
+    elevation: 12,
+    overflow: 'hidden',
+  },
+  premiumPillGradient: {
+    paddingVertical: 20,
+    paddingHorizontal: 32,
+    borderRadius: 30,
+  },
+  premiumButtonContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  premiumPillText: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    marginLeft: 12,
+    letterSpacing: 1.2,
+    textTransform: 'uppercase',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+    textShadowColor: 'rgba(0, 0, 0, 0.15)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+  },
+
+  // Gradient Progress Screen Styles
+  gradientGreetingSection: {
+    paddingHorizontal: 20,
+    marginBottom: 24,
+    alignItems: 'center',
+  },
+  gradientGreetingText: {
+    fontSize: 32,
+    fontWeight: '800',
+    color: '#FFFFFF',
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 6,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+    textAlign: 'center',
+  },
+  gradientGreetingSubtext: {
+    fontSize: 16,
+    color: '#FFFFFF',
+    opacity: 0.9,
+    marginTop: 8,
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 3,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+    textAlign: 'center',
+  },
+  centeredAvatarSection: {
+    alignItems: 'center',
+    marginBottom: 24,
+  },
+  centeredAvatar: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    borderWidth: 4,
+    borderColor: '#FFFFFF',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.25,
+    shadowRadius: 12,
+    elevation: 8,
+  },
+  gradientStatsSection: {
+    paddingHorizontal: 20,
+    marginBottom: 24,
+  },
+  gradientStatsRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  gradientStatItem: {
+    alignItems: 'center',
+    flex: 1,
+  },
+  gradientStatIconCircle: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
+    elevation: 4,
+  },
+  gradientStatValue: {
+    fontSize: 24,
+    fontWeight: '800',
+    color: '#FFFFFF',
+    marginBottom: 4,
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+  },
+  gradientStatLabel: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  gradientActionLinks: {
+    paddingHorizontal: 20,
+    marginBottom: 40,
+  },
+  gradientActionLink: {
+    marginBottom: 16,
+  },
+  gradientActionLinkText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+
+  // Premium Action Cards
+  premiumActionCardsSection: {
+    paddingHorizontal: 20,
+    marginBottom: 40,
+  },
+  premiumActionCard: {
+    borderRadius: 20,
+    marginBottom: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.15,
+    shadowRadius: 16,
+    elevation: 8,
+    overflow: 'hidden',
+  },
+  premiumActionCardGradient: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 20,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.1)',
+  },
+  premiumActionIconContainer: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  premiumActionContent: {
+    flex: 1,
+  },
+  premiumActionTitle: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    marginBottom: 4,
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+  },
+  premiumActionSubtitle: {
+    fontSize: 14,
+    color: '#FFFFFF',
+    opacity: 0.8,
+    textShadowColor: 'rgba(0, 0, 0, 0.1)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 1,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  premiumActionArrow: {
+    marginLeft: 12,
+  },
+  premiumActionArrowText: {
+    fontSize: 24,
+    fontWeight: '300',
+    color: '#FFFFFF',
+    opacity: 0.8,
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
   },
 });
