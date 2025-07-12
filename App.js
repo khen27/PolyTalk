@@ -173,6 +173,38 @@ const BackArrowIcon = ({ size = 24, color = "#fff" }) => (
   </Svg>
 );
 
+// Add MagicWandIcon SVG component
+const MagicWandIcon = ({ size = 24, color = "#fff" }) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <G clipPath="url(#clip0_3261_13705)">
+      <Path d="M7.31005 9.15001L6.38005 9.37001C5.71005 9.52001 5.19005 10.05 5.03005 10.71L4.81005 11.64C4.79005 11.74 4.64005 11.74 4.62005 11.64L4.40005 10.71C4.25005 10.04 3.72005 9.52001 3.06005 9.36001L2.13005 9.14001C2.03005 9.12001 2.03005 8.97001 2.13005 8.95001L3.06005 8.73001C3.73005 8.58001 4.25005 8.05001 4.41005 7.39001L4.63005 6.46001C4.65005 6.36001 4.80005 6.36001 4.82005 6.46001L5.04005 7.39001C5.19005 8.06001 5.72005 8.58001 6.38005 8.74001L7.31005 8.96001C7.41005 8.98001 7.41005 9.13001 7.31005 9.15001Z" stroke={color} strokeWidth="1.5" strokeMiterlimit="10" />
+      <Path d="M17.38 4.90993L18.73 3.55993C19.41 2.87993 20.51 2.87993 21.19 3.55993C21.87 4.23993 21.87 5.33993 21.19 6.01993L19.84 7.36993" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <Path d="M13.49 13.86L5.90001 21.45C5.18001 22.17 4.02001 22.17 3.30001 21.45C2.58001 20.73 2.58001 19.57 3.30001 18.85L4.3375 17.8125M10.89 11.26L8.00024 14.1498" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <Path d="M16.34 12.93L20.87 17.46C21.16 17.75 21.58 17.84 21.96 17.72C22.34 17.59 22.62 17.26 22.68 16.86C22.97 14.86 22.29 12.85 20.87 11.43L19.36 9.91996L20.13 9.14996C20.33 8.94996 20.44 8.68996 20.44 8.40996C20.44 8.12996 20.33 7.85996 20.13 7.66996L17.09 4.62996C16.68 4.21996 16.01 4.21996 15.6 4.62996L14.83 5.39996L13.32 3.88996C11.89 2.45996 9.88005 1.78996 7.89005 2.07996C7.49005 2.13996 7.16005 2.41996 7.03005 2.79996C6.90005 3.17996 7.00005 3.60996 7.29005 3.88996L11.82 8.41996L10.68 9.55996C10.27 9.96996 10.27 10.64 10.68 11.05L13.72 14.09C13.92 14.29 14.18 14.4 14.46 14.4C14.74 14.4 15.01 14.29 15.2 14.09L16.34 12.95V12.93Z" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </G>
+    <Defs>
+      <ClipPath id="clip0_3261_13705">
+        <Rect width="24" height="24" fill="white"/>
+      </ClipPath>
+    </Defs>
+  </Svg>
+);
+
+const UploadIcon = ({ size = 24, color = "#fff" }) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <G clipPath="url(#clip0_4418_6753)">
+      <Path d="M15 22.75H9C3.57 22.75 1.25 20.43 1.25 15V9C1.25 3.57 3.57 1.25 9 1.25H15C20.43 1.25 22.75 3.57 22.75 9V15C22.75 20.43 20.43 22.75 15 22.75ZM9 2.75C4.39 2.75 2.75 4.39 2.75 9V15C2.75 19.61 4.39 21.25 9 21.25H15C19.61 21.25 21.25 19.61 21.25 15V9C21.25 4.39 19.61 2.75 15 2.75H9Z" fill={color} />
+      <Path d="M9 10.75C7.48 10.75 6.25 9.52 6.25 8C6.25 6.48 7.48 5.25 9 5.25C10.52 5.25 11.75 6.48 11.75 8C11.75 9.52 10.52 10.75 9 10.75ZM9 6.75C8.31 6.75 7.75 7.31 7.75 8C7.75 8.69 8.31 9.25 9 9.25C9.69 9.25 10.25 8.69 10.25 8C10.25 7.31 9.69 6.75 9 6.75Z" fill={color} />
+      <Path d="M2.67002 19.6996C2.43002 19.6996 2.19002 19.5796 2.05002 19.3696C1.82002 19.0296 1.91002 18.5596 2.26002 18.3296L7.19002 15.0196C8.27002 14.2896 9.76002 14.3796 10.74 15.2096L11.07 15.4996C11.57 15.9296 12.42 15.9296 12.91 15.4996L17.07 11.9296C18.13 11.0196 19.8 11.0196 20.87 11.9296L22.5 13.3296C22.81 13.5996 22.85 14.0696 22.58 14.3896C22.31 14.6996 21.84 14.7396 21.52 14.4696L19.89 13.0696C19.39 12.6396 18.54 12.6396 18.04 13.0696L13.88 16.6396C12.82 17.5496 11.15 17.5496 10.08 16.6396L9.75002 16.3496C9.29002 15.9596 8.53002 15.9196 8.02002 16.2696L3.09002 19.5796C2.96002 19.6596 2.81002 19.6996 2.67002 19.6996Z" fill={color} />
+    </G>
+    <Defs>
+      <ClipPath id="clip0_4418_6753">
+        <Rect width="24" height="24" fill="white"/>
+      </ClipPath>
+    </Defs>
+  </Svg>
+);
+
 // Challenge Carousel Component
 const ChallengeCarousel = ({ challenges, onChallengeSelect, getBadgeConfig }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -456,46 +488,220 @@ export default function App() {
     }
   ]);
 
-  // Splash screen animations
-  const logoScale = useRef(new Animated.Value(0)).current;
-  const logoRotation = useRef(new Animated.Value(0)).current;
-  const textOpacity = useRef(new Animated.Value(0)).current;
-  const particleAnim = useRef(new Animated.Value(0)).current;
+  // Splash screen animations - Tinder-like kinetic design
+  const logoScale = useRef(new Animated.Value(0.8)).current;
+  const gradientShift = useRef(new Animated.Value(0)).current;
+  const taglineOpacity = useRef(new Animated.Value(0)).current;
+  const taglineTranslateY = useRef(new Animated.Value(10)).current;
+  const screenFadeOut = useRef(new Animated.Value(1)).current;
+  const mainScreenSlideUp = useRef(new Animated.Value(height)).current;
+
+  // Screen transition animations
+  const screenTransitionX = useRef(new Animated.Value(0)).current;
+  const screenOpacity = useRef(new Animated.Value(1)).current;
+  const screenScale = useRef(new Animated.Value(1)).current;
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [nextScreen, setNextScreen] = useState(null);
 
   useEffect(() => {
     if (showSplash) {
-      // Start splash screen animations
+      // Tinder-like logo pulse animation: 80% → 110% → 80% → 110% → 100%
       Animated.sequence([
-        Animated.timing(logoScale, {
-          toValue: 1,
-          duration: 800,
+        // First pulse: 80% → 110%
+        Animated.spring(logoScale, {
+          toValue: 1.1,
+          duration: 300,
           useNativeDriver: true,
+          tension: 200,
+          friction: 8,
         }),
+        // Return to 80%
+        Animated.spring(logoScale, {
+          toValue: 0.8,
+          duration: 300,
+          useNativeDriver: true,
+          tension: 200,
+          friction: 8,
+        }),
+        // Second pulse: 80% → 110%
+        Animated.spring(logoScale, {
+          toValue: 1.1,
+          duration: 300,
+          useNativeDriver: true,
+          tension: 200,
+          friction: 8,
+        }),
+        // Final settle at 100%
+        Animated.spring(logoScale, {
+          toValue: 1,
+          duration: 300,
+          useNativeDriver: true,
+          tension: 200,
+          friction: 8,
+        }),
+      ]).start(() => {
+        // After logo animation: gradient shift + tagline fade in
         Animated.parallel([
-          Animated.timing(logoRotation, {
+          // Subtle gradient hue shift
+          Animated.timing(gradientShift, {
             toValue: 1,
-            duration: 1000,
-            useNativeDriver: true,
+            duration: 400,
+            useNativeDriver: false,
           }),
-          Animated.timing(textOpacity, {
-            toValue: 1,
-            duration: 800,
-            useNativeDriver: true,
-          }),
-          Animated.timing(particleAnim, {
-            toValue: 1,
-            duration: 1200,
-            useNativeDriver: true,
-          }),
-        ])
-      ]).start();
-
-      // Hide splash screen after 3 seconds
-      setTimeout(() => {
-        setShowSplash(false);
-      }, 3000);
+          // Tagline fade in with upward shift
+          Animated.parallel([
+            Animated.timing(taglineOpacity, {
+              toValue: 1,
+              duration: 400,
+              useNativeDriver: true,
+            }),
+            Animated.timing(taglineTranslateY, {
+              toValue: 0,
+              duration: 400,
+              useNativeDriver: true,
+            }),
+          ])
+        ]).start(() => {
+          // Hold for 0.6 seconds then transition
+          setTimeout(() => {
+            Animated.parallel([
+              // Fade out splash content
+              Animated.timing(screenFadeOut, {
+                toValue: 0,
+                duration: 400,
+                useNativeDriver: true,
+              }),
+              // Slide up main screen
+              Animated.timing(mainScreenSlideUp, {
+                toValue: 0,
+                duration: 600,
+                useNativeDriver: true,
+              }),
+            ]).start(() => {
+              setShowSplash(false);
+            });
+          }, 600);
+        });
+      });
     }
   }, [showSplash]);
+
+  // Enhanced screen transition functions with gradient-preserving animations
+  const animateToScreen = (targetScreen, transitionType = 'default') => {
+    setIsTransitioning(true);
+    setNextScreen(targetScreen);
+    
+    if (transitionType === 'profile') {
+      // Premium zoom and fade transition for profile - maintains gradient
+      Animated.parallel([
+        Animated.timing(screenOpacity, {
+          toValue: 0,
+          duration: 250,
+          useNativeDriver: true,
+        }),
+        Animated.timing(screenScale, {
+          toValue: 0.95,
+          duration: 250,
+          useNativeDriver: true,
+        }),
+      ]).start(() => {
+        setScreen(targetScreen);
+        screenOpacity.setValue(0);
+        screenScale.setValue(1.05);
+        
+        // Zoom in new screen with premium spring effect
+        Animated.parallel([
+          Animated.spring(screenOpacity, {
+            toValue: 1,
+            tension: 120,
+            friction: 8,
+            useNativeDriver: true,
+          }),
+          Animated.spring(screenScale, {
+            toValue: 1,
+            tension: 120,
+            friction: 8,
+            useNativeDriver: true,
+          }),
+        ]).start(() => {
+          setIsTransitioning(false);
+          setNextScreen(null);
+        });
+      });
+    } else if (transitionType === 'lesson') {
+      // Premium slide and scale transition for lesson button
+      Animated.parallel([
+        Animated.timing(screenOpacity, {
+          toValue: 0,
+          duration: 220,
+          useNativeDriver: true,
+        }),
+        Animated.timing(screenTransitionX, {
+          toValue: 40,
+          duration: 220,
+          useNativeDriver: true,
+        }),
+        Animated.timing(screenScale, {
+          toValue: 0.98,
+          duration: 220,
+          useNativeDriver: true,
+        }),
+      ]).start(() => {
+        setScreen(targetScreen);
+        screenOpacity.setValue(0);
+        screenTransitionX.setValue(-40);
+        screenScale.setValue(1.02);
+        
+        // Slide up and fade in new screen with premium spring
+        Animated.parallel([
+          Animated.spring(screenOpacity, {
+            toValue: 1,
+            tension: 110,
+            friction: 8,
+            useNativeDriver: true,
+          }),
+          Animated.spring(screenTransitionX, {
+            toValue: 0,
+            tension: 110,
+            friction: 8,
+            useNativeDriver: true,
+          }),
+          Animated.spring(screenScale, {
+            toValue: 1,
+            tension: 110,
+            friction: 8,
+            useNativeDriver: true,
+          }),
+        ]).start(() => {
+          setIsTransitioning(false);
+          setNextScreen(null);
+        });
+      });
+    } else {
+      // Default fade transition - maintains gradient
+      Animated.timing(screenOpacity, {
+        toValue: 0,
+        duration: 200,
+        useNativeDriver: true,
+      }).start(() => {
+        setScreen(targetScreen);
+        screenOpacity.setValue(0);
+        // Reset other transform values for clean default transition
+        screenTransitionX.setValue(0);
+        screenScale.setValue(1);
+        
+        // Fade in new screen
+        Animated.timing(screenOpacity, {
+          toValue: 1,
+          duration: 250,
+          useNativeDriver: true,
+        }).start(() => {
+          setIsTransitioning(false);
+          setNextScreen(null);
+        });
+      });
+    }
+  };
 
   const handlePickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -512,7 +718,7 @@ export default function App() {
         `💬 Practice Phrases:\n"Hola, soy estudiante de español."\n"Me gusta estudiar con mis amigos."\n"Voy a la biblioteca todos los días."\n\n` +
         `📝 Interactive Quiz:\nReady to test your knowledge?`
       );
-      setScreen('review');
+      animateToScreen('review');
     }
   };
 
@@ -524,7 +730,7 @@ export default function App() {
       `💬 Practice Phrases:\n"Quiero mejorar mi pronunciación."\n"Vamos a conversar en español."\n"Necesito practicar más."\n\n` +
       `📝 Interactive Quiz:\nReady to test your listening skills?`
     );
-    setScreen('review');
+    animateToScreen('review');
   };
 
   const handleTextSubmit = () => {
@@ -535,7 +741,7 @@ export default function App() {
         `💬 Practice Sentences:\n"Estoy aprendiendo español en casa."\n"Necesito más práctica con vocabulario."\n"Mi casa es muy bonita."\n\n` +
         `📝 Interactive Quiz:\nLet's practice what you've learned!`
       );
-      setScreen('review');
+      animateToScreen('review');
     }
   };
 
@@ -556,7 +762,7 @@ export default function App() {
       `${lesson.type === 'notes' ? 'Your written notes about language fundamentals' : 'Photo-based learning material'}\n\n` +
       `📝 Ready for a refresher quiz?`
     );
-    setScreen('review');
+    animateToScreen('review');
   };
 
   const handleChallengeSelect = (challenge) => {
@@ -571,7 +777,7 @@ export default function App() {
       `${challenge.subtitle}\n\n` +
       `📝 Ready to take the challenge?`
     );
-    setScreen('quiz');
+    animateToScreen('quiz');
   };
 
   // Badge configuration function
@@ -612,120 +818,65 @@ export default function App() {
   };
 
   const SplashScreen = () => {
-    const spin = logoRotation.interpolate({
+    // Dynamic gradient colors that shift subtly
+    const gradientColors = gradientShift.interpolate({
       inputRange: [0, 1],
-      outputRange: ['0deg', '360deg'],
-    });
-
-    const particleTranslateY = particleAnim.interpolate({
-      inputRange: [0, 1],
-      outputRange: [50, -50],
+      outputRange: [
+        ['#7C3AED', '#3AB1FF', '#58CC67'], // Original colors
+        ['#9333EA', '#60A5FA', '#6EE7B7'], // Slightly lighter versions
+      ],
     });
 
     return (
-      <LinearGradient
-        colors={['#4f46e5', '#7c3aed', '#a855f7']}
-        locations={[0, 0.6, 1]}
-        style={styles.splashContainer}
-      >
+      <View style={styles.splashContainer}>
         <StatusBar barStyle="light-content" />
         
-        {/* Animated floating particles */}
-        <Animated.View 
-          style={[
-            styles.particle,
-            styles.particle1,
-            {
-              transform: [
-                { translateY: particleTranslateY },
-                { rotate: spin },
-              ],
-            },
-          ]}
-        >
-          <Text style={styles.particleText}>🌍</Text>
-        </Animated.View>
-        
-        <Animated.View 
-          style={[
-            styles.particle,
-            styles.particle2,
-            {
-              transform: [
-                { translateY: particleTranslateY },
-                { rotate: spin },
-              ],
-            },
-          ]}
-        >
-          <Text style={styles.particleText}>💬</Text>
-        </Animated.View>
-        
-        <Animated.View 
-          style={[
-            styles.particle,
-            styles.particle3,
-            {
-              transform: [
-                { translateY: particleTranslateY },
-                { rotate: spin },
-              ],
-            },
-          ]}
-        >
-          <Text style={styles.particleText}>🧠</Text>
+        {/* Full-screen gradient background */}
+        <Animated.View style={[styles.splashGradientContainer, { opacity: screenFadeOut }]}>
+          <LinearGradient
+            colors={['#7C3AED', '#3AB1FF', '#58CC67']}
+            locations={[0, 0.5, 1]}
+            style={styles.splashGradient}
+          />
         </Animated.View>
 
-        {/* Main Logo */}
-        <View style={styles.logoContainer}>
+        {/* Main content */}
+        <Animated.View 
+          style={[
+            styles.splashContent,
+            {
+              opacity: screenFadeOut,
+            },
+          ]}
+        >
+          {/* Centered pulsing logo */}
+          <View style={styles.splashLogoContainer}>
+            <Animated.Image
+              source={require('./assets/polytalk-logo.png')}
+              style={[
+                styles.splashMainLogo,
+                {
+                  transform: [{ scale: logoScale }],
+                },
+              ]}
+              resizeMode="contain"
+            />
+          </View>
+
+          {/* Tagline with fade-in animation */}
           <Animated.View
             style={[
-              styles.logoBackground,
+              styles.splashTaglineContainer,
               {
-                transform: [
-                  { scale: logoScale },
-                  { rotate: spin },
-                ],
+                opacity: taglineOpacity,
+                transform: [{ translateY: taglineTranslateY }],
               },
             ]}
           >
-            {/* Custom PolyTalk Logo */}
-            <View style={styles.logoInner}>
-              <View style={styles.logoLetterP}>
-                <Text style={styles.logoMainText}>P</Text>
-              </View>
-              <View style={styles.logoSpeechBubbles}>
-                <View style={styles.speechBubble1}>
-                  <Text style={styles.speechBubbleText}>Hi</Text>
-                </View>
-                <View style={styles.speechBubble2}>
-                  <Text style={styles.speechBubbleText}>你好</Text>
-                </View>
-                <View style={styles.speechBubble3}>
-                  <Text style={styles.speechBubbleText}>¡Hola!</Text>
-                </View>
-              </View>
-            </View>
+            <Text style={styles.splashTaglineText}>Speak Any Language, Anywhere</Text>
           </Animated.View>
-        </View>
-
-        {/* App Title */}
-        <Animated.View style={[styles.splashTextContainer, { opacity: textOpacity }]}>
-          <Image 
-            source={require('./assets/polytalk-logo.png')} 
-            style={styles.splashLogo}
-            resizeMode="contain"
-          />
-          <Text style={styles.splashTitle}>Poly Talk</Text>
-          <Text style={styles.splashSubtitle}>Speak Any Language, Anywhere</Text>
-          <Text style={styles.splashTagline}>AI-Powered Language Learning</Text>
         </Animated.View>
-
-        {/* Powered by text */}
-        <Animated.View style={[styles.poweredByContainer, { opacity: textOpacity }]}>
-          <Text style={styles.poweredByText}>Powered by Zander</Text>
-        </Animated.View>
-      </LinearGradient>
+      </View>
     );
   };
 
@@ -733,10 +884,10 @@ export default function App() {
     <LinearGradient
       colors={['#58CC67', '#3AB1FF', '#7C3AED']}
       locations={[0, 0.5, 1]}
-      style={styles.container}
+      style={styles.gradientContainer}
     >
-            <StatusBar barStyle="light-content" />
-            <SafeAreaView style={styles.safeArea}>
+      <StatusBar barStyle="light-content" />
+      <SafeAreaView style={styles.safeArea}>
               <ScrollView 
                 contentContainerStyle={styles.homeScrollContainer}
                 showsVerticalScrollIndicator={false}
@@ -746,7 +897,7 @@ export default function App() {
           <View style={styles.profileRow}>
             <TouchableOpacity 
               style={styles.profileContainer}
-              onPress={() => setScreen('progress')}
+              onPress={() => animateToScreen('progress', 'profile')}
               activeOpacity={0.8}
             >
               <Image source={require('./assets/zander.jpg')} style={styles.profileImage} />
@@ -765,7 +916,7 @@ export default function App() {
         <View style={styles.actionContainer}>
           <TouchableOpacity 
             style={styles.premiumPillButton} 
-            onPress={() => setScreen('upload')}
+            onPress={() => animateToScreen('upload', 'lesson')}
             activeOpacity={0.85}
           >
             <LinearGradient
@@ -818,92 +969,146 @@ export default function App() {
       </View>
               </ScrollView>
             </SafeAreaView>
-      </LinearGradient>
+    </LinearGradient>
   );
 
   const UploadScreen = () => (
     <LinearGradient
       colors={['#58CC67', '#3AB1FF', '#7C3AED']}
       locations={[0, 0.5, 1]}
-      style={styles.container}
+      style={styles.gradientContainer}
     >
       <StatusBar barStyle="light-content" />
       <SafeAreaView style={styles.safeArea}>
-        <ScrollView contentContainerStyle={styles.uploadContainer}>
-          <View style={styles.uploadBackButton}>
-            <TouchableOpacity onPress={() => setScreen('home')}>
-              <Text style={styles.backButtonText}>← Back</Text>
-            </TouchableOpacity>
-          </View>
-          
-          <View style={styles.uploadHeaderContainer}>
-            <Image 
-              source={require('./assets/polytalk-logo.png')} 
-              style={styles.uploadLogo}
-              resizeMode="contain"
-            />
-            <Text style={styles.uploadTitle}>Your Lesson for Today</Text>
-            <Text style={styles.uploadSubtitle}>Photo, voice, or text—choose how you learn</Text>
-          </View>
-          
-          <View style={styles.uploadCard}>
-            <View style={styles.uploadTextContainer}>
-              <TextInput
-                placeholder="Type or paste your class notes here..."
-                placeholderTextColor="#999"
-                value={notes}
-                onChangeText={setNotes}
-                style={[styles.uploadTextInput, isInputFocused && styles.uploadTextInputFocused]}
-                multiline={true}
-                numberOfLines={6}
-                textAlignVertical="top"
-                autoCapitalize="sentences"
-                autoCorrect={true}
-                returnKeyType="default"
-                blurOnSubmit={false}
-                onFocus={() => setIsInputFocused(true)}
-                onBlur={() => setIsInputFocused(false)}
-              />
-            </View>
-            
-            <View style={styles.uploadButtonsContainer}>
-              <TouchableOpacity 
-                style={styles.uploadIconButton} 
-                onPress={handlePickImage}
-                activeOpacity={0.8}
-              >
-                <CameraIcon size={24} color="#6B7280" />
-                <Text style={styles.uploadIconButtonText}>📷 Photo</Text>
-              </TouchableOpacity>
-              
-              <TouchableOpacity 
-                style={styles.uploadIconButton} 
-                onPress={handleVoiceRecord}
-                activeOpacity={0.8}
-              >
-                <MicrophoneIcon size={24} color="#6B7280" />
-                <Text style={styles.uploadIconButtonText}>🎤 Voice</Text>
-              </TouchableOpacity>
-            </View>
-            
-            {image && (
-              <View style={styles.uploadImagePreview}>
-                <Image source={{ uri: image }} style={styles.uploadPreviewImage} />
-                <Text style={styles.uploadPreviewText}>✅ Image uploaded successfully!</Text>
-              </View>
-            )}
-          </View>
-          
+        {/* Static Back Button */}
+        <View style={styles.screenshotUploadHeaderFixed}>
           <TouchableOpacity 
-            style={[styles.uploadGenerateButton, (!notes.trim() && !image) && styles.disabledButton]} 
+            onPress={() => animateToScreen('home')}
+            style={styles.screenshotBackButtonLarge}
+            hitSlop={{top: 16, bottom: 16, left: 16, right: 16}}
+          >
+            <BackArrowIcon size={28} color="#FFFFFF" />
+          </TouchableOpacity>
+        </View>
+        <ScrollView 
+          contentContainerStyle={styles.screenshotUploadContainerImproved}
+          showsVerticalScrollIndicator={false}
+          bounces={false}
+        >
+          {/* Title Section */}
+          <View style={styles.screenshotUploadTitleSectionImproved}>
+            <Text style={styles.screenshotUploadTitle}>Today's Lesson</Text>
+            <Text style={styles.screenshotUploadSubtitle}>Add notes, snap a photo, or record your voice to start.</Text>
+          </View>
+          
+          {/* Main Content Card */}
+          <View style={styles.screenshotUploadMainCardImproved}>
+            <View style={styles.screenshotUploadMainCardContentImproved}>
+              {/* Text Input Section */}
+              <View style={styles.screenshotUploadTextSectionImproved}>
+                <View style={styles.screenshotUploadSectionTitleRow}>
+                  <DocumentIcon size={22} color="#fff" />
+                  <Text style={styles.screenshotUploadSectionTitle}>Write Your Notes</Text>
+                </View>
+                <View style={[styles.screenshotUploadTextInputContainer, isInputFocused && styles.screenshotUploadTextInputContainerFocused]}>
+                  <TextInput
+                    placeholder="Type or paste your class notes here..."
+                    placeholderTextColor="rgba(255, 255, 255, 0.8)"
+                    value={notes}
+                    onChangeText={setNotes}
+                    style={[styles.screenshotUploadTextInput, isInputFocused && styles.screenshotUploadTextInputFocused]}
+                    multiline={true}
+                    numberOfLines={6}
+                    textAlignVertical="top"
+                    autoCapitalize="sentences"
+                    autoCorrect={true}
+                    returnKeyType="default"
+                    blurOnSubmit={false}
+                    onFocus={() => setIsInputFocused(true)}
+                    onBlur={() => setIsInputFocused(false)}
+                    editable={true}
+                    selectTextOnFocus={false}
+                  />
+                </View>
+              </View>
+              
+              {/* Divider */}
+              <View style={styles.screenshotUploadDividerImproved}>
+                <View style={styles.screenshotUploadDividerLine} />
+                <Text style={styles.screenshotUploadDividerText}>OR</Text>
+                <View style={styles.screenshotUploadDividerLine} />
+              </View>
+              
+              {/* Media Options Section */}
+              <View style={styles.screenshotUploadMediaSectionImproved}>
+                <View style={styles.screenshotUploadSectionTitleRow}>
+                  {/* Use a target icon for Quick Capture if available, else AwardIcon */}
+                  <AwardIcon size={22} color="#fff" />
+                  <Text style={styles.screenshotUploadSectionTitle}>Quick Capture</Text>
+                </View>
+                <View style={styles.screenshotUploadMediaButtonsImproved}>
+                  <TouchableOpacity 
+                    style={styles.screenshotUploadMediaButtonImproved} 
+                    onPress={handlePickImage}
+                    activeOpacity={0.8}
+                  >
+                    <View style={styles.screenshotUploadMediaIconContainerWhite}>
+                      <CameraIcon size={32} color="#58CC67" />
+                    </View>
+                    <Text style={styles.screenshotUploadMediaButtonText}>Photo</Text>
+                    <Text style={styles.screenshotUploadMediaButtonSubtext}>Take a picture</Text>
+                  </TouchableOpacity>
+                  
+                  <TouchableOpacity 
+                    style={styles.screenshotUploadMediaButtonImproved} 
+                    onPress={handlePickImage}
+                    activeOpacity={0.8}
+                  >
+                    <View style={styles.screenshotUploadMediaIconContainerWhite}>
+                      <UploadIcon size={32} color="#3AB1FF" />
+                    </View>
+                    <Text style={styles.screenshotUploadMediaButtonText}>Upload</Text>
+                    <Text style={styles.screenshotUploadMediaButtonSubtext}>Choose photo </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+              
+              {/* Image Preview */}
+              {image && (
+                <View style={styles.screenshotUploadImagePreview}>
+                  <View style={styles.screenshotUploadPreviewHeader}>
+                    <View style={styles.screenshotUploadPreviewIconContainer}>
+                      <CameraIcon size={20} color="#58CC67" />
+                    </View>
+                    <Text style={styles.screenshotUploadPreviewTitle}>Image Ready</Text>
+                  </View>
+                  <Image source={{ uri: image }} style={styles.screenshotUploadPreviewImage} />
+                  <Text style={styles.screenshotUploadPreviewText}>✅ Image uploaded successfully!</Text>
+                </View>
+              )}
+            </View>
+          </View>
+          
+          {/* Generate Button - moved closer to card */}
+          <TouchableOpacity 
+            style={[styles.generateReviewPillButton, (!notes.trim() && !image) && styles.screenshotUploadDisabledButton]}
             onPress={handleTextSubmit}
             disabled={!notes.trim() && !image}
+            activeOpacity={0.92}
           >
             <LinearGradient
-              colors={(!notes.trim() && !image) ? ['#ccc', '#999'] : ['#58CC67', '#3AB1FF']}
-              style={styles.buttonGradient}
+              colors={(!notes.trim() && !image) ? 
+                ['#E0E0E0', '#B0B0B0'] : 
+                ['#FF5A5F', '#FFB88C']
+              }
+              start={{x: 0, y: 0}}
+              end={{x: 1, y: 1}}
+              style={styles.generateReviewPillGradient}
             >
-              <Text style={styles.generateButtonText}>✨ Generate AI Review</Text>
+              <View style={styles.generateReviewPillContent}>
+                <MagicWandIcon size={18} color="#fff" />
+                <Text style={styles.generateReviewPillText}>GENERATE AI REVIEW</Text>
+              </View>
             </LinearGradient>
           </TouchableOpacity>
         </ScrollView>
@@ -915,13 +1120,13 @@ export default function App() {
     <LinearGradient
       colors={['#58CC67', '#3AB1FF', '#7C3AED']}
       locations={[0, 0.5, 1]}
-      style={styles.container}
+      style={styles.gradientContainer}
     >
       <StatusBar barStyle="light-content" />
       <SafeAreaView style={styles.safeArea}>
         <ScrollView contentContainerStyle={styles.reviewContainer}>
         <View style={styles.backButton}>
-          <TouchableOpacity onPress={() => setScreen('upload')}>
+          <TouchableOpacity onPress={() => animateToScreen('upload')}>
             <Text style={styles.backButtonText}>← Back</Text>
           </TouchableOpacity>
         </View>
@@ -932,7 +1137,7 @@ export default function App() {
           <Text style={styles.reviewText}>{review}</Text>
         </View>
         
-        <TouchableOpacity style={styles.primaryButton} onPress={() => setScreen('quiz')}>
+        <TouchableOpacity style={styles.primaryButton} onPress={() => animateToScreen('quiz')}>
           <LinearGradient
             colors={['#7C3AED', '#A855F7']}
             style={styles.buttonGradient}
@@ -949,13 +1154,13 @@ export default function App() {
     <LinearGradient
       colors={['#58CC67', '#3AB1FF', '#7C3AED']}
       locations={[0, 0.5, 1]}
-      style={styles.container}
+      style={styles.gradientContainer}
     >
       <StatusBar barStyle="light-content" />
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.quizContainer}>
         <View style={styles.backButton}>
-          <TouchableOpacity onPress={() => setScreen('review')}>
+          <TouchableOpacity onPress={() => animateToScreen('review')}>
             <Text style={styles.backButtonText}>← Back</Text>
           </TouchableOpacity>
         </View>
@@ -1027,7 +1232,7 @@ export default function App() {
         
         <TouchableOpacity 
           style={styles.primaryButton} 
-          onPress={() => setScreen('progress')}
+          onPress={() => animateToScreen('progress')}
         >
           <LinearGradient
             colors={['#58CC67', '#42B883']}
@@ -1045,7 +1250,7 @@ export default function App() {
     <LinearGradient
       colors={['#58CC67', '#3AB1FF', '#7C3AED']}
       locations={[0, 0.5, 1]}
-      style={styles.container}
+      style={styles.gradientContainer}
     >
       <StatusBar barStyle="light-content" />
       <SafeAreaView style={styles.safeArea}>
@@ -1057,7 +1262,7 @@ export default function App() {
           {/* Header Section */}
           <View style={styles.progressHeader}>
             <TouchableOpacity 
-              onPress={() => setScreen('home')}
+              onPress={() => animateToScreen('home', 'profile')}
               style={styles.progressBackButton}
             >
               <BackArrowIcon size={24} color="#FFFFFF" />
@@ -1158,14 +1363,45 @@ export default function App() {
   return (
     <View style={styles.container}>
       {showSplash ? (
-        <SplashScreen />
+        <>
+          <SplashScreen />
+          {/* Pre-render main screen for slide-up animation */}
+          <Animated.View 
+            style={[
+              styles.mainScreenContainer,
+              {
+                transform: [{ translateY: mainScreenSlideUp }],
+              },
+            ]}
+          >
+            {screen === 'home' && <HomeScreen />}
+            {screen === 'upload' && <UploadScreen />}
+            {screen === 'review' && <ReviewScreen />}
+            {screen === 'quiz' && <QuizScreen />}
+            {screen === 'progress' && <ProgressScreen />}
+          </Animated.View>
+        </>
       ) : (
         <>
-          {screen === 'home' && <HomeScreen />}
-          {screen === 'upload' && <UploadScreen />}
-          {screen === 'review' && <ReviewScreen />}
-          {screen === 'quiz' && <QuizScreen />}
-          {screen === 'progress' && <ProgressScreen />}
+          {/* Animated screen container */}
+          <Animated.View 
+            style={[
+              styles.screenContainer,
+              {
+                transform: [
+                  { translateX: screenTransitionX },
+                  { scale: screenScale }
+                ],
+                opacity: screenOpacity,
+              },
+            ]}
+          >
+            {screen === 'home' && <HomeScreen />}
+            {screen === 'upload' && <UploadScreen />}
+            {screen === 'review' && <ReviewScreen />}
+            {screen === 'quiz' && <QuizScreen />}
+            {screen === 'progress' && <ProgressScreen />}
+          </Animated.View>
         </>
       )}
     </View>
@@ -1673,171 +1909,81 @@ const styles = StyleSheet.create({
     color: '#666',
     textAlign: 'center',
   },
-  // Splash Screen Styles
+  // Splash Screen Styles - Tinder-like Bold & Simple
   splashContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     position: 'relative',
   },
-  logoContainer: {
-    alignItems: 'center',
-    marginBottom: 40,
-  },
-  logoBackground: {
-    width: 160,
-    height: 160,
-    borderRadius: 80,
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.3,
-    shadowRadius: 16,
-    elevation: 12,
-  },
-  logoInner: {
-    width: 140,
-    height: 140,
-    borderRadius: 70,
-    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'relative',
-  },
-  logoLetterP: {
+  splashGradientContainer: {
     position: 'absolute',
-    top: 10,
-    left: 15,
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
   },
-  logoMainText: {
-    fontSize: 72,
-    fontWeight: 'bold',
-    color: '#4f46e5',
-    textShadowColor: 'rgba(124, 58, 237, 0.3)',
-    textShadowOffset: { width: 2, height: 2 },
-    textShadowRadius: 4,
-  },
-  logoSpeechBubbles: {
-    position: 'absolute',
+  splashGradient: {
+    flex: 1,
     width: '100%',
     height: '100%',
   },
-  speechBubble1: {
-    position: 'absolute',
-    top: 15,
-    right: 8,
-    backgroundColor: '#FF6B6B',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 3,
+  splashContent: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 40,
   },
-  speechBubble2: {
-    position: 'absolute',
-    bottom: 40,
-    left: 5,
-    backgroundColor: '#4CAF50',
-    paddingHorizontal: 6,
-    paddingVertical: 3,
-    borderRadius: 10,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  speechBubble3: {
-    position: 'absolute',
-    bottom: 15,
-    right: 15,
-    backgroundColor: '#FF9500',
-    paddingHorizontal: 7,
-    paddingVertical: 3,
-    borderRadius: 10,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  speechBubbleText: {
-    fontSize: 10,
-    fontWeight: 'bold',
-    color: '#FFFFFF',
-  },
-  particle: {
-    position: 'absolute',
-  },
-  particle1: {
-    top: '20%',
-    left: '15%',
-  },
-  particle2: {
-    top: '25%',
-    right: '10%',
-  },
-  particle3: {
-    bottom: '30%',
-    left: '10%',
-  },
-  particleText: {
-    fontSize: 32,
-    opacity: 0.7,
-  },
-  splashTextContainer: {
+  splashLogoContainer: {
     alignItems: 'center',
     marginBottom: 60,
   },
-  splashLogo: {
-    width: 80,
-    height: 80,
-    marginBottom: 16,
+  splashMainLogo: {
+    width: 120,
+    height: 120,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 8,
-    elevation: 6,
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.25,
+    shadowRadius: 20,
+    elevation: 12,
   },
-  splashTitle: {
-    fontSize: 32,
-    fontWeight: 'bold',
+  splashTaglineContainer: {
+    alignItems: 'center',
+  },
+  splashTaglineText: {
+    fontSize: 24,
+    fontWeight: '600',
     color: '#FFFFFF',
-    marginBottom: 8,
+    textAlign: 'center',
     textShadowColor: 'rgba(0, 0, 0, 0.3)',
-    textShadowOffset: { width: 2, height: 2 },
-    textShadowRadius: 6,
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 8,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+    letterSpacing: 0.5,
   },
-  splashSubtitle: {
-    fontSize: 18,
-    color: '#FFFFFF',
-    opacity: 0.9,
-    marginBottom: 6,
-    textAlign: 'center',
-  },
-  splashTagline: {
-    fontSize: 14,
-    color: '#FFFFFF',
-    opacity: 0.8,
-    textAlign: 'center',
-    fontStyle: 'italic',
-  },
-  poweredByContainer: {
+  mainScreenContainer: {
     position: 'absolute',
-    bottom: 80,
-    alignSelf: 'center',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    flex: 1,
   },
-  poweredByText: {
-    fontSize: 12,
-    color: '#FFFFFF',
-    opacity: 0.7,
-    textAlign: 'center',
-    fontStyle: 'italic',
+  persistentGradientBackground: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: -1,
+  },
+  screenContainer: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'transparent',
+  },
+  transparentScreenContainer: {
+    flex: 1,
+    backgroundColor: 'transparent',
   },
   
   // Daily Challenges Section Styles
@@ -2761,6 +2907,724 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     opacity: 0.8,
     textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+  },
+
+  // Premium Upload Screen Styles
+  premiumUploadContainer: {
+    flexGrow: 1,
+    paddingBottom: 40,
+  },
+  premiumUploadHeader: {
+    paddingTop: 32,
+    paddingHorizontal: 20,
+    paddingBottom: 24,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+  premiumBackButton: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
+    elevation: 4,
+  },
+  premiumUploadTitleSection: {
+    paddingHorizontal: 20,
+    marginBottom: 32,
+    alignItems: 'center',
+  },
+  premiumUploadLogoContainer: {
+    marginBottom: 16,
+  },
+  premiumUploadLogo: {
+    width: 80,
+    height: 80,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.25,
+    shadowRadius: 12,
+    elevation: 8,
+  },
+  premiumUploadTitle: {
+    fontSize: 32,
+    fontWeight: '800',
+    color: '#FFFFFF',
+    textAlign: 'center',
+    marginBottom: 12,
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 6,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+  },
+  premiumUploadSubtitle: {
+    fontSize: 16,
+    color: '#FFFFFF',
+    opacity: 0.9,
+    textAlign: 'center',
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 3,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  premiumUploadMainCard: {
+    marginHorizontal: 20,
+    marginBottom: 32,
+    borderRadius: 24,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 12 },
+    shadowOpacity: 0.15,
+    shadowRadius: 24,
+    elevation: 16,
+    overflow: 'hidden',
+  },
+  premiumUploadMainCardGradient: {
+    padding: 28,
+    borderRadius: 24,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+  },
+  premiumUploadTextSection: {
+    marginBottom: 24,
+  },
+  premiumUploadSectionTitle: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#1F2937',
+    marginBottom: 16,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+  },
+  premiumUploadTextInput: {
+    backgroundColor: '#F9FAFB',
+    borderRadius: 20,
+    padding: 20,
+    fontSize: 16,
+    minHeight: 140,
+    maxHeight: 200,
+    textAlignVertical: 'top',
+    borderWidth: 2,
+    borderColor: '#E5E7EB',
+    color: '#1F2937',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 8,
+    elevation: 2,
+  },
+  premiumUploadTextInputFocused: {
+    borderColor: '#58CC67',
+    backgroundColor: '#FFFFFF',
+    shadowColor: '#58CC67',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 12,
+    elevation: 6,
+  },
+  premiumUploadDivider: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 24,
+  },
+  premiumUploadDividerLine: {
+    flex: 1,
+    height: 1,
+    backgroundColor: '#E5E7EB',
+  },
+  premiumUploadDividerText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#9CA3AF',
+    marginHorizontal: 16,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  premiumUploadMediaSection: {
+    marginBottom: 0,
+  },
+  premiumUploadMediaButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    gap: 16,
+  },
+  premiumUploadMediaButton: {
+    flex: 1,
+    borderRadius: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.08,
+    shadowRadius: 12,
+    elevation: 4,
+    overflow: 'hidden',
+  },
+  premiumUploadMediaButtonGradient: {
+    padding: 20,
+    alignItems: 'center',
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.3)',
+  },
+  premiumUploadMediaIconContainer: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  premiumUploadMediaButtonText: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#1F2937',
+    marginBottom: 4,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+  },
+  premiumUploadMediaButtonSubtext: {
+    fontSize: 12,
+    color: '#6B7280',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  premiumUploadImagePreview: {
+    marginTop: 24,
+    padding: 20,
+    backgroundColor: '#F0FDF4',
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: '#BBF7D0',
+    alignItems: 'center',
+  },
+  premiumUploadPreviewHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  premiumUploadPreviewIconContainer: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: 'rgba(88, 204, 103, 0.1)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 12,
+  },
+  premiumUploadPreviewTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#059669',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  premiumUploadPreviewImage: {
+    width: 120,
+    height: 120,
+    borderRadius: 16,
+    marginBottom: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 4,
+  },
+  premiumUploadPreviewText: {
+    color: '#059669',
+    fontSize: 14,
+    fontWeight: '600',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  premiumUploadGenerateButton: {
+    marginHorizontal: 20,
+    borderRadius: 24,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.15,
+    shadowRadius: 20,
+    elevation: 12,
+    overflow: 'hidden',
+  },
+  premiumUploadGenerateButtonGradient: {
+    paddingVertical: 20,
+    paddingHorizontal: 32,
+    borderRadius: 24,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+  },
+  premiumUploadGenerateButtonContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  premiumUploadGenerateIconContainer: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 12,
+  },
+  premiumUploadGenerateButtonText: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+  },
+  premiumUploadDisabledButton: {
+    shadowOpacity: 0.05,
+    elevation: 2,
+  },
+
+  // Screenshot Upload Screen Styles
+  screenshotUploadContainer: {
+    flexGrow: 1,
+    paddingBottom: 40,
+  },
+  screenshotUploadHeader: {
+    paddingTop: 32,
+    paddingHorizontal: 20,
+    paddingBottom: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+  screenshotBackButton: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  screenshotUploadTitleSection: {
+    paddingHorizontal: 20,
+    marginBottom: 40,
+    alignItems: 'center',
+  },
+  screenshotUploadTitle: {
+    fontSize: 36,
+    fontWeight: '800',
+    color: '#FFFFFF',
+    textAlign: 'center',
+    marginBottom: 16,
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 6,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+  },
+  screenshotUploadSubtitle: {
+    fontSize: 16,
+    color: '#FFFFFF',
+    opacity: 0.9,
+    textAlign: 'center',
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 3,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  screenshotUploadMainCard: {
+    marginHorizontal: 20,
+    marginBottom: 32,
+    borderRadius: 24,
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.1,
+    shadowRadius: 24,
+    elevation: 8,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+  },
+  screenshotUploadMainCardContent: {
+    padding: 24,
+  },
+  screenshotUploadTextSection: {
+    marginBottom: 24,
+  },
+  screenshotUploadSectionTitle: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    marginBottom: 16,
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+  },
+  screenshotUploadTextInputContainer: {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+  },
+  screenshotUploadTextInputContainerFocused: {
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    borderColor: 'rgba(255, 255, 255, 0.4)',
+  },
+  screenshotUploadTextInput: {
+    backgroundColor: 'transparent',
+    padding: 20,
+    fontSize: 16,
+    minHeight: 120,
+    maxHeight: 180,
+    textAlignVertical: 'top',
+    color: '#FFFFFF',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+    borderWidth: 0,
+    outline: 'none',
+  },
+  screenshotUploadTextInputFocused: {
+    backgroundColor: 'transparent',
+  },
+  screenshotUploadDivider: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 24,
+  },
+  screenshotUploadDividerLine: {
+    flex: 1,
+    height: 1,
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+  },
+  screenshotUploadDividerText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    marginHorizontal: 16,
+    opacity: 0.8,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  screenshotUploadMediaSection: {
+    marginBottom: 0,
+  },
+  screenshotUploadMediaButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingHorizontal: 20,
+  },
+  screenshotUploadMediaButton: {
+    alignItems: 'center',
+    flex: 1,
+    maxWidth: 120,
+  },
+  screenshotUploadMediaIconContainer: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 12,
+    elevation: 6,
+  },
+  screenshotUploadMediaButtonText: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    marginBottom: 4,
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+  },
+  screenshotUploadMediaButtonSubtext: {
+    fontSize: 14,
+    color: '#FFFFFF',
+    opacity: 0.8,
+    textAlign: 'center',
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 1,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  screenshotUploadImagePreview: {
+    marginTop: 24,
+    padding: 20,
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+    alignItems: 'center',
+  },
+  screenshotUploadPreviewHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  screenshotUploadPreviewIconContainer: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: 'rgba(88, 204, 103, 0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 12,
+  },
+  screenshotUploadPreviewTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  screenshotUploadPreviewImage: {
+    width: 120,
+    height: 120,
+    borderRadius: 16,
+    marginBottom: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 4,
+  },
+  screenshotUploadPreviewText: {
+    color: '#FFFFFF',
+    fontSize: 14,
+    fontWeight: '600',
+    opacity: 0.9,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  screenshotUploadGenerateButton: {
+    marginHorizontal: 20,
+    borderRadius: 24,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.15,
+    shadowRadius: 20,
+    elevation: 12,
+    overflow: 'hidden',
+  },
+  screenshotUploadGenerateButtonGradient: {
+    paddingVertical: 20,
+    paddingHorizontal: 32,
+    borderRadius: 24,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+  },
+  screenshotUploadGenerateButtonContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  screenshotUploadGenerateButtonText: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+  },
+  screenshotUploadDisabledButton: {
+    shadowOpacity: 0.05,
+    elevation: 2,
+  },
+  screenshotUploadLogoContainer: {
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  screenshotUploadLogo: {
+    width: 56,
+    height: 56,
+    marginBottom: 0,
+    opacity: 0.18,
+  },
+  screenshotUploadSectionTitleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
+    gap: 10,
+  },
+  screenshotUploadHeaderFixed: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 100,
+    paddingTop: 60,
+    paddingHorizontal: 20,
+    paddingBottom: 0,
+    backgroundColor: 'transparent',
+  },
+  screenshotBackButtonLarge: {
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    backgroundColor: 'rgba(255,255,255,0.18)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 0,
+    marginBottom: 0,
+  },
+  screenshotUploadContainerImproved: {
+    flexGrow: 1,
+    paddingTop: 95,
+    paddingBottom: 24,
+    paddingHorizontal: 16,
+    justifyContent: 'flex-start',
+  },
+  screenshotUploadTitleSectionImproved: {
+    alignItems: 'center',
+    marginBottom: 14,
+    marginTop: 0,
+  },
+  screenshotUploadMainCardImproved: {
+    marginHorizontal: 4,
+    marginBottom: 14,
+    borderRadius: 28,
+    backgroundColor: 'rgba(255,255,255,0.13)',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.10,
+    shadowRadius: 24,
+    elevation: 8,
+    borderWidth: 1.5,
+    borderColor: 'rgba(255,255,255,0.22)',
+  },
+  screenshotUploadMainCardContentImproved: {
+    padding: 22,
+    paddingTop: 18,
+    paddingBottom: 18,
+  },
+  screenshotUploadTextSectionImproved: {
+    marginBottom: 14,
+  },
+  screenshotUploadDividerImproved: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 14,
+  },
+  screenshotUploadMediaSectionImproved: {
+    marginBottom: 0,
+  },
+  screenshotUploadMediaButtonsImproved: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingHorizontal: 0,
+    marginTop: 8,
+    gap: 8,
+  },
+  screenshotUploadMediaButtonImproved: {
+    alignItems: 'center',
+    flex: 1,
+    maxWidth: 120,
+    marginHorizontal: 4,
+  },
+  screenshotUploadMediaIconContainerFilled: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: 'rgba(88,204,103,0.13)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 12,
+    shadowColor: '#58CC67',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.18,
+    shadowRadius: 8,
+    elevation: 4,
+  },
+  screenshotUploadMediaIconContainerFilledBlue: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: 'rgba(58,177,255,0.13)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 12,
+    shadowColor: '#3AB1FF',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.18,
+    shadowRadius: 8,
+    elevation: 4,
+  },
+  screenshotUploadMediaIconContainerWhite: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: '#FFFFFF',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.12,
+    shadowRadius: 12,
+    elevation: 6,
+  },
+  screenshotUploadGenerateButtonImproved: {
+    marginHorizontal: 24,
+    marginTop: 0,
+    borderRadius: 24,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.15,
+    shadowRadius: 20,
+    elevation: 12,
+    overflow: 'hidden',
+  },
+  screenshotUploadGenerateButtonGradientImproved: {
+    paddingVertical: 18,
+    paddingHorizontal: 24,
+    borderRadius: 24,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+  },
+  generateReviewPillButton: {
+    marginHorizontal: 16,
+    marginTop: 0,
+    borderRadius: 30,
+    shadowColor: '#FF5A5F',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.18,
+    shadowRadius: 24,
+    elevation: 12,
+    overflow: 'visible',
+  },
+  generateReviewPillGradient: {
+    paddingVertical: 20,
+    paddingHorizontal: 32,
+    borderRadius: 30,
+    borderWidth: 1.2,
+    borderColor: '#fff',
+  },
+  generateReviewPillContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  generateReviewPillText: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    marginLeft: 12,
+    letterSpacing: 1.2,
+    textTransform: 'uppercase',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+    textShadowColor: 'rgba(0, 0, 0, 0.15)',
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 2,
   },
