@@ -8,6 +8,7 @@ import {
   ImageBackground,
   StyleSheet,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   ScrollView,
   Dimensions,
   Animated,
@@ -173,6 +174,38 @@ const BackArrowIcon = ({ size = 24, color = "#fff" }) => (
   </Svg>
 );
 
+// Add ChatIcon SVG component
+const ChatIcon = ({ size = 24, color = "#fff" }) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <G clipPath="url(#clip0_4418_3701)">
+      <Path d="M8.5 19H8C4 19 2 17 2 13V8C2 4 4 2 8 2H16C20 2 22 4 22 8V13C22 17 20 19 16 19H15.5C15.19 19 14.89 19.15 14.7 19.4L13.2 21.4C12.54 22.28 11.46 22.28 10.8 21.4L9.3 19.4C9.14 19.18 8.77 19 8.5 19Z" stroke={color} strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+      <Path d="M15.9965 11H16.0054" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <Path d="M11.9955 11H12.0045" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <Path d="M7.99451 11H8.00349" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </G>
+    <Defs>
+      <ClipPath id="clip0_4418_3701">
+        <Rect width="24" height="24" fill="white"/>
+      </ClipPath>
+    </Defs>
+  </Svg>
+);
+
+// Add LockIcon SVG component
+const LockIcon = ({ size = 24, color = "#fff" }) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <G clipPath="url(#clip0_4418_3802)">
+      <Path d="M6 10V8C6 5.79086 7.79086 4 10 4H14C16.2091 4 18 5.79086 18 8V10M5 12C5 10.8954 5.89543 10 7 10H17C18.1046 10 19 10.8954 19 12V18C19 19.1046 18.1046 20 17 20H7C5.89543 20 5 19.1046 5 18V12Z" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <Path d="M12 14V16" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </G>
+    <Defs>
+      <ClipPath id="clip0_4418_3802">
+        <Rect width="24" height="24" fill="white"/>
+      </ClipPath>
+    </Defs>
+  </Svg>
+);
+
 // Add MagicWandIcon SVG component
 const MagicWandIcon = ({ size = 24, color = "#fff" }) => (
   <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
@@ -199,6 +232,36 @@ const UploadIcon = ({ size = 24, color = "#fff" }) => (
     </G>
     <Defs>
       <ClipPath id="clip0_4418_6753">
+        <Rect width="24" height="24" fill="white"/>
+      </ClipPath>
+    </Defs>
+  </Svg>
+);
+
+const MicIcon = ({ size = 24, color = "#fff" }) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <G clipPath="url(#clip0_4418_9248)">
+      <Path d="M12 19C15.31 19 18 16.31 18 13V8C18 4.69 15.31 2 12 2C8.69 2 6 4.69 6 8V13C6 16.31 8.69 19 12 19Z" stroke={color} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
+      <Path d="M3 11V13C3 17.97 7.03 22 12 22C16.97 22 21 17.97 21 13V11" stroke={color} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
+      <Path d="M9.10999 7.47969C10.89 6.82969 12.83 6.82969 14.61 7.47969" stroke={color} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
+      <Path d="M10.03 10.4799C11.23 10.1499 12.5 10.1499 13.7 10.4799" stroke={color} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
+    </G>
+    <Defs>
+      <ClipPath id="clip0_4418_9248">
+        <Rect width="24" height="24" fill="white"/>
+      </ClipPath>
+    </Defs>
+  </Svg>
+);
+
+const CrownIcon = ({ size = 24, color = "#FFD700" }) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <G clipPath="url(#clip0_4418_8590)">
+      <Path d="M17 22H7C6.59 22 6.25 21.66 6.25 21.25C6.25 20.84 6.59 20.5 7 20.5H17C17.41 20.5 17.75 20.84 17.75 21.25C17.75 21.66 17.41 22 17 22Z" fill={color} />
+      <Path d="M20.35 5.51906L16.35 8.37906C15.82 8.75906 15.06 8.52906 14.83 7.91906L12.94 2.87906C12.62 2.00906 11.39 2.00906 11.07 2.87906L9.16998 7.90906C8.93998 8.52906 8.18997 8.75906 7.65998 8.36906L3.65998 5.50906C2.85998 4.94906 1.79998 5.73906 2.12998 6.66906L6.28998 18.3191C6.42998 18.7191 6.80998 18.9791 7.22998 18.9791H16.76C17.18 18.9791 17.56 18.7091 17.7 18.3191L21.86 6.66906C22.2 5.73906 21.14 4.94906 20.35 5.51906ZM14.5 14.7491H9.49998C9.08998 14.7491 8.74998 14.4091 8.74998 13.9991C8.74998 13.5891 9.08998 13.2491 9.49998 13.2491H14.5C14.91 13.2491 15.25 13.5891 15.25 13.9991C15.25 14.4091 14.91 14.7491 14.5 14.7491Z" fill={color} />
+    </G>
+    <Defs>
+      <ClipPath id="clip0_4418_8590">
         <Rect width="24" height="24" fill="white"/>
       </ClipPath>
     </Defs>
@@ -397,6 +460,834 @@ const LessonsCarousel = ({ lessons, onLessonSelect, getBadgeConfig }) => {
   );
 };
 
+// Game Mode Carousel Component
+const GameModeCarousel = ({ gameModes, onGameModeSelect, uploadCount }) => {
+  const scrollViewRef = useRef(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handleScroll = (event) => {
+    const scrollPosition = event.nativeEvent.contentOffset.x;
+    const index = Math.round(scrollPosition / (width - 80));
+    setCurrentIndex(index);
+  };
+
+  return (
+    <View style={styles.gameModeCarouselContainer}>
+      <ScrollView
+        ref={scrollViewRef}
+        horizontal
+        pagingEnabled
+        showsHorizontalScrollIndicator={false}
+        onScroll={handleScroll}
+        scrollEventThrottle={16}
+        contentContainerStyle={styles.gameModeCarouselContent}
+        snapToInterval={width - 80}
+        decelerationRate="fast"
+        bounces={false}
+      >
+        {gameModes.map((mode, index) => {
+          const isLocked = mode.requiresUploads && uploadCount < mode.requiresUploads;
+          const progress = mode.requiresUploads ? Math.min(uploadCount / mode.requiresUploads, 1) : 1;
+          
+          return (
+            <TouchableOpacity
+              key={mode.id}
+              style={styles.gameModeCard}
+              onPress={() => !isLocked && onGameModeSelect(mode)}
+              activeOpacity={isLocked ? 1 : 0.85}
+            >
+              <View style={[styles.gameModeCardInner, isLocked && styles.gameModeCardLocked]}>
+                {/* Lock Overlay */}
+                {isLocked && (
+                  <View style={styles.gameModeCardLockOverlay}>
+                    <View style={styles.gameModeCardLockIcon}>
+                      <LockIcon size={24} color="#FFFFFF" />
+                    </View>
+                    <Text style={styles.gameModeCardLockText}>
+                      {uploadCount}/{mode.requiresUploads} uploads
+                    </Text>
+                    <View style={styles.gameModeCardProgressBar}>
+                      <View style={[styles.gameModeCardProgressFill, { width: `${progress * 100}%` }]} />
+                    </View>
+                  </View>
+                )}
+                
+                {/* Icon */}
+                <View style={[styles.gameModeCardIconContainer, { backgroundColor: mode.color }]}>
+                  {mode.icon}
+                </View>
+                
+                {/* Title */}
+                <Text style={styles.gameModeCardTitle}>{mode.title}</Text>
+                
+                {/* Description */}
+                <Text style={styles.gameModeCardDescription}>{mode.description}</Text>
+                
+                {/* Badge */}
+                {mode.badge && (
+                  <View style={[styles.gameModeCardBadge, { backgroundColor: mode.badgeColor }]}>
+                    <Text style={styles.gameModeCardBadgeText}>{mode.badge}</Text>
+                  </View>
+                )}
+              </View>
+            </TouchableOpacity>
+          );
+        })}
+      </ScrollView>
+      
+      {/* Pagination Dots */}
+      <View style={styles.gameModeCarouselPagination}>
+        {gameModes.map((_, index) => (
+          <View
+            key={index}
+            style={[
+              styles.gameModeCarouselDot,
+              index === currentIndex && styles.gameModeCarouselDotActive
+            ]}
+          />
+        ))}
+      </View>
+    </View>
+  );
+};
+
+// Word Bank Carousel Component
+const WordBankCarousel = ({ words, getCategoryConfig }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const scrollViewRef = useRef();
+
+  const handleScroll = (event) => {
+    const { contentOffset, layoutMeasurement } = event.nativeEvent;
+    const currentPage = Math.floor(contentOffset.x / layoutMeasurement.width);
+    setCurrentIndex(currentPage);
+  };
+
+  return (
+    <View style={styles.carouselContainer}>
+      <ScrollView
+        ref={scrollViewRef}
+        horizontal
+        pagingEnabled
+        showsHorizontalScrollIndicator={false}
+        onScroll={handleScroll}
+        scrollEventThrottle={16}
+        style={styles.carouselScrollView}
+      >
+        {words.map((word, index) => (
+          <View key={word.id} style={styles.carouselCardContainer}>
+            <TouchableOpacity
+              style={styles.carouselCard}
+              activeOpacity={0.9}
+            >
+              <View style={styles.wordBankCardContent}>
+                {/* Header with category */}
+                <View style={styles.wordBankCardHeader}>
+                  <View style={styles.wordBankCategoryContainer}>
+                    <BookIcon size={14} color="rgba(255, 255, 255, 0.7)" />
+                    <Text style={styles.wordBankCategoryText}>
+                      {word.category}
+                    </Text>
+                  </View>
+                  <View style={[
+                    styles.dynamicBadge, 
+                    { backgroundColor: getCategoryConfig(word.category).backgroundColor }
+                  ]}>
+                    <Text style={[
+                      styles.dynamicBadgeText,
+                      { color: getCategoryConfig(word.category).textColor }
+                    ]}>
+                      {getCategoryConfig(word.category).text}
+                    </Text>
+                  </View>
+                </View>
+                
+                {/* Word and Translation */}
+                <Text style={styles.wordBankWord} numberOfLines={1}>
+                  {word.word}
+                </Text>
+                <Text style={styles.wordBankTranslation} numberOfLines={1}>
+                  {word.translation}
+                </Text>
+                
+                {/* Example */}
+                <View style={styles.wordBankExampleContainer}>
+                  <Text style={styles.wordBankExample} numberOfLines={2}>
+                    "{word.example}"
+                  </Text>
+                  <Text style={styles.wordBankExampleTranslation} numberOfLines={2}>
+                    "{word.exampleTranslation}"
+                  </Text>
+                </View>
+                
+                {/* Footer */}
+                <View style={styles.wordBankFooter}>
+                  <Text style={styles.wordBankDate}>{word.dateAdded}</Text>
+                  <View style={styles.wordBankDifficultyContainer}>
+                    <View style={[
+                      styles.wordBankDifficultyDot,
+                      { backgroundColor: word.difficulty === 'beginner' ? '#58CC67' : 
+                                        word.difficulty === 'intermediate' ? '#3AB1FF' : '#7C3AED' }
+                    ]} />
+                    <Text style={styles.wordBankDifficultyText}>{word.difficulty}</Text>
+                  </View>
+                </View>
+              </View>
+              
+              {/* Pagination Dots Overlay */}
+              <View style={styles.cardPaginationOverlay}>
+                {words.map((_, dotIndex) => (
+                  <View
+                    key={dotIndex}
+                    style={[
+                      styles.cardPaginationDot,
+                      dotIndex === currentIndex ? styles.wordBankActiveDot : styles.wordBankInactiveDot
+                    ]}
+                  />
+                ))}
+              </View>
+            </TouchableOpacity>
+          </View>
+        ))}
+      </ScrollView>
+    </View>
+  );
+};
+
+// Friends Ranking Modal Component
+const FriendsModal = ({ visible, onClose, friendsData }) => {
+  const slideAnim = useRef(new Animated.Value(height)).current;
+  const opacityAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    if (visible) {
+      Animated.parallel([
+        Animated.timing(slideAnim, {
+          toValue: 0,
+          duration: 300,
+          useNativeDriver: true,
+        }),
+        Animated.timing(opacityAnim, {
+          toValue: 1,
+          duration: 300,
+          useNativeDriver: true,
+        }),
+      ]).start();
+    } else {
+      Animated.parallel([
+        Animated.timing(slideAnim, {
+          toValue: height,
+          duration: 250,
+          useNativeDriver: true,
+        }),
+        Animated.timing(opacityAnim, {
+          toValue: 0,
+          duration: 250,
+          useNativeDriver: true,
+        }),
+      ]).start();
+    }
+  }, [visible]);
+
+  if (!visible) return null;
+
+  const getRankColor = (rank) => {
+    return '#FFFFFF'; // All ranks are white
+  };
+
+  const getRankIcon = (rank) => {
+    return `#${rank}`;
+  };
+
+  return (
+    <Animated.View style={[styles.friendsModalOverlay, { opacity: opacityAnim }]}>
+      <TouchableOpacity 
+        style={styles.friendsModalBackdrop} 
+        onPress={onClose}
+        activeOpacity={1}
+      />
+      <Animated.View 
+        style={[
+          styles.friendsModalContainer,
+          { transform: [{ translateY: slideAnim }] }
+        ]}
+      >
+        <LinearGradient
+          colors={['#58CC67', '#3AB1FF', '#7C3AED']}
+          locations={[0, 0.5, 1]}
+          style={styles.friendsModalGradient}
+        >
+          {/* Modal Header */}
+          <View style={styles.friendsModalHeader}>
+            <View style={styles.friendsModalHeaderContent}>
+              <Text style={styles.friendsModalTitle}>Friends Leaderboard</Text>
+              <Text style={styles.friendsModalSubtitle}>This week's rankings</Text>
+            </View>
+            <TouchableOpacity onPress={onClose} style={styles.friendsModalCloseButton}>
+              <Text style={styles.friendsModalCloseText}>✕</Text>
+            </TouchableOpacity>
+          </View>
+
+          {/* Friends List */}
+          <ScrollView 
+            style={styles.friendsModalList}
+            showsVerticalScrollIndicator={false}
+          >
+            {friendsData.map((friend) => (
+              <View 
+                key={friend.id} 
+                style={[
+                  styles.friendsModalItem,
+                  friend.isCurrentUser && styles.friendsModalItemCurrent
+                ]}
+              >
+                <View style={styles.friendsModalRankContainer}>
+                  <Text style={[
+                    styles.friendsModalRankText,
+                    { color: getRankColor(friend.rank) }
+                  ]}>
+                    {getRankIcon(friend.rank)}
+                  </Text>
+                </View>
+                
+                <Image 
+                  source={friend.profilePic} 
+                  style={[
+                    styles.friendsModalAvatar,
+                    friend.isCurrentUser && styles.friendsModalAvatarCurrent
+                  ]} 
+                />
+                
+                <View style={styles.friendsModalInfo}>
+                  <Text style={[
+                    styles.friendsModalName,
+                    friend.isCurrentUser && styles.friendsModalNameCurrent
+                  ]}>
+                    {friend.name} {friend.isCurrentUser && '(You)'}
+                  </Text>
+                  <View style={styles.friendsModalStats}>
+                    <View style={styles.friendsModalStatItem}>
+                      <Text style={styles.friendsModalStatLabel}>XP</Text>
+                      <Text style={styles.friendsModalStatValue}>{friend.weeklyXP}</Text>
+                    </View>
+                    <View style={styles.friendsModalStatItem}>
+                      <FireIcon size={14} color="#FF6B6B" />
+                      <Text style={styles.friendsModalStatValue}>{friend.streak}</Text>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            ))}
+          </ScrollView>
+        </LinearGradient>
+      </Animated.View>
+    </Animated.View>
+  );
+};
+
+// Achievements Modal Component
+const AchievementsModal = ({ visible, onClose, achievementsData }) => {
+  const slideAnim = useRef(new Animated.Value(height)).current;
+  const opacityAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    if (visible) {
+      Animated.parallel([
+        Animated.timing(slideAnim, {
+          toValue: 0,
+          duration: 300,
+          useNativeDriver: true,
+        }),
+        Animated.timing(opacityAnim, {
+          toValue: 1,
+          duration: 300,
+          useNativeDriver: true,
+        }),
+      ]).start();
+    } else {
+      Animated.parallel([
+        Animated.timing(slideAnim, {
+          toValue: height,
+          duration: 250,
+          useNativeDriver: true,
+        }),
+        Animated.timing(opacityAnim, {
+          toValue: 0,
+          duration: 250,
+          useNativeDriver: true,
+        }),
+      ]).start();
+    }
+  }, [visible]);
+
+  if (!visible) return null;
+
+  const getCategoryColor = (category) => {
+    const colors = {
+      learning: '#58CC67',
+      consistency: '#FF6B6B',
+      vocabulary: '#3AB1FF',
+      social: '#FFD700',
+      grammar: '#7C3AED',
+      content: '#40E0D0',
+      performance: '#FF8C00',
+      review: '#32CD32',
+      speed: '#FF1493',
+      accuracy: '#00CED1',
+      conversation: '#9370DB',
+      endurance: '#DC143C'
+    };
+    return colors[category] || '#FFFFFF';
+  };
+
+  const earnedAchievements = achievementsData.filter(achievement => achievement.earned);
+  const inProgressAchievements = achievementsData.filter(achievement => !achievement.earned);
+
+  return (
+    <Animated.View style={[styles.achievementsModalOverlay, { opacity: opacityAnim }]}>
+      <TouchableOpacity 
+        style={styles.achievementsModalBackdrop} 
+        onPress={onClose}
+        activeOpacity={1}
+      />
+      <Animated.View 
+        style={[
+          styles.achievementsModalContainer,
+          { transform: [{ translateY: slideAnim }] }
+        ]}
+      >
+        <LinearGradient
+          colors={['#58CC67', '#3AB1FF', '#7C3AED']}
+          locations={[0, 0.5, 1]}
+          style={styles.achievementsModalGradient}
+        >
+          {/* Modal Header */}
+          <View style={styles.achievementsModalHeader}>
+            <View style={styles.achievementsModalHeaderContent}>
+              <Text style={styles.achievementsModalTitle}>Achievements</Text>
+              <Text style={styles.achievementsModalSubtitle}>
+                {earnedAchievements.length} earned • {inProgressAchievements.length} in progress
+              </Text>
+            </View>
+            <TouchableOpacity onPress={onClose} style={styles.achievementsModalCloseButton}>
+              <Text style={styles.achievementsModalCloseText}>✕</Text>
+            </TouchableOpacity>
+          </View>
+
+          {/* Achievements Grid */}
+          <ScrollView 
+            style={styles.achievementsModalList}
+            showsVerticalScrollIndicator={false}
+          >
+            {/* Earned Achievements */}
+            <Text style={styles.achievementsModalSectionTitle}>Earned Badges</Text>
+            <View style={styles.achievementsModalGrid}>
+              {earnedAchievements.map((achievement) => (
+                <View key={achievement.id} style={styles.achievementsModalCard}>
+                  <View style={[
+                    styles.achievementsModalIconContainer,
+                    { backgroundColor: getCategoryColor(achievement.category) }
+                  ]}>
+                    <Text style={styles.achievementsModalIcon}>{achievement.icon}</Text>
+                  </View>
+                  <Text style={styles.achievementsModalCardTitle}>{achievement.title}</Text>
+                  <Text style={styles.achievementsModalCardDescription}>{achievement.description}</Text>
+                  <Text style={styles.achievementsModalCardDate}>Earned {achievement.earnedDate}</Text>
+                </View>
+              ))}
+            </View>
+
+            {/* In Progress Achievements */}
+            {inProgressAchievements.length > 0 && (
+              <>
+                <Text style={styles.achievementsModalSectionTitle}>In Progress</Text>
+                <View style={styles.achievementsModalGrid}>
+                  {inProgressAchievements.map((achievement) => (
+                    <View key={achievement.id} style={[
+                      styles.achievementsModalCard,
+                      styles.achievementsModalCardInProgress
+                    ]}>
+                      <View style={[
+                        styles.achievementsModalIconContainer,
+                        styles.achievementsModalIconContainerInProgress
+                      ]}>
+                        <Text style={styles.achievementsModalIconInProgress}>{achievement.icon}</Text>
+                      </View>
+                      <Text style={styles.achievementsModalCardTitleInProgress}>{achievement.title}</Text>
+                      <Text style={styles.achievementsModalCardDescriptionInProgress}>{achievement.description}</Text>
+                      <View style={styles.achievementsModalProgressContainer}>
+                        <View style={styles.achievementsModalProgressBar}>
+                          <View style={[
+                            styles.achievementsModalProgressFill,
+                            { width: `${achievement.progress}%` }
+                          ]} />
+                        </View>
+                        <Text style={styles.achievementsModalProgressText}>{achievement.progress}%</Text>
+                      </View>
+                    </View>
+                  ))}
+                </View>
+              </>
+            )}
+          </ScrollView>
+        </LinearGradient>
+      </Animated.View>
+    </Animated.View>
+  );
+};
+
+// Learning Path Modal Component
+const LearningPathModal = ({ visible, onClose, learningPathData }) => {
+  const slideAnim = useRef(new Animated.Value(height)).current;
+  const opacityAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    if (visible) {
+      Animated.parallel([
+        Animated.timing(slideAnim, {
+          toValue: 0,
+          duration: 300,
+          useNativeDriver: true,
+        }),
+        Animated.timing(opacityAnim, {
+          toValue: 1,
+          duration: 300,
+          useNativeDriver: true,
+        }),
+      ]).start();
+    } else {
+      Animated.parallel([
+        Animated.timing(slideAnim, {
+          toValue: height,
+          duration: 250,
+          useNativeDriver: true,
+        }),
+        Animated.timing(opacityAnim, {
+          toValue: 0,
+          duration: 250,
+          useNativeDriver: true,
+        }),
+      ]).start();
+    }
+  }, [visible]);
+
+  if (!visible) return null;
+
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'completed': return '#58CC67';
+      case 'current': return '#3AB1FF';
+      case 'locked': return 'rgba(255, 255, 255, 0.3)';
+      default: return '#FFFFFF';
+    }
+  };
+
+  const getStatusIcon = (status) => {
+    switch (status) {
+      case 'completed': return '✓';
+      case 'current': return '▶';
+      case 'locked': return '🔒';
+      default: return '●';
+    }
+  };
+
+  return (
+    <Animated.View style={[styles.learningPathModalOverlay, { opacity: opacityAnim }]}>
+      <TouchableOpacity 
+        style={styles.learningPathModalBackdrop} 
+        onPress={onClose}
+        activeOpacity={1}
+      />
+      <Animated.View 
+        style={[
+          styles.learningPathModalContainer,
+          { transform: [{ translateY: slideAnim }] }
+        ]}
+      >
+        <LinearGradient
+          colors={['#58CC67', '#3AB1FF', '#7C3AED']}
+          locations={[0, 0.5, 1]}
+          style={styles.learningPathModalGradient}
+        >
+          {/* Modal Header */}
+          <View style={styles.learningPathModalHeader}>
+            <View style={styles.learningPathModalHeaderContent}>
+              <Text style={styles.learningPathModalTitle}>Learning Journey</Text>
+              <Text style={styles.learningPathModalSubtitle}>Your Spanish course roadmap</Text>
+            </View>
+            <TouchableOpacity onPress={onClose} style={styles.learningPathModalCloseButton}>
+              <Text style={styles.learningPathModalCloseText}>✕</Text>
+            </TouchableOpacity>
+          </View>
+
+          {/* Learning Path */}
+          <ScrollView 
+            style={styles.learningPathModalList}
+            showsVerticalScrollIndicator={false}
+          >
+            <View style={styles.learningPathContainer}>
+              {learningPathData.map((unit, unitIndex) => (
+                <View key={unit.id} style={styles.learningPathUnit}>
+                  {/* Unit Header */}
+                  <View style={styles.learningPathUnitHeader}>
+                    <View style={[
+                      styles.learningPathUnitIcon,
+                      { backgroundColor: getStatusColor(unit.status) }
+                    ]}>
+                      <Text style={styles.learningPathUnitIconText}>
+                        {getStatusIcon(unit.status)}
+                      </Text>
+                    </View>
+                    <View style={styles.learningPathUnitInfo}>
+                      <Text style={[
+                        styles.learningPathUnitTitle,
+                        unit.status === 'locked' && styles.learningPathUnitTitleLocked
+                      ]}>
+                        {unit.title}
+                      </Text>
+                      <Text style={styles.learningPathUnitProgress}>
+                        {unit.progress}% Complete
+                      </Text>
+                    </View>
+                  </View>
+
+                  {/* Unit Progress Bar */}
+                  <View style={styles.learningPathUnitProgressBar}>
+                    <View style={[
+                      styles.learningPathUnitProgressFill,
+                      { 
+                        width: `${unit.progress}%`,
+                        backgroundColor: getStatusColor(unit.status)
+                      }
+                    ]} />
+                  </View>
+
+                  {/* Lessons */}
+                  <View style={styles.learningPathLessons}>
+                    {unit.lessons.map((lesson, lessonIndex) => (
+                      <View key={lesson.id} style={styles.learningPathLesson}>
+                        <View style={[
+                          styles.learningPathLessonIcon,
+                          { backgroundColor: getStatusColor(lesson.status) }
+                        ]}>
+                          <Text style={styles.learningPathLessonIconText}>
+                            {getStatusIcon(lesson.status)}
+                          </Text>
+                        </View>
+                        <View style={styles.learningPathLessonInfo}>
+                          <Text style={[
+                            styles.learningPathLessonTitle,
+                            lesson.status === 'locked' && styles.learningPathLessonTitleLocked
+                          ]}>
+                            {lesson.title}
+                          </Text>
+                          {lesson.status === 'completed' && (
+                            <Text style={styles.learningPathLessonXP}>+{lesson.xp} XP</Text>
+                          )}
+                        </View>
+                        {lesson.status === 'current' && (
+                          <View style={styles.learningPathCurrentIndicator}>
+                            <Text style={styles.learningPathCurrentText}>Current</Text>
+                          </View>
+                        )}
+                      </View>
+                    ))}
+                  </View>
+
+                  {/* Connecting Line */}
+                  {unitIndex < learningPathData.length - 1 && (
+                    <View style={styles.learningPathConnector} />
+                  )}
+                </View>
+              ))}
+            </View>
+          </ScrollView>
+        </LinearGradient>
+      </Animated.View>
+    </Animated.View>
+  );
+};
+
+const StreakModal = ({ visible, onClose, streakData }) => {
+  const slideAnim = useRef(new Animated.Value(300)).current;
+  const backdropOpacity = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    if (visible) {
+      Animated.parallel([
+        Animated.timing(slideAnim, {
+          toValue: 0,
+          duration: 300,
+          useNativeDriver: true,
+        }),
+        Animated.timing(backdropOpacity, {
+          toValue: 1,
+          duration: 300,
+          useNativeDriver: true,
+        }),
+      ]).start();
+    } else {
+      Animated.parallel([
+        Animated.timing(slideAnim, {
+          toValue: 300,
+          duration: 300,
+          useNativeDriver: true,
+        }),
+        Animated.timing(backdropOpacity, {
+          toValue: 0,
+          duration: 300,
+          useNativeDriver: true,
+        }),
+      ]).start();
+    }
+  }, [visible]);
+
+  const getRecommendationIcon = (type) => {
+    switch (type) {
+      case 'review': return '📚';
+      case 'practice': return '🎯';
+      case 'challenge': return '⚡';
+      case 'lesson': return '📖';
+      default: return '✨';
+    }
+  };
+
+  const getRecommendationColor = (type) => {
+    switch (type) {
+      case 'review': return '#4ECDC4';
+      case 'practice': return '#45B7D1';
+      case 'challenge': return '#96CEB4';
+      case 'lesson': return '#FFEAA7';
+      default: return '#DDA0DD';
+    }
+  };
+
+  if (!visible) return null;
+
+  return (
+    <View style={styles.streakModalOverlay}>
+      <Animated.View 
+        style={[
+          styles.streakModalBackdrop,
+          { opacity: backdropOpacity }
+        ]}
+      >
+        <TouchableWithoutFeedback onPress={onClose}>
+          <View style={styles.streakModalBackdrop} />
+        </TouchableWithoutFeedback>
+      </Animated.View>
+      
+      <Animated.View 
+        style={[
+          styles.streakModalContainer,
+          { transform: [{ translateY: slideAnim }] }
+        ]}
+      >
+        <LinearGradient
+          colors={['rgba(78, 205, 196, 0.95)', 'rgba(69, 183, 209, 0.95)', 'rgba(150, 206, 180, 0.95)']}
+          style={styles.streakModalGradient}
+        >
+          {/* Header */}
+          <View style={styles.streakModalHeader}>
+            <View style={styles.streakModalTitleContainer}>
+              <Text style={styles.streakModalIcon}>🔥</Text>
+              <Text style={styles.streakModalTitle}>Your Learning Journey</Text>
+            </View>
+            <TouchableOpacity onPress={onClose} style={styles.streakModalCloseButton}>
+              <Text style={styles.streakModalCloseText}>×</Text>
+            </TouchableOpacity>
+          </View>
+
+          {/* Streak Stats */}
+          <View style={styles.streakStatsContainer}>
+            <View style={styles.streakStatCard}>
+              <Text style={styles.streakStatNumber}>{streakData.currentStreak}</Text>
+              <Text style={styles.streakStatLabel}>Day Streak</Text>
+            </View>
+            <View style={styles.streakStatCard}>
+              <Text style={styles.streakStatNumber}>{streakData.longestStreak}</Text>
+              <Text style={styles.streakStatLabel}>Longest Streak</Text>
+            </View>
+            <View style={styles.streakStatCard}>
+              <Text style={styles.streakStatNumber}>{streakData.weeklyGoal}</Text>
+              <Text style={styles.streakStatLabel}>Weekly Goal</Text>
+            </View>
+          </View>
+
+          {/* Personalized Recommendations */}
+          <View style={styles.recommendationsSection}>
+            <Text style={styles.recommendationsTitle}>Recommended for You</Text>
+            
+            <ScrollView 
+              style={styles.recommendationsList}
+              showsVerticalScrollIndicator={false}
+            >
+              {streakData.recommendations.map((rec, index) => (
+                <TouchableOpacity 
+                  key={index}
+                  style={[
+                    styles.recommendationCard,
+                    { borderLeftColor: getRecommendationColor(rec.type) }
+                  ]}
+                  onPress={() => console.log('Recommendation pressed:', rec.title)}
+                >
+                  <View style={styles.recommendationContent}>
+                    <View style={styles.recommendationHeader}>
+                      <Text style={styles.recommendationIcon}>
+                        {getRecommendationIcon(rec.type)}
+                      </Text>
+                      <View style={styles.recommendationInfo}>
+                        <Text style={styles.recommendationTitle}>{rec.title}</Text>
+                        <Text style={styles.recommendationSubtitle}>{rec.subtitle}</Text>
+                      </View>
+                      <View style={styles.recommendationMeta}>
+                        <Text style={styles.recommendationTime}>{rec.estimatedTime}</Text>
+                        <Text style={styles.recommendationXP}>+{rec.xpReward} XP</Text>
+                      </View>
+                    </View>
+                    {rec.description && (
+                      <Text style={styles.recommendationDescription}>{rec.description}</Text>
+                    )}
+                  </View>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
+          </View>
+
+          {/* Review Reminders */}
+          <View style={styles.reviewRemindersSection}>
+            <Text style={styles.reviewRemindersTitle}>Quick Review</Text>
+            <Text style={styles.reviewRemindersSubtitle}>
+              {streakData.reviewItems.length} items need review
+            </Text>
+            
+            <View style={styles.reviewItemsContainer}>
+              {streakData.reviewItems.slice(0, 3).map((item, index) => (
+                <TouchableOpacity 
+                  key={index}
+                  style={styles.reviewItemCard}
+                  onPress={() => console.log('Review item pressed:', item.word)}
+                >
+                  <Text style={styles.reviewItemWord}>{item.word}</Text>
+                  <Text style={styles.reviewItemTranslation}>{item.translation}</Text>
+                  <Text style={styles.reviewItemDue}>Due {item.dueDate}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+            
+            {streakData.reviewItems.length > 3 && (
+              <TouchableOpacity style={styles.viewAllReviewButton}>
+                <Text style={styles.viewAllReviewText}>
+                  View All {streakData.reviewItems.length} Items
+                </Text>
+              </TouchableOpacity>
+            )}
+          </View>
+        </LinearGradient>
+      </Animated.View>
+    </View>
+  );
+};
+
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
   const [screen, setScreen] = useState('home');
@@ -406,6 +1297,11 @@ export default function App() {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [showResult, setShowResult] = useState(false);
   const [isInputFocused, setIsInputFocused] = useState(false);
+  const [uploadCount, setUploadCount] = useState(0); // Track uploads for unlocking features
+  const [wordBank, setWordBank] = useState([]); // Store collected vocabulary
+  
+  console.log('App component rendered - Current screen:', screen);
+  console.log('App component rendered - Notes state:', notes);
   
   // Recent lessons state - Spanish-focused examples
   const [recentLessons] = useState([
@@ -488,6 +1384,485 @@ export default function App() {
     }
   ]);
 
+  // Game modes data
+  const [gameModes] = useState([
+    {
+      id: 1,
+      title: "Upload & Learn",
+      description: "Add notes, photos, or voice recordings to get AI-powered reviews",
+      icon: <DocumentIcon size={32} color="#FFFFFF" />,
+      color: "rgba(88, 204, 103, 0.9)",
+      badge: "START HERE",
+      badgeColor: "#10B981",
+      requiresUploads: 0,
+      route: "upload"
+    },
+    {
+      id: 2,
+      title: "Quiz Challenge",
+      description: "Test your knowledge with personalized quizzes",
+      icon: <AwardIcon size={32} color="#FFFFFF" />,
+      color: "rgba(124, 58, 237, 0.9)",
+      badge: "UNLOCK SOON",
+      badgeColor: "#7C3AED",
+      requiresUploads: 3,
+      route: "quiz"
+    },
+    {
+      id: 3,
+      title: "AI Chat Practice",
+      description: "Practice conversations with AI in real scenarios",
+      icon: <ChatIcon size={32} color="#FFFFFF" />,
+      color: "rgba(58, 177, 255, 0.9)",
+      badge: "COMING SOON",
+      badgeColor: "#3B82F6",
+      requiresUploads: 0,
+      route: "chat"
+    }
+  ]);
+
+  // Word Bank initial data - Spanish vocabulary
+  const [initialWordBank] = useState([
+    {
+      id: 1,
+      word: "estudiar",
+      translation: "to study",
+      category: "verbs",
+      difficulty: "beginner",
+      dateAdded: "Today",
+      source: "upload",
+      example: "Me gusta estudiar español",
+      exampleTranslation: "I like to study Spanish"
+    },
+    {
+      id: 2,
+      word: "biblioteca",
+      translation: "library",
+      category: "places",
+      difficulty: "beginner",
+      dateAdded: "Yesterday",
+      source: "ai_review",
+      example: "La biblioteca está cerrada",
+      exampleTranslation: "The library is closed"
+    },
+    {
+      id: 3,
+      word: "subjuntivo",
+      translation: "subjunctive",
+      category: "grammar",
+      difficulty: "advanced",
+      dateAdded: "Dec 28",
+      source: "upload",
+      example: "Espero que estudies el subjuntivo",
+      exampleTranslation: "I hope you study the subjunctive"
+    },
+    {
+      id: 4,
+      word: "aeropuerto",
+      translation: "airport",
+      category: "travel",
+      difficulty: "intermediate",
+      dateAdded: "Dec 27",
+      source: "ai_review",
+      example: "El aeropuerto está muy lejos",
+      exampleTranslation: "The airport is very far"
+    },
+    {
+      id: 5,
+      word: "restaurante",
+      translation: "restaurant",
+      category: "places",
+      difficulty: "beginner",
+      dateAdded: "Dec 26",
+      source: "upload",
+      example: "Este restaurante es muy bueno",
+      exampleTranslation: "This restaurant is very good"
+    },
+    {
+      id: 6,
+      word: "imperfecto",
+      translation: "imperfect tense",
+      category: "grammar",
+      difficulty: "intermediate",
+      dateAdded: "Dec 25",
+      source: "ai_review",
+      example: "Cuando era niño, jugaba mucho",
+      exampleTranslation: "When I was a child, I used to play a lot"
+    }
+  ]);
+
+  // Friends data for ranking modal - sorted by rank
+  const [friendsData] = useState([
+    {
+      id: 1,
+      name: "Maria",
+      profilePic: require('./assets/one.png'),
+      weeklyXP: 1580,
+      streak: 12,
+      rank: 1,
+      isCurrentUser: false
+    },
+    {
+      id: 2,
+      name: "Carlos",
+      profilePic: require('./assets/two.png'),
+      weeklyXP: 1420,
+      streak: 8,
+      rank: 2,
+      isCurrentUser: false
+    },
+    {
+      id: 3,
+      name: "Zander",
+      profilePic: require('./assets/zander.jpg'),
+      weeklyXP: 1250,
+      streak: 5,
+      rank: 3,
+      isCurrentUser: true
+    },
+    {
+      id: 4,
+      name: "Sophie",
+      profilePic: require('./assets/three.png'),
+      weeklyXP: 980,
+      streak: 3,
+      rank: 4,
+      isCurrentUser: false
+    },
+    {
+      id: 5,
+      name: "Diego",
+      profilePic: require('./assets/four.png'),
+      weeklyXP: 850,
+      streak: 15,
+      rank: 5,
+      isCurrentUser: false
+    },
+    {
+      id: 6,
+      name: "Emma",
+      profilePic: require('./assets/five.png'),
+      weeklyXP: 720,
+      streak: 2,
+      rank: 6,
+      isCurrentUser: false
+    },
+    {
+      id: 7,
+      name: "Alex",
+      profilePic: require('./assets/six.png'),
+      weeklyXP: 650,
+      streak: 7,
+      rank: 7,
+      isCurrentUser: false
+    },
+    {
+      id: 8,
+      name: "Luna",
+      profilePic: require('./assets/seven.png'),
+      weeklyXP: 590,
+      streak: 1,
+      rank: 8,
+      isCurrentUser: false
+    }
+  ]);
+
+  // Achievements data for badges modal
+  const [achievementsData] = useState([
+    {
+      id: 1,
+      title: "First Steps",
+      description: "Complete your first lesson",
+      icon: "🎯",
+      category: "learning",
+      earned: true,
+      earnedDate: "Dec 28, 2024",
+      progress: 100
+    },
+    {
+      id: 2,
+      title: "Streak Master",
+      description: "Maintain a 5-day learning streak",
+      icon: "🔥",
+      category: "consistency",
+      earned: true,
+      earnedDate: "Dec 27, 2024",
+      progress: 100
+    },
+    {
+      id: 3,
+      title: "Word Collector",
+      description: "Add 10 words to your Word Bank",
+      icon: "📚",
+      category: "vocabulary",
+      earned: true,
+      earnedDate: "Dec 26, 2024",
+      progress: 100
+    },
+    {
+      id: 4,
+      title: "Social Butterfly",
+      description: "Add 5 friends to your network",
+      icon: "👥",
+      category: "social",
+      earned: true,
+      earnedDate: "Dec 25, 2024",
+      progress: 100
+    },
+    {
+      id: 5,
+      title: "Grammar Guru",
+      description: "Master 3 grammar concepts",
+      icon: "✍️",
+      category: "grammar",
+      earned: true,
+      earnedDate: "Dec 24, 2024",
+      progress: 100
+    },
+    {
+      id: 6,
+      title: "Upload Expert",
+      description: "Upload 5 lesson materials",
+      icon: "📤",
+      category: "content",
+      earned: true,
+      earnedDate: "Dec 23, 2024",
+      progress: 100
+    },
+    {
+      id: 7,
+      title: "Quiz Champion",
+      description: "Score 100% on 3 quizzes",
+      icon: "🏆",
+      category: "performance",
+      earned: true,
+      earnedDate: "Dec 22, 2024",
+      progress: 100
+    },
+    {
+      id: 8,
+      title: "Review Master",
+      description: "Complete 10 lesson reviews",
+      icon: "🔍",
+      category: "review",
+      earned: true,
+      earnedDate: "Dec 21, 2024",
+      progress: 100
+    },
+    {
+      id: 9,
+      title: "Speed Learner",
+      description: "Complete 5 lessons in one day",
+      icon: "⚡",
+      category: "speed",
+      earned: true,
+      earnedDate: "Dec 20, 2024",
+      progress: 100
+    },
+    {
+      id: 10,
+      title: "Perfectionist",
+      description: "Get 10 perfect scores",
+      icon: "💯",
+      category: "accuracy",
+      earned: true,
+      earnedDate: "Dec 19, 2024",
+      progress: 100
+    },
+    {
+      id: 11,
+      title: "Conversation Starter",
+      description: "Complete 5 AI chat sessions",
+      icon: "💬",
+      category: "conversation",
+      earned: false,
+      earnedDate: null,
+      progress: 60
+    },
+    {
+      id: 12,
+      title: "Marathon Learner",
+      description: "Study for 30 days straight",
+      icon: "🏃",
+      category: "endurance",
+      earned: false,
+      earnedDate: null,
+      progress: 17
+    }
+  ]);
+
+  // Learning Path data for roadmap visualization
+  const [learningPathData] = useState([
+    {
+      id: 1,
+      title: "Spanish Basics",
+      type: "unit",
+      status: "completed",
+      progress: 100,
+      lessons: [
+        { id: 1, title: "Greetings", status: "completed", xp: 25 },
+        { id: 2, title: "Numbers", status: "completed", xp: 25 },
+        { id: 3, title: "Colors", status: "completed", xp: 25 },
+        { id: 4, title: "Family", status: "completed", xp: 25 }
+      ]
+    },
+    {
+      id: 2,
+      title: "Present Tense",
+      type: "unit",
+      status: "completed",
+      progress: 100,
+      lessons: [
+        { id: 5, title: "Ser vs Estar", status: "completed", xp: 30 },
+        { id: 6, title: "Regular Verbs", status: "completed", xp: 30 },
+        { id: 7, title: "Irregular Verbs", status: "completed", xp: 30 }
+      ]
+    },
+    {
+      id: 3,
+      title: "Daily Activities",
+      type: "unit",
+      status: "current",
+      progress: 75,
+      lessons: [
+        { id: 8, title: "Morning Routine", status: "completed", xp: 35 },
+        { id: 9, title: "Work & Study", status: "completed", xp: 35 },
+        { id: 10, title: "Evening Activities", status: "current", xp: 0 },
+        { id: 11, title: "Weekend Plans", status: "locked", xp: 0 }
+      ]
+    },
+    {
+      id: 4,
+      title: "Past Tense",
+      type: "unit",
+      status: "locked",
+      progress: 0,
+      lessons: [
+        { id: 12, title: "Preterite Tense", status: "locked", xp: 0 },
+        { id: 13, title: "Imperfect Tense", status: "locked", xp: 0 },
+        { id: 14, title: "Past vs Present", status: "locked", xp: 0 }
+      ]
+    },
+    {
+      id: 5,
+      title: "Travel & Places",
+      type: "unit",
+      status: "locked",
+      progress: 0,
+      lessons: [
+        { id: 15, title: "Directions", status: "locked", xp: 0 },
+        { id: 16, title: "Transportation", status: "locked", xp: 0 },
+        { id: 17, title: "Hotels & Restaurants", status: "locked", xp: 0 },
+        { id: 18, title: "Asking for Help", status: "locked", xp: 0 }
+      ]
+    },
+    {
+      id: 6,
+      title: "Advanced Grammar",
+      type: "unit",
+      status: "locked",
+      progress: 0,
+      lessons: [
+        { id: 19, title: "Subjunctive Mood", status: "locked", xp: 0 },
+        { id: 20, title: "Conditional Tense", status: "locked", xp: 0 },
+        { id: 21, title: "Complex Sentences", status: "locked", xp: 0 }
+      ]
+    }
+  ]);
+
+  // Streak data for customized learning modal
+  const [streakData] = useState({
+    currentStreak: 5,
+    longestStreak: 12,
+    weeklyGoal: 7,
+    recommendations: [
+      {
+        type: "review",
+        title: "Quick Review Session",
+        subtitle: "Past Tense Verbs",
+        description: "Review 8 verbs you learned last week to strengthen retention",
+        estimatedTime: "5 min",
+        xpReward: 15
+      },
+      {
+        type: "practice",
+        title: "Grammar Practice",
+        subtitle: "Ser vs Estar",
+        description: "Practice distinguishing between ser and estar in context",
+        estimatedTime: "10 min",
+        xpReward: 25
+      },
+      {
+        type: "challenge",
+        title: "Speed Challenge",
+        subtitle: "Family Vocabulary",
+        description: "Test your family vocabulary with a timed challenge",
+        estimatedTime: "3 min",
+        xpReward: 20
+      },
+      {
+        type: "lesson",
+        title: "New Lesson",
+        subtitle: "Evening Activities",
+        description: "Continue your Daily Activities unit with evening vocabulary",
+        estimatedTime: "15 min",
+        xpReward: 35
+      },
+      {
+        type: "review",
+        title: "Spaced Repetition",
+        subtitle: "Colors & Numbers",
+        description: "Review basic vocabulary using spaced repetition method",
+        estimatedTime: "7 min",
+        xpReward: 18
+      }
+    ],
+    reviewItems: [
+      {
+        word: "hermana",
+        translation: "sister",
+        dueDate: "today"
+      },
+      {
+        word: "cocinar",
+        translation: "to cook",
+        dueDate: "today"
+      },
+      {
+        word: "azul",
+        translation: "blue",
+        dueDate: "tomorrow"
+      },
+      {
+        word: "trabajar",
+        translation: "to work",
+        dueDate: "today"
+      },
+      {
+        word: "madre",
+        translation: "mother",
+        dueDate: "2 days"
+      },
+      {
+        word: "estudiar",
+        translation: "to study",
+        dueDate: "today"
+      },
+      {
+        word: "verde",
+        translation: "green",
+        dueDate: "tomorrow"
+      }
+    ]
+  });
+
+  // Initialize word bank with sample data
+  useEffect(() => {
+    if (wordBank.length === 0) {
+      setWordBank(initialWordBank);
+    }
+  }, []);
+
   // Splash screen animations - Tinder-like kinetic design
   const logoScale = useRef(new Animated.Value(0.8)).current;
   const gradientShift = useRef(new Animated.Value(0)).current;
@@ -502,6 +1877,13 @@ export default function App() {
   const screenScale = useRef(new Animated.Value(1)).current;
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [nextScreen, setNextScreen] = useState(null);
+  
+  // Progress screen interactive states
+  const [pressedStat, setPressedStat] = useState(null);
+  const [showFriendsModal, setShowFriendsModal] = useState(false);
+  const [showAchievementsModal, setShowAchievementsModal] = useState(false);
+  const [showLearningPath, setShowLearningPath] = useState(false);
+  const [showStreakModal, setShowStreakModal] = useState(false);
 
   useEffect(() => {
     if (showSplash) {
@@ -734,14 +2116,55 @@ export default function App() {
   };
 
   const handleTextSubmit = () => {
+    console.log('handleTextSubmit called');
+    console.log('Current notes:', notes);
+    console.log('Notes length:', notes.length);
+    console.log('Notes trimmed length:', notes.trim().length);
+    
     if (notes.trim().length > 0) {
+      console.log('Notes validation passed, setting review...');
+      
+      // Simulate adding new words to Word Bank from AI review
+      const newWords = [
+        {
+          id: Date.now() + 1,
+          word: "conjugar",
+          translation: "to conjugate",
+          category: "verbs",
+          difficulty: "intermediate",
+          dateAdded: "Just now",
+          source: "ai_review",
+          example: "Es importante conjugar los verbos correctamente",
+          exampleTranslation: "It's important to conjugate verbs correctly"
+        },
+        {
+          id: Date.now() + 2,
+          word: "rutina",
+          translation: "routine",
+          category: "general",
+          difficulty: "beginner",
+          dateAdded: "Just now",
+          source: "ai_review",
+          example: "Mi rutina diaria incluye estudiar español",
+          exampleTranslation: "My daily routine includes studying Spanish"
+        }
+      ];
+      
+      // Add new words to word bank
+      setWordBank(prevWords => [...newWords, ...prevWords]);
+      
       setReview(
         `🧠 AI Review Based on Your Notes:\n\n` +
         `📘 Key Vocabulary:\n- casa (house)\n- aprender (to learn)\n- español (Spanish)\n- práctica (practice)\n\n` +
         `💬 Practice Sentences:\n"Estoy aprendiendo español en casa."\n"Necesito más práctica con vocabulario."\n"Mi casa es muy bonita."\n\n` +
+        `✨ New Words Added to Your Word Bank:\n` +
+        `• conjugar (to conjugate)\n` +
+        `• rutina (routine)\n\n` +
         `📝 Interactive Quiz:\nLet's practice what you've learned!`
       );
       animateToScreen('review');
+    } else {
+      console.log('Notes validation failed - not enough content');
     }
   };
 
@@ -780,6 +2203,18 @@ export default function App() {
     animateToScreen('quiz');
   };
 
+  const handleGameModeSelect = (gameMode) => {
+    console.log('Game mode selected:', gameMode);
+    if (gameMode.route === 'upload') {
+      animateToScreen('upload');
+    } else if (gameMode.route === 'quiz') {
+      animateToScreen('quiz');
+    } else if (gameMode.route === 'chat') {
+      // For now, just show a placeholder
+      console.log('AI Chat coming soon!');
+    }
+  };
+
   // Badge configuration function
   const getBadgeConfig = (badgeType) => {
     const badgeConfigs = {
@@ -815,6 +2250,78 @@ export default function App() {
       }
     };
     return badgeConfigs[badgeType] || badgeConfigs.review;
+  };
+
+  // Category configuration function for Word Bank
+  const getCategoryConfig = (category) => {
+    const categoryConfigs = {
+      verbs: {
+        text: "Verbs",
+        backgroundColor: "#58CC67", // Green from our gradient
+        textColor: "#FFFFFF"
+      },
+      places: {
+        text: "Places", 
+        backgroundColor: "#3AB1FF", // Blue from our gradient
+        textColor: "#FFFFFF"
+      },
+      grammar: {
+        text: "Grammar",
+        backgroundColor: "#7C3AED", // Purple from our gradient
+        textColor: "#FFFFFF"
+      },
+      travel: {
+        text: "Travel",
+        backgroundColor: "#40E0D0", // Turquoise from our gradient
+        textColor: "#FFFFFF"
+      },
+      food: {
+        text: "Food",
+        backgroundColor: "#FF6B6B", // Coral accent
+        textColor: "#FFFFFF"
+      },
+      general: {
+        text: "General",
+        backgroundColor: "rgba(255, 255, 255, 0.25)", // Glass effect
+        textColor: "#FFFFFF"
+      }
+    };
+    return categoryConfigs[category] || categoryConfigs.general;
+  };
+
+  // Progress screen stat handlers
+  const handleStatPress = (statType) => {
+    setPressedStat(statType);
+    // Add haptic feedback for premium feel
+    if (Platform.OS === 'ios') {
+      // Note: Would need expo-haptics for real implementation
+      console.log(`Haptic feedback for ${statType}`);
+    }
+    
+    // Handle specific stat actions
+    if (statType === 'friends') {
+      setTimeout(() => {
+        setShowFriendsModal(true);
+      }, 150); // Small delay for press animation
+    } else if (statType === 'badges') {
+      setTimeout(() => {
+        setShowAchievementsModal(true);
+      }, 150); // Small delay for press animation
+    } else if (statType === 'courses') {
+      setTimeout(() => {
+        setShowLearningPath(true);
+      }, 150); // Small delay for press animation
+    } else if (statType === 'streak') {
+      setTimeout(() => {
+        setShowStreakModal(true);
+      }, 150); // Small delay for press animation
+    } else {
+      console.log(`${statType} stat pressed - ready for future phases`);
+    }
+  };
+
+  const handleStatPressOut = () => {
+    setPressedStat(null);
   };
 
   const SplashScreen = () => {
@@ -916,7 +2423,7 @@ export default function App() {
         <View style={styles.actionContainer}>
           <TouchableOpacity 
             style={styles.premiumPillButton} 
-            onPress={() => animateToScreen('upload', 'lesson')}
+            onPress={() => animateToScreen('gamemode', 'lesson')}
             activeOpacity={0.85}
           >
             <LinearGradient
@@ -966,9 +2473,74 @@ export default function App() {
             getBadgeConfig={getBadgeConfig}
           />
         </View>
+
+        {/* Word Bank Section */}
+        <View style={styles.wordBankContainer}>
+          <View style={styles.sectionHeader}>
+            <View style={styles.sectionTitleContainer}>
+              <BookIcon size={22} color="#FFFFFF" />
+              <Text style={styles.sectionTitle}>Word Bank</Text>
+            </View>
+            <Text style={styles.sectionSubtitle}>Your vocabulary collection</Text>
+          </View>
+          
+          <WordBankCarousel 
+            words={wordBank}
+            getCategoryConfig={getCategoryConfig}
+          />
+        </View>
       </View>
               </ScrollView>
             </SafeAreaView>
+    </LinearGradient>
+  );
+
+  const GameModeScreen = () => (
+    <LinearGradient
+      colors={['#58CC67', '#3AB1FF', '#7C3AED']}
+      locations={[0, 0.5, 1]}
+      style={styles.gradientContainer}
+    >
+      <StatusBar barStyle="light-content" />
+      <SafeAreaView style={styles.safeArea}>
+        {/* Static Back Button */}
+        <View style={styles.screenshotUploadHeaderFixed}>
+          <TouchableOpacity 
+            onPress={() => animateToScreen('home')}
+            style={styles.screenshotBackButtonLarge}
+            hitSlop={{top: 16, bottom: 16, left: 16, right: 16}}
+          >
+            <BackArrowIcon size={28} color="#FFFFFF" />
+          </TouchableOpacity>
+        </View>
+
+        {/* League Status */}
+        <View style={styles.leagueStatusContainer}>
+          <View style={styles.leagueStatusPill}>
+            <CrownIcon size={18} color="#FFD700" />
+            <Text style={styles.leagueStatusText}>Gold Status</Text>
+          </View>
+        </View>
+
+        <ScrollView 
+          contentContainerStyle={styles.gameModeScreenContainer}
+          showsVerticalScrollIndicator={false}
+          bounces={false}
+        >
+          {/* Title Section */}
+          <View style={styles.gameModeScreenTitleSection}>
+            <Text style={styles.gameModeScreenTitle}>Choose Your Learning Mode</Text>
+            <Text style={styles.gameModeScreenSubtitle}>Select how you'd like to learn today</Text>
+          </View>
+          
+          {/* Game Mode Carousel */}
+          <GameModeCarousel 
+            gameModes={gameModes}
+            onGameModeSelect={handleGameModeSelect}
+            uploadCount={uploadCount}
+          />
+        </ScrollView>
+      </SafeAreaView>
     </LinearGradient>
   );
 
@@ -998,7 +2570,7 @@ export default function App() {
           {/* Title Section */}
           <View style={styles.screenshotUploadTitleSectionImproved}>
             <Text style={styles.screenshotUploadTitle}>Today's Lesson</Text>
-            <Text style={styles.screenshotUploadSubtitle}>Add notes, snap a photo, or record your voice to start.</Text>
+            <Text style={styles.screenshotUploadSubtitle}>Upload your lesson for tday by adding notes, snapping a photo, or recording your voice to start.</Text>
           </View>
           
           {/* Main Content Card */}
@@ -1015,7 +2587,13 @@ export default function App() {
                     placeholder="Type or paste your class notes here..."
                     placeholderTextColor="rgba(255, 255, 255, 0.8)"
                     value={notes}
-                    onChangeText={setNotes}
+                    onChangeText={(text) => {
+                      console.log('TextInput onChangeText called with:', text);
+                      console.log('Current notes state:', notes);
+                      console.log('Text length:', text.length);
+                      setNotes(text);
+                      console.log('After setNotes called');
+                    }}
                     style={[styles.screenshotUploadTextInput, isInputFocused && styles.screenshotUploadTextInputFocused]}
                     multiline={true}
                     numberOfLines={6}
@@ -1024,8 +2602,14 @@ export default function App() {
                     autoCorrect={true}
                     returnKeyType="default"
                     blurOnSubmit={false}
-                    onFocus={() => setIsInputFocused(true)}
-                    onBlur={() => setIsInputFocused(false)}
+                    onFocus={() => {
+                      console.log('TextInput onFocus called');
+                      setIsInputFocused(true);
+                    }}
+                    onBlur={() => {
+                      console.log('TextInput onBlur called');
+                      setIsInputFocused(false);
+                    }}
                     editable={true}
                     selectTextOnFocus={false}
                   />
@@ -1068,7 +2652,19 @@ export default function App() {
                       <UploadIcon size={32} color="#3AB1FF" />
                     </View>
                     <Text style={styles.screenshotUploadMediaButtonText}>Upload</Text>
-                    <Text style={styles.screenshotUploadMediaButtonSubtext}>Choose photo </Text>
+                    <Text style={styles.screenshotUploadMediaButtonSubtext}>Choose photo</Text>
+                  </TouchableOpacity>
+                  
+                  <TouchableOpacity 
+                    style={styles.screenshotUploadMediaButtonImproved} 
+                    onPress={handleVoiceRecord}
+                    activeOpacity={0.8}
+                  >
+                    <View style={styles.screenshotUploadMediaIconContainerWhite}>
+                      <MicIcon size={32} color="#7C3AED" />
+                    </View>
+                    <Text style={styles.screenshotUploadMediaButtonText}>Voice</Text>
+                    <Text style={styles.screenshotUploadMediaButtonSubtext}>Record audio</Text>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -1099,7 +2695,7 @@ export default function App() {
             <LinearGradient
               colors={(!notes.trim() && !image) ? 
                 ['#E0E0E0', '#B0B0B0'] : 
-                ['#FF5A5F', '#FFB88C']
+                ['#815BFF', '#BD8CFF']
               }
               start={{x: 0, y: 0}}
               end={{x: 1, y: 1}}
@@ -1124,29 +2720,87 @@ export default function App() {
     >
       <StatusBar barStyle="light-content" />
       <SafeAreaView style={styles.safeArea}>
-        <ScrollView contentContainerStyle={styles.reviewContainer}>
-        <View style={styles.backButton}>
-          <TouchableOpacity onPress={() => animateToScreen('upload')}>
-            <Text style={styles.backButtonText}>← Back</Text>
-          </TouchableOpacity>
-        </View>
-        
-        <Text style={styles.screenTitle}>🧠 Your AI Review</Text>
-        
-        <View style={styles.reviewCard}>
-          <Text style={styles.reviewText}>{review}</Text>
-        </View>
-        
-        <TouchableOpacity style={styles.primaryButton} onPress={() => animateToScreen('quiz')}>
-          <LinearGradient
-            colors={['#7C3AED', '#A855F7']}
-            style={styles.buttonGradient}
+        <ScrollView contentContainerStyle={styles.reviewScreenContainer}>
+          {/* Header Section */}
+          <View style={styles.reviewHeader}>
+            <TouchableOpacity 
+              onPress={() => animateToScreen('upload')}
+              style={styles.reviewBackButton}
+            >
+              <BackArrowIcon size={24} color="#FFFFFF" />
+            </TouchableOpacity>
+            
+            <Text style={styles.reviewTitle}>AI Review</Text>
+            <View style={styles.reviewHeaderSpacer} />
+          </View>
+          
+          {/* Main Glass Morphism Container */}
+          <View style={styles.reviewGlassContainer}>
+            <View style={styles.reviewGlassContent}>
+              {/* Key Vocabulary Section */}
+              <View style={styles.reviewSection}>
+                <View style={styles.reviewSubsectionHeader}>
+                  <BookIcon size={18} color="#FFFFFF" />
+                  <Text style={styles.reviewSubsectionTitle}>Key Vocabulary:</Text>
+                </View>
+                <Text style={styles.reviewListText}>- casa (house)</Text>
+                <Text style={styles.reviewListText}>- aprender (to learn)</Text>
+                <Text style={styles.reviewListText}>- español (Spanish)</Text>
+                <Text style={styles.reviewListText}>- práctica (practice)</Text>
+              </View>
+              
+              {/* Practice Sentences Section */}
+              <View style={styles.reviewSection}>
+                <View style={styles.reviewSubsectionHeader}>
+                  <ChatIcon size={18} color="#FFFFFF" />
+                  <Text style={styles.reviewSubsectionTitle}>Practice Sentences:</Text>
+                </View>
+                <Text style={styles.reviewSentenceText}>"Estoy aprendiendo español en casa."</Text>
+                <Text style={styles.reviewSentenceText}>"Necesito más práctica con vocabulario."</Text>
+                <Text style={styles.reviewSentenceText}>"Mi casa es muy bonita."</Text>
+              </View>
+              
+              {/* New Words Section */}
+              <View style={styles.reviewSection}>
+                <View style={styles.reviewSubsectionHeader}>
+                  <RocketIcon size={18} color="#FFFFFF" />
+                  <Text style={styles.reviewSubsectionTitle}>New Words Added to Your Word Bank:</Text>
+                </View>
+                <Text style={styles.reviewListText}>• conjugar (to conjugate)</Text>
+                <Text style={styles.reviewListText}>• rutina (routine)</Text>
+              </View>
+              
+              {/* Interactive Quiz Section */}
+              <View style={styles.reviewSection}>
+                <View style={styles.reviewSubsectionHeader}>
+                  <AwardIcon size={18} color="#FFFFFF" />
+                  <Text style={styles.reviewSubsectionTitle}>Interactive Quiz:</Text>
+                </View>
+                <Text style={styles.reviewText}>Let's practice what you've learned!</Text>
+              </View>
+            </View>
+          </View>
+          
+          {/* Bottom Button */}
+          <TouchableOpacity 
+            style={styles.reviewQuizButton} 
+            onPress={() => animateToScreen('quiz')}
+            activeOpacity={0.92}
           >
-            <Text style={styles.primaryButtonText}>🎮 Start Practice Quiz</Text>
-          </LinearGradient>
-        </TouchableOpacity>
-      </ScrollView>
-    </SafeAreaView>
+            <LinearGradient
+              colors={['#7C3AED', '#A855F7']}
+              start={{x: 0, y: 0}}
+              end={{x: 1, y: 1}}
+              style={styles.reviewQuizButtonGradient}
+            >
+              <View style={styles.reviewQuizButtonContent}>
+                <RocketIcon size={20} color="#FFFFFF" />
+                <Text style={styles.reviewQuizButtonText}>START PRACTICE QUIZ</Text>
+              </View>
+            </LinearGradient>
+          </TouchableOpacity>
+        </ScrollView>
+      </SafeAreaView>
     </LinearGradient>
   );
 
@@ -1268,6 +2922,14 @@ export default function App() {
               <BackArrowIcon size={24} color="#FFFFFF" />
             </TouchableOpacity>
           </View>
+          
+          {/* League Status - Absolute positioned like GameModeScreen */}
+          <View style={styles.progressLeagueStatusContainer}>
+            <View style={styles.leagueStatusPill}>
+              <CrownIcon size={20} color="#FFD700" />
+              <Text style={styles.leagueStatusText}>Gold Status</Text>
+            </View>
+          </View>
 
           {/* Greeting Section */}
           <View style={styles.gradientGreetingSection}>
@@ -1283,37 +2945,81 @@ export default function App() {
           {/* Stats Row - Single Horizontal Line */}
           <View style={styles.gradientStatsSection}>
             <View style={styles.gradientStatsRow}>
-              <View style={styles.gradientStatItem}>
-                <View style={styles.gradientStatIconCircle}>
+              <TouchableOpacity 
+                style={[
+                  styles.gradientStatItem,
+                  pressedStat === 'courses' && styles.gradientStatItemPressed
+                ]}
+                onPressIn={() => handleStatPress('courses')}
+                onPressOut={handleStatPressOut}
+                activeOpacity={0.8}
+              >
+                <View style={[
+                  styles.gradientStatIconCircle,
+                  pressedStat === 'courses' && styles.gradientStatIconCirclePressed
+                ]}>
                   <BookIcon size={20} color="#FFFFFF" />
                 </View>
                 <Text style={styles.gradientStatValue}>2</Text>
                 <Text style={styles.gradientStatLabel}>Courses</Text>
-              </View>
+              </TouchableOpacity>
               
-              <View style={styles.gradientStatItem}>
-                <View style={styles.gradientStatIconCircle}>
+              <TouchableOpacity 
+                style={[
+                  styles.gradientStatItem,
+                  pressedStat === 'streak' && styles.gradientStatItemPressed
+                ]}
+                onPressIn={() => handleStatPress('streak')}
+                onPressOut={handleStatPressOut}
+                activeOpacity={0.8}
+              >
+                <View style={[
+                  styles.gradientStatIconCircle,
+                  pressedStat === 'streak' && styles.gradientStatIconCirclePressed
+                ]}>
                   <FireIcon size={20} color="#FFFFFF" />
                 </View>
                 <Text style={styles.gradientStatValue}>5</Text>
                 <Text style={styles.gradientStatLabel}>Streak</Text>
-              </View>
+              </TouchableOpacity>
               
-              <View style={styles.gradientStatItem}>
-                <View style={styles.gradientStatIconCircle}>
+              <TouchableOpacity 
+                style={[
+                  styles.gradientStatItem,
+                  pressedStat === 'friends' && styles.gradientStatItemPressed
+                ]}
+                onPressIn={() => handleStatPress('friends')}
+                onPressOut={handleStatPressOut}
+                activeOpacity={0.8}
+              >
+                <View style={[
+                  styles.gradientStatIconCircle,
+                  pressedStat === 'friends' && styles.gradientStatIconCirclePressed
+                ]}>
                   <AwardIcon size={20} color="#FFFFFF" />
                 </View>
                 <Text style={styles.gradientStatValue}>8</Text>
                 <Text style={styles.gradientStatLabel}>Friends</Text>
-              </View>
+              </TouchableOpacity>
               
-              <View style={styles.gradientStatItem}>
-                <View style={styles.gradientStatIconCircle}>
+              <TouchableOpacity 
+                style={[
+                  styles.gradientStatItem,
+                  pressedStat === 'badges' && styles.gradientStatItemPressed
+                ]}
+                onPressIn={() => handleStatPress('badges')}
+                onPressOut={handleStatPressOut}
+                activeOpacity={0.8}
+              >
+                <View style={[
+                  styles.gradientStatIconCircle,
+                  pressedStat === 'badges' && styles.gradientStatIconCirclePressed
+                ]}>
                   <ChartIcon size={20} color="#FFFFFF" />
                 </View>
                 <Text style={styles.gradientStatValue}>10</Text>
                 <Text style={styles.gradientStatLabel}>Badges</Text>
-              </View>
+              </TouchableOpacity>
             </View>
           </View>
 
@@ -1357,6 +3063,34 @@ export default function App() {
           </View>
         </ScrollView>
       </SafeAreaView>
+      
+      {/* Friends Modal */}
+      <FriendsModal 
+        visible={showFriendsModal}
+        onClose={() => setShowFriendsModal(false)}
+        friendsData={friendsData}
+      />
+      
+      {/* Achievements Modal */}
+      <AchievementsModal 
+        visible={showAchievementsModal}
+        onClose={() => setShowAchievementsModal(false)}
+        achievementsData={achievementsData}
+      />
+      
+      {/* Learning Path Modal */}
+      <LearningPathModal 
+        visible={showLearningPath}
+        onClose={() => setShowLearningPath(false)}
+        learningPathData={learningPathData}
+      />
+      
+      {/* Streak Modal */}
+      <StreakModal 
+        visible={showStreakModal}
+        onClose={() => setShowStreakModal(false)}
+        streakData={streakData}
+      />
     </LinearGradient>
   );
 
@@ -1375,6 +3109,7 @@ export default function App() {
             ]}
           >
             {screen === 'home' && <HomeScreen />}
+            {screen === 'gamemode' && <GameModeScreen />}
             {screen === 'upload' && <UploadScreen />}
             {screen === 'review' && <ReviewScreen />}
             {screen === 'quiz' && <QuizScreen />}
@@ -1397,6 +3132,7 @@ export default function App() {
             ]}
           >
             {screen === 'home' && <HomeScreen />}
+            {screen === 'gamemode' && <GameModeScreen />}
             {screen === 'upload' && <UploadScreen />}
             {screen === 'review' && <ReviewScreen />}
             {screen === 'quiz' && <QuizScreen />}
@@ -1744,25 +3480,128 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     elevation: 2,
   },
-  reviewContainer: {
-    padding: 20,
-    minHeight: height - 100,
+  // Review Screen Styles - Glass Morphism Design
+  reviewScreenContainer: {
+    flex: 1,
+    paddingHorizontal: 20,
+    paddingBottom: 20,
   },
-  reviewCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-    borderRadius: 16,
-    padding: 20,
-    marginBottom: 30,
+  reviewHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingTop: 32,
+    paddingBottom: 32,
+    justifyContent: 'space-between',
+  },
+  reviewBackButton: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  reviewTitle: {
+    fontSize: 24,
+    fontWeight: Platform.OS === 'ios' ? '600' : 'bold',
+    color: '#FFFFFF',
+    textAlign: 'center',
+    flex: 1,
+  },
+  reviewHeaderSpacer: {
+    width: 48,
+  },
+  reviewGlassContainer: {
+    flex: 1,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    borderRadius: 24,
+    marginBottom: 24,
+    overflow: 'hidden',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 5,
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.25,
+    shadowRadius: 16,
+    elevation: 8,
+  },
+  reviewGlassContent: {
+    flex: 1,
+    padding: 24,
+  },
+  reviewSectionHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  reviewSectionTitle: {
+    fontSize: 18,
+    fontWeight: Platform.OS === 'ios' ? '600' : 'bold',
+    color: '#FFFFFF',
+    marginLeft: 8,
+  },
+  reviewSection: {
+    marginBottom: 24,
+  },
+  reviewSubsectionHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  reviewSubsectionTitle: {
+    fontSize: 16,
+    fontWeight: Platform.OS === 'ios' ? '600' : 'bold',
+    color: '#FFFFFF',
+    marginLeft: 8,
   },
   reviewText: {
+    fontSize: 15,
+    lineHeight: 22,
+    color: 'rgba(255, 255, 255, 0.9)',
+    fontWeight: Platform.OS === 'ios' ? '400' : 'normal',
+  },
+  reviewListText: {
+    fontSize: 15,
+    lineHeight: 22,
+    color: 'rgba(255, 255, 255, 0.8)',
+    marginLeft: 26,
+    marginBottom: 4,
+  },
+  reviewSentenceText: {
+    fontSize: 15,
+    lineHeight: 22,
+    color: 'rgba(255, 255, 255, 0.8)',
+    marginLeft: 26,
+    marginBottom: 6,
+    fontStyle: 'italic',
+  },
+  reviewQuizButton: {
+    borderRadius: 16,
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 8,
+  },
+  reviewQuizButtonGradient: {
+    paddingVertical: 18,
+    paddingHorizontal: 32,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.3)',
+    borderRadius: 16,
+  },
+  reviewQuizButtonContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  reviewQuizButtonText: {
     fontSize: 16,
-    lineHeight: 24,
-    color: '#333',
+    fontWeight: Platform.OS === 'ios' ? '600' : 'bold',
+    color: '#FFFFFF',
+    letterSpacing: 0.5,
+    marginLeft: 8,
   },
   quizContainer: {
     flex: 1,
@@ -2315,7 +4154,6 @@ const styles = StyleSheet.create({
     paddingBottom: 24,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
   },
   progressBackButton: {
     width: 48,
@@ -2324,6 +4162,41 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255, 255, 255, 0.2)',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  progressLeagueStatusContainer: {
+    position: 'absolute',
+    top: 56, // Same level as back button (32 + 24 = 56)
+    right: 20,
+    zIndex: 100,
+  },
+  leagueStatusContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  leagueStatusPill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    borderRadius: 20,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 215, 0, 0.3)',
+    shadowColor: '#FFD700',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 4,
+  },
+  leagueStatusText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    marginLeft: 6,
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
   },
   progressBackText: {
     color: '#FFFFFF',
@@ -2821,6 +4694,18 @@ const styles = StyleSheet.create({
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 2,
     fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  // Interactive stat pressed states
+  gradientStatItemPressed: {
+    transform: [{ scale: 0.95 }],
+  },
+  gradientStatIconCirclePressed: {
+    backgroundColor: 'rgba(255, 255, 255, 0.35)',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.25,
+    shadowRadius: 12,
+    elevation: 8,
   },
   gradientActionLinks: {
     paddingHorizontal: 20,
@@ -3529,8 +5414,8 @@ const styles = StyleSheet.create({
   screenshotUploadMediaButtonImproved: {
     alignItems: 'center',
     flex: 1,
-    maxWidth: 120,
-    marginHorizontal: 4,
+    maxWidth: 100,
+    marginHorizontal: 2,
   },
   screenshotUploadMediaIconContainerFilled: {
     width: 80,
@@ -3596,19 +5481,19 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     marginTop: 0,
     borderRadius: 30,
-    shadowColor: '#FF5A5F',
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.18,
-    shadowRadius: 24,
-    elevation: 12,
+    shadowColor: '#815BFF',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.15,
+    shadowRadius: 16,
+    elevation: 8,
     overflow: 'visible',
   },
   generateReviewPillGradient: {
     paddingVertical: 20,
     paddingHorizontal: 32,
     borderRadius: 30,
-    borderWidth: 1.2,
-    borderColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#FFFFFF',
   },
   generateReviewPillContent: {
     flexDirection: 'row',
@@ -3627,5 +5512,1217 @@ const styles = StyleSheet.create({
     textShadowColor: 'rgba(0, 0, 0, 0.15)',
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 2,
+  },
+
+  // Game Mode Screen Styles
+  gameModeScreenContainer: {
+    flexGrow: 1,
+    paddingTop: 110,
+    paddingBottom: 32,
+    paddingHorizontal: 20,
+  },
+  gameModeScreenTitleSection: {
+    alignItems: 'center',
+    marginBottom: 40,
+  },
+  gameModeScreenTitle: {
+    fontSize: 28,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    textAlign: 'center',
+    marginBottom: 8,
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 8,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+  },
+  gameModeScreenSubtitle: {
+    fontSize: 16,
+    color: '#FFFFFF',
+    opacity: 0.9,
+    textAlign: 'center',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+
+  // Game Mode Carousel Styles
+  gameModeCarouselContainer: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  gameModeCarouselContent: {
+    paddingHorizontal: 40,
+  },
+  gameModeCard: {
+    width: width - 80,
+    marginHorizontal: 0,
+  },
+  gameModeCardInner: {
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    borderRadius: 24,
+    padding: 32,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 12 },
+    shadowOpacity: 0.15,
+    shadowRadius: 24,
+    elevation: 12,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.25)',
+    minHeight: 320,
+    justifyContent: 'center',
+  },
+  gameModeCardLocked: {
+    opacity: 0.7,
+  },
+  gameModeCardLockOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    borderRadius: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 10,
+  },
+  gameModeCardLockIcon: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 12,
+  },
+  gameModeCardLockText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    marginBottom: 16,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  gameModeCardProgressBar: {
+    width: 120,
+    height: 4,
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+    borderRadius: 2,
+    overflow: 'hidden',
+  },
+  gameModeCardProgressFill: {
+    height: '100%',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 2,
+  },
+  gameModeCardIconContainer: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 24,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 12,
+    elevation: 8,
+  },
+  gameModeCardTitle: {
+    fontSize: 24,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    textAlign: 'center',
+    marginBottom: 12,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+  },
+  gameModeCardDescription: {
+    fontSize: 16,
+    color: '#FFFFFF',
+    opacity: 0.9,
+    textAlign: 'center',
+    lineHeight: 22,
+    marginBottom: 20,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  gameModeCardBadge: {
+    paddingHorizontal: 16,
+    paddingVertical: 6,
+    borderRadius: 12,
+    position: 'absolute',
+    top: 16,
+    right: 16,
+  },
+  gameModeCardBadgeText: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  gameModeCarouselPagination: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 32,
+  },
+  gameModeCarouselDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+    marginHorizontal: 4,
+  },
+  gameModeCarouselDotActive: {
+    backgroundColor: '#FFFFFF',
+    width: 24,
+    borderRadius: 4,
+  },
+
+  // League Status Styles (reused from existing implementation)
+  leagueStatusContainer: {
+    position: 'absolute',
+    top: 60,
+    right: 20,
+    zIndex: 100,
+  },
+  leagueStatusPill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.18)',
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 12,
+    elevation: 6,
+  },
+  leagueStatusText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    marginLeft: 6,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+
+  // Word Bank Section Styles
+  wordBankContainer: {
+    marginTop: 0,
+    marginBottom: 40,
+  },
+  wordBankCardContent: {
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    borderRadius: 20,
+    padding: 24,
+    paddingBottom: 20,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.25)',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.12,
+    shadowRadius: 16,
+    elevation: 8,
+    justifyContent: 'space-between',
+    minHeight: 200,
+  },
+  wordBankCardHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  wordBankCategoryContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  wordBankCategoryText: {
+    fontSize: 12,
+    color: 'rgba(255, 255, 255, 0.7)',
+    marginLeft: 6,
+    fontWeight: '500',
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  wordBankWord: {
+    fontSize: 28,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    marginBottom: 6,
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+  },
+  wordBankTranslation: {
+    fontSize: 18,
+    color: '#FFFFFF',
+    opacity: 0.85,
+    marginBottom: 20,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  wordBankExampleContainer: {
+    backgroundColor: 'rgba(255, 255, 255, 0.12)',
+    borderRadius: 16,
+    padding: 16,
+    marginBottom: 20,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  wordBankExample: {
+    fontSize: 15,
+    color: '#FFFFFF',
+    fontStyle: 'italic',
+    marginBottom: 6,
+    lineHeight: 20,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  wordBankExampleTranslation: {
+    fontSize: 15,
+    color: '#FFFFFF',
+    opacity: 0.75,
+    fontStyle: 'italic',
+    lineHeight: 20,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  wordBankFooter: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 4,
+  },
+  wordBankDate: {
+    fontSize: 13,
+    color: '#FFFFFF',
+    opacity: 0.6,
+    fontWeight: '500',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  wordBankDifficultyContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 8,
+  },
+  wordBankDifficultyDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    marginRight: 6,
+  },
+  wordBankDifficultyText: {
+    fontSize: 12,
+    color: '#FFFFFF',
+    opacity: 0.9,
+    fontWeight: '600',
+    textTransform: 'capitalize',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+
+  // Word Bank Pagination Dots
+  wordBankActiveDot: {
+    backgroundColor: '#FFFFFF',
+    opacity: 1,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 4,
+  },
+  wordBankInactiveDot: {
+    backgroundColor: 'rgba(255, 255, 255, 0.4)',
+    opacity: 1,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.15,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+
+  // Friends Modal Styles
+  friendsModalOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    zIndex: 1000,
+  },
+  friendsModalBackdrop: {
+    flex: 1,
+  },
+  friendsModalContainer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: height * 0.75,
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: -4 },
+    shadowOpacity: 0.25,
+    shadowRadius: 16,
+    elevation: 16,
+  },
+  friendsModalGradient: {
+    flex: 1,
+    paddingTop: 24,
+  },
+  friendsModalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 24,
+    paddingBottom: 24,
+  },
+  friendsModalHeaderContent: {
+    flex: 1,
+  },
+  friendsModalTitle: {
+    fontSize: 24,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    marginBottom: 4,
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+  },
+  friendsModalSubtitle: {
+    fontSize: 16,
+    color: '#FFFFFF',
+    opacity: 0.8,
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  friendsModalCloseButton: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: 16,
+  },
+  friendsModalCloseText: {
+    fontSize: 18,
+    color: '#FFFFFF',
+    fontWeight: '600',
+  },
+  friendsModalList: {
+    flex: 1,
+    paddingHorizontal: 24,
+  },
+  friendsModalItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    borderRadius: 16,
+    padding: 16,
+    marginBottom: 12,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.15)',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  friendsModalItemCurrent: {
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    borderColor: 'rgba(255, 255, 255, 0.3)',
+    shadowOpacity: 0.15,
+    shadowRadius: 6,
+    elevation: 4,
+  },
+  friendsModalRankContainer: {
+    width: 40,
+    alignItems: 'center',
+    marginRight: 12,
+  },
+  friendsModalRankText: {
+    fontSize: 18,
+    fontWeight: '700',
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+  },
+  friendsModalAvatar: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    borderWidth: 2,
+    borderColor: 'rgba(255, 255, 255, 0.3)',
+    marginRight: 16,
+  },
+  friendsModalAvatarCurrent: {
+    borderColor: '#FFD700',
+    borderWidth: 3,
+  },
+  friendsModalInfo: {
+    flex: 1,
+  },
+  friendsModalName: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    marginBottom: 8,
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  friendsModalNameCurrent: {
+    color: '#FFD700',
+    fontWeight: '700',
+  },
+  friendsModalStats: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  friendsModalStatItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: 16,
+  },
+  friendsModalStatLabel: {
+    fontSize: 12,
+    color: '#FFFFFF',
+    opacity: 0.7,
+    marginRight: 4,
+    fontWeight: '500',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  friendsModalStatValue: {
+    fontSize: 14,
+    color: '#FFFFFF',
+    fontWeight: '600',
+    marginLeft: 4,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+
+  // Achievements Modal Styles
+  achievementsModalOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    zIndex: 1000,
+  },
+  achievementsModalBackdrop: {
+    flex: 1,
+  },
+  achievementsModalContainer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: height * 0.8,
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: -4 },
+    shadowOpacity: 0.25,
+    shadowRadius: 16,
+    elevation: 16,
+  },
+  achievementsModalGradient: {
+    flex: 1,
+    paddingTop: 24,
+  },
+  achievementsModalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 24,
+    paddingBottom: 24,
+  },
+  achievementsModalHeaderContent: {
+    flex: 1,
+  },
+  achievementsModalTitle: {
+    fontSize: 24,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    marginBottom: 4,
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+  },
+  achievementsModalSubtitle: {
+    fontSize: 16,
+    color: '#FFFFFF',
+    opacity: 0.8,
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  achievementsModalCloseButton: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: 16,
+  },
+  achievementsModalCloseText: {
+    fontSize: 18,
+    color: '#FFFFFF',
+    fontWeight: '600',
+  },
+  achievementsModalList: {
+    flex: 1,
+    paddingHorizontal: 24,
+  },
+  achievementsModalSectionTitle: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    marginBottom: 16,
+    marginTop: 8,
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+  },
+  achievementsModalGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    marginBottom: 24,
+  },
+  achievementsModalCard: {
+    width: '48%',
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    borderRadius: 16,
+    padding: 16,
+    marginBottom: 16,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.25)',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 4,
+    alignItems: 'center',
+  },
+  achievementsModalCardInProgress: {
+    backgroundColor: 'rgba(255, 255, 255, 0.08)',
+    borderColor: 'rgba(255, 255, 255, 0.15)',
+  },
+  achievementsModalIconContainer: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  achievementsModalIconContainerInProgress: {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+  },
+  achievementsModalIcon: {
+    fontSize: 24,
+  },
+  achievementsModalIconInProgress: {
+    fontSize: 24,
+    opacity: 0.5,
+  },
+  achievementsModalCardTitle: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    textAlign: 'center',
+    marginBottom: 6,
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  achievementsModalCardTitleInProgress: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    opacity: 0.6,
+    textAlign: 'center',
+    marginBottom: 6,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  achievementsModalCardDescription: {
+    fontSize: 12,
+    color: '#FFFFFF',
+    opacity: 0.8,
+    textAlign: 'center',
+    marginBottom: 8,
+    lineHeight: 16,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  achievementsModalCardDescriptionInProgress: {
+    fontSize: 12,
+    color: '#FFFFFF',
+    opacity: 0.5,
+    textAlign: 'center',
+    marginBottom: 8,
+    lineHeight: 16,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  achievementsModalCardDate: {
+    fontSize: 10,
+    color: '#FFFFFF',
+    opacity: 0.6,
+    textAlign: 'center',
+    fontWeight: '500',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  achievementsModalProgressContainer: {
+    width: '100%',
+    alignItems: 'center',
+  },
+  achievementsModalProgressBar: {
+    width: '100%',
+    height: 4,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    borderRadius: 2,
+    marginBottom: 6,
+  },
+  achievementsModalProgressFill: {
+    height: '100%',
+    backgroundColor: '#58CC67',
+    borderRadius: 2,
+  },
+  achievementsModalProgressText: {
+    fontSize: 10,
+    color: '#FFFFFF',
+    opacity: 0.8,
+    fontWeight: '600',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+
+  // Learning Path Modal Styles
+  learningPathModalOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    zIndex: 1000,
+  },
+  learningPathModalBackdrop: {
+    flex: 1,
+  },
+  learningPathModalContainer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: height * 0.85,
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: -4 },
+    shadowOpacity: 0.25,
+    shadowRadius: 16,
+    elevation: 16,
+  },
+  learningPathModalGradient: {
+    flex: 1,
+    paddingTop: 24,
+  },
+  learningPathModalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 24,
+    paddingBottom: 24,
+  },
+  learningPathModalHeaderContent: {
+    flex: 1,
+  },
+  learningPathModalTitle: {
+    fontSize: 24,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    marginBottom: 4,
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+  },
+  learningPathModalSubtitle: {
+    fontSize: 16,
+    color: '#FFFFFF',
+    opacity: 0.8,
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  learningPathModalCloseButton: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: 16,
+  },
+  learningPathModalCloseText: {
+    fontSize: 18,
+    color: '#FFFFFF',
+    fontWeight: '600',
+  },
+  learningPathModalList: {
+    flex: 1,
+    paddingHorizontal: 24,
+  },
+  learningPathContainer: {
+    paddingBottom: 24,
+  },
+  learningPathUnit: {
+    marginBottom: 32,
+  },
+  learningPathUnitHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  learningPathUnitIcon: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 6,
+  },
+  learningPathUnitIconText: {
+    fontSize: 20,
+    color: '#FFFFFF',
+    fontWeight: '700',
+  },
+  learningPathUnitInfo: {
+    flex: 1,
+  },
+  learningPathUnitTitle: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    marginBottom: 4,
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+  },
+  learningPathUnitTitleLocked: {
+    opacity: 0.5,
+  },
+  learningPathUnitProgress: {
+    fontSize: 14,
+    color: '#FFFFFF',
+    opacity: 0.8,
+    fontWeight: '500',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  learningPathUnitProgressBar: {
+    width: '100%',
+    height: 6,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    borderRadius: 3,
+    marginBottom: 16,
+  },
+  learningPathUnitProgressFill: {
+    height: '100%',
+    borderRadius: 3,
+  },
+  learningPathLessons: {
+    marginLeft: 24,
+  },
+  learningPathLesson: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 12,
+    backgroundColor: 'rgba(255, 255, 255, 0.08)',
+    borderRadius: 12,
+    padding: 12,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.15)',
+  },
+  learningPathLessonIcon: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  learningPathLessonIconText: {
+    fontSize: 14,
+    color: '#FFFFFF',
+    fontWeight: '600',
+  },
+  learningPathLessonInfo: {
+    flex: 1,
+  },
+  learningPathLessonTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    marginBottom: 2,
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  learningPathLessonTitleLocked: {
+    opacity: 0.5,
+  },
+  learningPathLessonXP: {
+    fontSize: 12,
+    color: '#FFFFFF',
+    fontWeight: '600',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+    opacity: 0.9,
+  },
+  learningPathCurrentIndicator: {
+    backgroundColor: '#3AB1FF',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  learningPathCurrentText: {
+    fontSize: 12,
+    color: '#FFFFFF',
+    fontWeight: '700',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  learningPathConnector: {
+    width: 2,
+    height: 24,
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+    marginLeft: 23,
+    marginTop: -16,
+    marginBottom: 8,
+  },
+  
+  // Streak Modal Styles
+  streakModalOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'transparent',
+    zIndex: 1000,
+  },
+  streakModalBackdrop: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  streakModalContainer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    maxHeight: '85%',
+    backgroundColor: 'transparent',
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: -4 },
+    shadowOpacity: 0.25,
+    shadowRadius: 16,
+    elevation: 16,
+  },
+  streakModalGradient: {
+    flex: 1,
+    paddingTop: 24,
+  },
+  streakModalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 24,
+    paddingBottom: 24,
+  },
+  streakModalTitleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+  },
+  streakModalIcon: {
+    fontSize: 28,
+    marginRight: 12,
+  },
+  streakModalTitle: {
+    fontSize: 24,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+  },
+  streakModalCloseButton: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: 16,
+  },
+  streakModalCloseText: {
+    fontSize: 18,
+    color: '#FFFFFF',
+    fontWeight: '600',
+  },
+  streakStatsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingHorizontal: 24,
+    paddingBottom: 24,
+  },
+  streakStatCard: {
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    paddingVertical: 16,
+    paddingHorizontal: 20,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  streakStatNumber: {
+    fontSize: 24,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    marginBottom: 4,
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+  },
+  streakStatLabel: {
+    fontSize: 12,
+    color: '#FFFFFF',
+    opacity: 0.8,
+    fontWeight: '500',
+    textAlign: 'center',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  recommendationsSection: {
+    paddingHorizontal: 24,
+    paddingBottom: 20,
+  },
+  recommendationsTitle: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    marginBottom: 16,
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+  },
+  recommendationsList: {
+    maxHeight: 200,
+  },
+  recommendationCard: {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    borderRadius: 16,
+    padding: 16,
+    marginBottom: 12,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+    borderLeftWidth: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  recommendationContent: {
+    flex: 1,
+  },
+  recommendationHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  recommendationIcon: {
+    fontSize: 20,
+    marginRight: 12,
+  },
+  recommendationInfo: {
+    flex: 1,
+  },
+  recommendationTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    marginBottom: 2,
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  recommendationSubtitle: {
+    fontSize: 14,
+    color: '#FFFFFF',
+    opacity: 0.8,
+    fontWeight: '500',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  recommendationMeta: {
+    alignItems: 'flex-end',
+  },
+  recommendationTime: {
+    fontSize: 12,
+    color: '#FFFFFF',
+    opacity: 0.7,
+    fontWeight: '500',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  recommendationXP: {
+    fontSize: 12,
+    color: '#58CC67',
+    fontWeight: '600',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  recommendationDescription: {
+    fontSize: 13,
+    color: '#FFFFFF',
+    opacity: 0.7,
+    lineHeight: 18,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  reviewRemindersSection: {
+    paddingHorizontal: 24,
+    paddingBottom: 24,
+  },
+  reviewRemindersTitle: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    marginBottom: 4,
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+  },
+  reviewRemindersSubtitle: {
+    fontSize: 14,
+    color: '#FFFFFF',
+    opacity: 0.8,
+    marginBottom: 16,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  reviewItemsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    marginBottom: 16,
+  },
+  reviewItemCard: {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    borderRadius: 12,
+    padding: 12,
+    width: '48%',
+    marginBottom: 8,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  reviewItemWord: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    marginBottom: 4,
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  reviewItemTranslation: {
+    fontSize: 13,
+    color: '#FFFFFF',
+    opacity: 0.8,
+    marginBottom: 4,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  reviewItemDue: {
+    fontSize: 11,
+    color: '#58CC67',
+    fontWeight: '500',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  viewAllReviewButton: {
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    borderRadius: 12,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.25)',
+  },
+  viewAllReviewText: {
+    fontSize: 14,
+    color: '#FFFFFF',
+    fontWeight: '600',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
   },
 });
