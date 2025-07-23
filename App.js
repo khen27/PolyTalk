@@ -1107,6 +1107,194 @@ const LearningPathModal = ({ visible, onClose, learningPathData }) => {
   );
 };
 
+const TextbookModal = ({ visible, onClose, selectedTextbook, setSelectedTextbook, selectedPage, setSelectedPage, textbooks }) => {
+  const slideAnim = useRef(new Animated.Value(300)).current;
+  const backdropOpacity = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    if (visible) {
+      Animated.parallel([
+        Animated.timing(slideAnim, {
+          toValue: 0,
+          duration: 300,
+          useNativeDriver: true,
+        }),
+        Animated.timing(backdropOpacity, {
+          toValue: 1,
+          duration: 300,
+          useNativeDriver: true,
+        }),
+      ]).start();
+    } else {
+      Animated.parallel([
+        Animated.timing(slideAnim, {
+          toValue: 300,
+          duration: 300,
+          useNativeDriver: true,
+        }),
+        Animated.timing(backdropOpacity, {
+          toValue: 0,
+          duration: 300,
+          useNativeDriver: true,
+        }),
+      ]).start();
+    }
+  }, [visible]);
+
+  if (!visible) return null;
+
+  return (
+    <View style={styles.textbookModalOverlay}>
+      <Animated.View 
+        style={[
+          styles.textbookModalBackdrop,
+          { opacity: backdropOpacity }
+        ]}
+      >
+        <TouchableWithoutFeedback onPress={onClose}>
+          <View style={styles.textbookModalBackdrop} />
+        </TouchableWithoutFeedback>
+      </Animated.View>
+      
+      <Animated.View 
+        style={[
+          styles.textbookModalContainer,
+          { transform: [{ translateY: slideAnim }] }
+        ]}
+      >
+        <LinearGradient
+          colors={['#667eea', '#764ba2', '#f093fb']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={styles.textbookModalGradient}
+        >
+          {/* Modal Handle */}
+          <View style={styles.modalHandle} />
+          
+          {/* Header */}
+          <View style={styles.textbookModalHeader}>
+            <View style={styles.textbookModalTitleContainer}>
+              <View style={styles.headerIconContainer}>
+                <Text style={styles.textbookModalIcon}>📚</Text>
+              </View>
+              <View>
+                <Text style={styles.textbookModalTitle}>Textbook Settings</Text>
+                <Text style={styles.textbookModalSubtitle}>Connect your learning materials</Text>
+              </View>
+            </View>
+            <TouchableOpacity onPress={onClose} style={styles.textbookModalCloseButton}>
+              <Text style={styles.textbookModalCloseText}>×</Text>
+            </TouchableOpacity>
+          </View>
+
+          {/* Current Selection Card */}
+          <View style={styles.currentSelectionCard}>
+            <View style={styles.currentSelectionHeader}>
+              <Text style={styles.currentSelectionTitle}>Current Textbook</Text>
+            </View>
+            <Text style={styles.currentSelectionBook}>{selectedTextbook}</Text>
+            <View style={styles.pageIndicator}>
+              <Text style={styles.pageIndicatorText}>Page 100</Text>
+            </View>
+          </View>
+
+          {/* Quick Select */}
+          <View style={styles.quickSelectContainer}>
+            <Text style={styles.sectionTitle}>Quick Select</Text>
+            <View style={styles.textbookGrid}>
+              {textbooks.map((textbook, index) => {
+                const isSelected = selectedTextbook === textbook;
+                return (
+                  <TouchableOpacity
+                    key={`textbook-${index}`}
+                    style={styles.textbookGridItem}
+                    onPress={() => setSelectedTextbook(textbook)}
+                    activeOpacity={0.8}
+                  >
+                    <LinearGradient
+                      colors={isSelected 
+                        ? ['rgba(255,255,255,0.35)', 'rgba(255,255,255,0.15)']
+                        : ['rgba(255,255,255,0.15)', 'rgba(255,255,255,0.05)']
+                      }
+                      style={[
+                        styles.textbookGridGradient,
+                        isSelected && styles.textbookGridGradientSelected
+                      ]}
+                    >
+                      <Text style={[
+                        styles.textbookGridNumber,
+                        isSelected && styles.textbookGridNumberSelected
+                      ]}>
+                        Spanish {index + 1}
+                      </Text>
+                      <Text style={[
+                        styles.textbookGridSubtitle,
+                        isSelected && styles.textbookGridSubtitleSelected
+                      ]}>
+                        ¡Avancemos!
+                      </Text>
+                      <View style={[
+                        styles.selectedIndicator,
+                        { opacity: isSelected ? 1 : 0 }
+                      ]}>
+                        <Text style={styles.selectedIndicatorText}>✓</Text>
+                      </View>
+                    </LinearGradient>
+                  </TouchableOpacity>
+                );
+              })}
+            </View>
+          </View>
+          
+          {/* Action Buttons */}
+          <View style={styles.actionButtonsContainer}>
+            <Text style={styles.sectionTitle}>Add Your Content</Text>
+            <View style={styles.actionButtonsGrid}>
+              <TouchableOpacity style={styles.compactActionButton} activeOpacity={0.8}>
+                <LinearGradient
+                  colors={['rgba(255,255,255,0.2)', 'rgba(255,255,255,0.08)']}
+                  style={styles.compactActionGradient}
+                >
+                  <View style={styles.compactIconWrapper}>
+                    <Text style={styles.compactActionIcon}>📄</Text>
+                  </View>
+                  <View style={styles.compactActionTextContainer}>
+                    <Text style={styles.compactActionText}>Upload PDF</Text>
+                    <Text style={styles.compactActionSubtext}>Import your textbook</Text>
+                  </View>
+                </LinearGradient>
+              </TouchableOpacity>
+              
+              <TouchableOpacity style={styles.compactActionButton} activeOpacity={0.8}>
+                <LinearGradient
+                  colors={['rgba(255,255,255,0.2)', 'rgba(255,255,255,0.08)']}
+                  style={styles.compactActionGradient}
+                >
+                  <View style={styles.compactIconWrapper}>
+                    <Text style={styles.compactActionIcon}>🔍</Text>
+                  </View>
+                  <View style={styles.compactActionTextContainer}>
+                    <Text style={styles.compactActionText}>Search Library</Text>
+                    <Text style={styles.compactActionSubtext}>Find textbooks online</Text>
+                  </View>
+                </LinearGradient>
+              </TouchableOpacity>
+            </View>
+          </View>
+          
+          {/* Close Button */}
+          <TouchableOpacity 
+            style={styles.closeButton}
+            onPress={onClose}
+          >
+            <Text style={styles.closeButtonText}>Done</Text>
+          </TouchableOpacity>
+        </LinearGradient>
+      </Animated.View>
+    </View>
+  );
+};
+
 const StreakModal = ({ visible, onClose, streakData }) => {
   const slideAnim = useRef(new Animated.Value(300)).current;
   const backdropOpacity = useRef(new Animated.Value(0)).current;
@@ -1299,6 +1487,11 @@ export default function App() {
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [uploadCount, setUploadCount] = useState(0); // Track uploads for unlocking features
   const [wordBank, setWordBank] = useState([]); // Store collected vocabulary
+  const [textbookLinked, setTextbookLinked] = useState(true); // Textbook integration toggle
+  const [showTextbookModal, setShowTextbookModal] = useState(false);
+  const [selectedTextbook, setSelectedTextbook] = useState('Spanish 1: ¡Avancemos!');
+  const [selectedPage, setSelectedPage] = useState('156');
+  const [textbooks] = useState(['Spanish 1: ¡Avancemos!', 'Spanish 2: ¡Avancemos!', 'Spanish 3: ¡Avancemos!']);
   
   console.log('App component rendered - Current screen:', screen);
   console.log('App component rendered - Notes state:', notes);
@@ -2157,6 +2350,7 @@ export default function App() {
         `🧠 AI Review Based on Your Notes:\n\n` +
         `📘 Key Vocabulary:\n- casa (house)\n- aprender (to learn)\n- español (Spanish)\n- práctica (practice)\n\n` +
         `💬 Practice Sentences:\n"Estoy aprendiendo español en casa."\n"Necesito más práctica con vocabulario."\n"Mi casa es muy bonita."\n\n` +
+        `${textbookLinked ? `📚 Textbook Alignment:\nThis lesson aligns with Spanish 1: ¡Avancemos! Chapter 8 vocabulary and exercises from page 156.\n\n` : ''}` +
         `✨ New Words Added to Your Word Bank:\n` +
         `• conjugar (to conjugate)\n` +
         `• rutina (routine)\n\n` +
@@ -2567,11 +2761,11 @@ export default function App() {
           showsVerticalScrollIndicator={false}
           bounces={false}
         >
-          {/* Title Section */}
-          <View style={styles.screenshotUploadTitleSectionImproved}>
-            <Text style={styles.screenshotUploadTitle}>Today's Lesson</Text>
-            <Text style={styles.screenshotUploadSubtitle}>Upload your lesson for tday by adding notes, snapping a photo, or recording your voice to start.</Text>
-          </View>
+                     {/* Title Section */}
+           <View style={styles.screenshotUploadTitleSectionImproved}>
+             <Text style={styles.screenshotUploadTitle}>Today's Lesson</Text>
+             <Text style={styles.screenshotUploadSubtitle}>Upload your lesson for today by adding notes, snapping a photo, or recording your voice to start.</Text>
+           </View>
           
           {/* Main Content Card */}
           <View style={styles.screenshotUploadMainCardImproved}>
@@ -3023,6 +3217,44 @@ export default function App() {
             </View>
           </View>
 
+          {/* Textbook Settings Section */}
+          <View style={styles.textbookSettingsSection}>
+            <View style={styles.textbookSettingsCard}>
+              <View style={styles.textbookHeader}>
+                <View style={styles.textbookIconContainer}>
+                  <Text style={styles.textbookIcon}>📚</Text>
+                </View>
+                <View style={styles.textbookHeaderContent}>
+                  <Text style={styles.textbookHeaderTitle}>Textbook Integration</Text>
+                  <Text style={styles.textbookHeaderSubtitle}>Link your class textbook for aligned lessons</Text>
+                </View>
+                <TouchableOpacity 
+                  style={[styles.textbookToggle, textbookLinked && styles.textbookToggleActive]}
+                  onPress={() => setTextbookLinked(!textbookLinked)}
+                >
+                  <Text style={[styles.textbookToggleText, textbookLinked && styles.textbookToggleTextActive]}>
+                    {textbookLinked ? '✓' : '○'}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              
+              {textbookLinked && (
+                <View style={styles.textbookContent}>
+                  <View style={styles.selectedTextbook}>
+                    <Text style={styles.textbookTitle}>{selectedTextbook}</Text>
+                    <Text style={styles.textbookPage}>Page {selectedPage}</Text>
+                  </View>
+                  <TouchableOpacity 
+                    style={styles.changeTextbookButton}
+                    onPress={() => setShowTextbookModal(true)}
+                  >
+                    <Text style={styles.changeTextbookText}>Change Textbook</Text>
+                  </TouchableOpacity>
+                </View>
+              )}
+            </View>
+          </View>
+
           {/* Premium Action Cards */}
           <View style={styles.premiumActionCardsSection}>
             <TouchableOpacity style={styles.premiumActionCard}>
@@ -3090,6 +3322,18 @@ export default function App() {
         visible={showStreakModal}
         onClose={() => setShowStreakModal(false)}
         streakData={streakData}
+      />
+      
+      {/* Textbook Selection Modal */}
+      {/* Textbook Modal */}
+      <TextbookModal 
+        visible={showTextbookModal}
+        onClose={() => setShowTextbookModal(false)}
+        selectedTextbook={selectedTextbook}
+        setSelectedTextbook={setSelectedTextbook}
+        selectedPage={selectedPage}
+        setSelectedPage={setSelectedPage}
+        textbooks={textbooks}
       />
     </LinearGradient>
   );
@@ -5179,6 +5423,117 @@ const styles = StyleSheet.create({
   screenshotUploadTextInputFocused: {
     backgroundColor: 'transparent',
   },
+  // Textbook Integration Styles
+  textbookSettingsSection: {
+    paddingHorizontal: 20,
+    marginBottom: 24,
+  },
+  textbookSettingsCard: {
+    borderRadius: 20,
+    backgroundColor: 'rgba(255, 255, 255, 0.12)',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+    padding: 20,
+  },
+  textbookHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  textbookIconContainer: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 12,
+  },
+  textbookIcon: {
+    fontSize: 20,
+  },
+  textbookHeaderContent: {
+    flex: 1,
+  },
+  textbookHeaderTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+  },
+  textbookHeaderSubtitle: {
+    fontSize: 14,
+    color: '#FFFFFF',
+    opacity: 0.8,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  textbookToggle: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.3)',
+  },
+  textbookToggleActive: {
+    backgroundColor: '#58CC67',
+    borderColor: '#58CC67',
+  },
+  textbookToggleText: {
+    fontSize: 16,
+    color: '#FFFFFF',
+    opacity: 0.6,
+  },
+  textbookToggleTextActive: {
+    opacity: 1,
+    fontWeight: '600',
+  },
+  textbookContent: {
+    backgroundColor: 'rgba(255, 255, 255, 0.08)',
+    borderRadius: 12,
+    padding: 16,
+  },
+  selectedTextbook: {
+    marginBottom: 12,
+  },
+  textbookTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    marginBottom: 4,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+  },
+  textbookChapter: {
+    fontSize: 14,
+    color: '#FFFFFF',
+    opacity: 0.9,
+    marginBottom: 2,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  textbookPage: {
+    fontSize: 14,
+    color: '#FFFFFF',
+    opacity: 0.7,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  changeTextbookButton: {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    borderRadius: 8,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    alignSelf: 'flex-start',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+  },
+  changeTextbookText: {
+    fontSize: 12,
+    color: '#FFFFFF',
+    opacity: 0.8,
+    fontWeight: '500',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
   screenshotUploadDivider: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -6724,5 +7079,297 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontWeight: '600',
     fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  
+  // Textbook Modal Styles
+  textbookModalOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'flex-end',
+    zIndex: 1000,
+  },
+  textbookModalBackdrop: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0,0,0,0.4)',
+  },
+  textbookModalContainer: {
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: -4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 16,
+    elevation: 16,
+  },
+  textbookModalGradient: {
+    paddingTop: 12,
+    paddingHorizontal: 24,
+    paddingBottom: 32,
+    minHeight: 500,
+  },
+  modalHandle: {
+    width: 40,
+    height: 4,
+    backgroundColor: 'rgba(255,255,255,0.3)',
+    borderRadius: 2,
+    alignSelf: 'center',
+    marginBottom: 20,
+  },
+  textbookModalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    marginBottom: 32,
+  },
+  textbookModalTitleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+  },
+  headerIconContainer: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+  },
+  textbookModalIcon: {
+    fontSize: 24,
+  },
+  textbookModalTitle: {
+    fontSize: 24,
+    fontWeight: '800',
+    color: '#FFFFFF',
+    marginBottom: 4,
+    textShadowColor: 'rgba(0,0,0,0.3)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+  },
+  textbookModalSubtitle: {
+    fontSize: 14,
+    color: 'rgba(255,255,255,0.8)',
+    fontWeight: '500',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  textbookModalCloseButton: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: 'rgba(255,255,255,0.15)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+  },
+  textbookModalCloseText: {
+    fontSize: 20,
+    color: '#FFFFFF',
+    fontWeight: '300',
+    marginTop: -2,
+  },
+  currentSelectionCard: {
+    backgroundColor: 'rgba(255,255,255,0.15)',
+    borderRadius: 20,
+    padding: 20,
+    marginBottom: 32,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.2)',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.1,
+    shadowRadius: 16,
+  },
+  currentSelectionHeader: {
+    marginBottom: 12,
+  },
+  currentSelectionTitle: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: 'rgba(255,255,255,0.7)',
+    textTransform: 'uppercase',
+    letterSpacing: 1,
+  },
+  currentSelectionBook: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    marginBottom: 8,
+    textShadowColor: 'rgba(0,0,0,0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+  },
+  pageIndicator: {
+    alignSelf: 'flex-start',
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 12,
+  },
+  pageIndicatorText: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: '#FFFFFF',
+  },
+  quickSelectContainer: {
+    marginBottom: 32,
+  },
+  sectionTitle: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    marginBottom: 16,
+    textShadowColor: 'rgba(0,0,0,0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+  },
+  textbookGrid: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    gap: 12,
+  },
+  textbookGridItem: {
+    flex: 1,
+    borderRadius: 16,
+    overflow: 'hidden',
+  },
+  textbookGridGradient: {
+    padding: 16,
+    alignItems: 'center',
+    minHeight: 80,
+    justifyContent: 'center',
+    position: 'relative',
+    borderRadius: 16,
+  },
+  textbookGridGradientSelected: {
+    borderWidth: 2,
+    borderColor: 'rgba(255,255,255,0.4)',
+  },
+  textbookGridNumber: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    textAlign: 'center',
+    marginBottom: 4,
+    textShadowColor: 'rgba(0,0,0,0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+  },
+  textbookGridNumberSelected: {
+    fontWeight: '800',
+  },
+  textbookGridSubtitle: {
+    fontSize: 11,
+    fontWeight: '500',
+    color: 'rgba(255,255,255,0.8)',
+    textAlign: 'center',
+  },
+  textbookGridSubtitleSelected: {
+    fontWeight: '600',
+    color: 'rgba(255,255,255,0.95)',
+  },
+  selectedIndicator: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
+    width: 22,
+    height: 22,
+    borderRadius: 11,
+    backgroundColor: 'rgba(255,255,255,0.95)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 4,
+  },
+  selectedIndicatorText: {
+    fontSize: 12,
+    fontWeight: '800',
+    color: '#667eea',
+  },
+  actionButtonsContainer: {
+    marginBottom: 28,
+  },
+  actionButtonsGrid: {
+    gap: 10,
+  },
+  compactActionButton: {
+    borderRadius: 14,
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 6,
+  },
+  compactActionGradient: {
+    padding: 14,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  compactIconWrapper: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 12,
+  },
+  compactActionIcon: {
+    fontSize: 18,
+  },
+  compactActionTextContainer: {
+    flex: 1,
+  },
+  compactActionText: {
+    fontSize: 15,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    marginBottom: 2,
+    textShadowColor: 'rgba(0,0,0,0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+  },
+  compactActionSubtext: {
+    fontSize: 11,
+    color: 'rgba(255,255,255,0.75)',
+    fontWeight: '500',
+  },
+  closeButton: {
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    borderRadius: 16,
+    paddingVertical: 16,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.3)',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+  },
+  closeButtonText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    textShadowColor: 'rgba(0,0,0,0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
   },
 });
