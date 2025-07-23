@@ -2309,57 +2309,48 @@ export default function App() {
   };
 
   const handleTextSubmit = () => {
-    console.log('handleTextSubmit called');
-    console.log('Current notes:', notes);
-    console.log('Notes length:', notes.length);
-    console.log('Notes trimmed length:', notes.trim().length);
+    console.log('handleTextSubmit called - using demo content');
     
-    if (notes.trim().length > 0) {
-      console.log('Notes validation passed, setting review...');
-      
-      // Simulate adding new words to Word Bank from AI review
-      const newWords = [
-        {
-          id: Date.now() + 1,
-          word: "conjugar",
-          translation: "to conjugate",
-          category: "verbs",
-          difficulty: "intermediate",
-          dateAdded: "Just now",
-          source: "ai_review",
-          example: "Es importante conjugar los verbos correctamente",
-          exampleTranslation: "It's important to conjugate verbs correctly"
-        },
-        {
-          id: Date.now() + 2,
-          word: "rutina",
-          translation: "routine",
-          category: "general",
-          difficulty: "beginner",
-          dateAdded: "Just now",
-          source: "ai_review",
-          example: "Mi rutina diaria incluye estudiar español",
-          exampleTranslation: "My daily routine includes studying Spanish"
-        }
-      ];
-      
-      // Add new words to word bank
-      setWordBank(prevWords => [...newWords, ...prevWords]);
-      
-      setReview(
-        `🧠 AI Review Based on Your Notes:\n\n` +
-        `📘 Key Vocabulary:\n- casa (house)\n- aprender (to learn)\n- español (Spanish)\n- práctica (practice)\n\n` +
-        `💬 Practice Sentences:\n"Estoy aprendiendo español en casa."\n"Necesito más práctica con vocabulario."\n"Mi casa es muy bonita."\n\n` +
-        `${textbookLinked ? `📚 Textbook Alignment:\nThis lesson aligns with Spanish 1: ¡Avancemos! Chapter 8 vocabulary and exercises from page 156.\n\n` : ''}` +
-        `✨ New Words Added to Your Word Bank:\n` +
-        `• conjugar (to conjugate)\n` +
-        `• rutina (routine)\n\n` +
-        `📝 Interactive Quiz:\nLet's practice what you've learned!`
-      );
-      animateToScreen('review');
-    } else {
-      console.log('Notes validation failed - not enough content');
-    }
+    // Simulate adding new words to Word Bank from AI review
+    const newWords = [
+      {
+        id: Date.now() + 1,
+        word: "conjugar",
+        translation: "to conjugate",
+        category: "verbs",
+        difficulty: "intermediate",
+        dateAdded: "Just now",
+        source: "ai_review",
+        example: "Es importante conjugar los verbos correctamente",
+        exampleTranslation: "It's important to conjugate verbs correctly"
+      },
+      {
+        id: Date.now() + 2,
+        word: "estudiar",
+        translation: "to study",
+        category: "verbs",
+        difficulty: "beginner",
+        dateAdded: "Just now",
+        source: "ai_review",
+        example: "Me gusta estudiar español todos los días",
+        exampleTranslation: "I like to study Spanish every day"
+      }
+    ];
+    
+    // Add new words to word bank
+    setWordBank(prevWords => [...newWords, ...prevWords]);
+    
+    setReview(
+      `🧠 AI Review Based on Your Notes:\n\n` +
+      `📘 Key Vocabulary from AR Verbs:\n- hablar (to speak)\n- estudiar (to study)\n- caminar (to walk)\n- cocinar (to cook)\n\n` +
+      `💬 Practice Sentences:\n"Yo hablo español con mis amigos."\n"Nosotros estudiamos en la biblioteca."\n"Ellos caminan al parque todos los días."\n\n` +
+      `${textbookLinked ? `📚 Textbook Alignment:\nThis lesson aligns with ${selectedTextbook} Chapter 3: Present Tense Conjugations from page ${selectedPage}.\n\n` : ''}` +
+      `✨ New Words Added to Your Word Bank:\n` +
+      `• conjugar (to conjugate)\n` +
+      `• estudiar (to study)\n\n` +
+      `📝 Interactive Quiz:\nLet's practice what you've learned!`
+    );
+    animateToScreen('review');
   };
 
   const handleQuizAnswer = (answer) => {
@@ -2776,37 +2767,24 @@ export default function App() {
                   <DocumentIcon size={22} color="#fff" />
                   <Text style={styles.screenshotUploadSectionTitle}>Write Your Notes</Text>
                 </View>
-                <View style={[styles.screenshotUploadTextInputContainer, isInputFocused && styles.screenshotUploadTextInputContainerFocused]}>
-                  <TextInput
-                    placeholder="Type or paste your class notes here..."
-                    placeholderTextColor="rgba(255, 255, 255, 0.8)"
-                    value={notes}
-                    onChangeText={(text) => {
-                      console.log('TextInput onChangeText called with:', text);
-                      console.log('Current notes state:', notes);
-                      console.log('Text length:', text.length);
-                      setNotes(text);
-                      console.log('After setNotes called');
-                    }}
-                    style={[styles.screenshotUploadTextInput, isInputFocused && styles.screenshotUploadTextInputFocused]}
-                    multiline={true}
-                    numberOfLines={6}
-                    textAlignVertical="top"
-                    autoCapitalize="sentences"
-                    autoCorrect={true}
-                    returnKeyType="default"
-                    blurOnSubmit={false}
-                    onFocus={() => {
-                      console.log('TextInput onFocus called');
-                      setIsInputFocused(true);
-                    }}
-                    onBlur={() => {
-                      console.log('TextInput onBlur called');
-                      setIsInputFocused(false);
-                    }}
-                    editable={true}
-                    selectTextOnFocus={false}
-                  />
+                <View style={styles.screenshotUploadTextDisplayContainer}>
+                  <Text style={styles.screenshotUploadDemoText}>
+                    Today we learned about Spanish verb conjugations. The present tense endings for -AR verbs are:
+                    {'\n\n'}
+                    • yo: -o (hablo)
+                    {'\n'}
+                    • tú: -as (hablas)  
+                    {'\n'}
+                    • él/ella: -a (habla)
+                    {'\n'}
+                    • nosotros: -amos (hablamos)
+                    {'\n'}
+                    • vosotros: -áis (habláis)
+                    {'\n'}
+                    • ellos/ellas: -an (hablan)
+                    {'\n\n'}
+                    We practiced with verbs like "estudiar" (to study), "caminar" (to walk), and "cocinar" (to cook).
+                  </Text>
                 </View>
               </View>
               
@@ -2879,18 +2857,14 @@ export default function App() {
             </View>
           </View>
           
-          {/* Generate Button - moved closer to card */}
+          {/* Generate Button - always enabled with demo content */}
           <TouchableOpacity 
-            style={[styles.generateReviewPillButton, (!notes.trim() && !image) && styles.screenshotUploadDisabledButton]}
+            style={styles.generateReviewPillButton}
             onPress={handleTextSubmit}
-            disabled={!notes.trim() && !image}
             activeOpacity={0.92}
           >
             <LinearGradient
-              colors={(!notes.trim() && !image) ? 
-                ['#E0E0E0', '#B0B0B0'] : 
-                ['#815BFF', '#BD8CFF']
-              }
+              colors={['#815BFF', '#BD8CFF']}
               start={{x: 0, y: 0}}
               end={{x: 1, y: 1}}
               style={styles.generateReviewPillGradient}
@@ -2906,97 +2880,195 @@ export default function App() {
     </LinearGradient>
   );
 
-  const ReviewScreen = () => (
-    <LinearGradient
-      colors={['#58CC67', '#3AB1FF', '#7C3AED']}
-      locations={[0, 0.5, 1]}
-      style={styles.gradientContainer}
-    >
-      <StatusBar barStyle="light-content" />
-      <SafeAreaView style={styles.safeArea}>
-        <ScrollView contentContainerStyle={styles.reviewScreenContainer}>
-          {/* Header Section */}
-          <View style={styles.reviewHeader}>
-            <TouchableOpacity 
-              onPress={() => animateToScreen('upload')}
-              style={styles.reviewBackButton}
-            >
-              <BackArrowIcon size={24} color="#FFFFFF" />
-            </TouchableOpacity>
-            
-            <Text style={styles.reviewTitle}>AI Review</Text>
-            <View style={styles.reviewHeaderSpacer} />
-          </View>
-          
-          {/* Main Glass Morphism Container */}
-          <View style={styles.reviewGlassContainer}>
-            <View style={styles.reviewGlassContent}>
-              {/* Key Vocabulary Section */}
-              <View style={styles.reviewSection}>
-                <View style={styles.reviewSubsectionHeader}>
-                  <BookIcon size={18} color="#FFFFFF" />
-                  <Text style={styles.reviewSubsectionTitle}>Key Vocabulary:</Text>
-                </View>
-                <Text style={styles.reviewListText}>- casa (house)</Text>
-                <Text style={styles.reviewListText}>- aprender (to learn)</Text>
-                <Text style={styles.reviewListText}>- español (Spanish)</Text>
-                <Text style={styles.reviewListText}>- práctica (practice)</Text>
+  const ReviewScreen = () => {
+    const lessonActivities = [
+      {
+        id: 1,
+        type: 'listening',
+        title: 'Listen & Repeat',
+        description: 'Practice pronunciation',
+        icon: '🎧',
+        color: '#FF6B6B',
+        duration: '3 min',
+        completed: false
+      },
+      {
+        id: 2,
+        type: 'flashcards',
+        title: 'Vocabulary Cards',
+        description: 'Learn new words',
+        icon: '📚',
+        color: '#4ECDC4',
+        duration: '5 min',
+        completed: false
+      },
+      {
+        id: 3,
+        type: 'construction',
+        title: 'Build Sentences',
+        description: 'Drag words to form sentences',
+        icon: '🔧',
+        color: '#45B7D1',
+        duration: '4 min',
+        completed: false
+      },
+      {
+        id: 4,
+        type: 'matching',
+        title: 'Match Game',
+        description: 'Connect words with meanings',
+        icon: '🎯',
+        color: '#96CEB4',
+        duration: '3 min',
+        completed: false
+      },
+      {
+        id: 5,
+        type: 'speaking',
+        title: 'Speaking Practice',
+        description: 'Record and compare',
+        icon: '🎤',
+        color: '#FF9F43',
+        duration: '6 min',
+        completed: false
+      },
+      {
+        id: 6,
+        type: 'quiz',
+        title: 'Practice Quiz',
+        description: 'Test your knowledge',
+        icon: '🏆',
+        color: '#DDA0DD',
+        duration: '8 min',
+        completed: false
+      }
+    ];
+
+    return (
+      <LinearGradient
+        colors={['#58CC67', '#3AB1FF', '#7C3AED']}
+        locations={[0, 0.5, 1]}
+        style={styles.gradientContainer}
+      >
+        <StatusBar barStyle="light-content" />
+        <SafeAreaView style={styles.safeArea}>
+          <ScrollView contentContainerStyle={styles.lessonScreenContainer} showsVerticalScrollIndicator={false}>
+            {/* Header Section */}
+            <View style={styles.lessonHeader}>
+              <TouchableOpacity 
+                onPress={() => animateToScreen('upload')}
+                style={styles.lessonBackButton}
+              >
+                <BackArrowIcon size={24} color="#FFFFFF" />
+              </TouchableOpacity>
+              
+              <View style={styles.lessonHeaderContent}>
+                <Text style={styles.lessonTitle}>AR Verbs Lesson</Text>
+                <Text style={styles.lessonSubtitle}>Present Tense Conjugations</Text>
               </View>
               
-              {/* Practice Sentences Section */}
-              <View style={styles.reviewSection}>
-                <View style={styles.reviewSubsectionHeader}>
-                  <ChatIcon size={18} color="#FFFFFF" />
-                  <Text style={styles.reviewSubsectionTitle}>Practice Sentences:</Text>
-                </View>
-                <Text style={styles.reviewSentenceText}>"Estoy aprendiendo español en casa."</Text>
-                <Text style={styles.reviewSentenceText}>"Necesito más práctica con vocabulario."</Text>
-                <Text style={styles.reviewSentenceText}>"Mi casa es muy bonita."</Text>
-              </View>
-              
-              {/* New Words Section */}
-              <View style={styles.reviewSection}>
-                <View style={styles.reviewSubsectionHeader}>
-                  <RocketIcon size={18} color="#FFFFFF" />
-                  <Text style={styles.reviewSubsectionTitle}>New Words Added to Your Word Bank:</Text>
-                </View>
-                <Text style={styles.reviewListText}>• conjugar (to conjugate)</Text>
-                <Text style={styles.reviewListText}>• rutina (routine)</Text>
-              </View>
-              
-              {/* Interactive Quiz Section */}
-              <View style={styles.reviewSection}>
-                <View style={styles.reviewSubsectionHeader}>
-                  <AwardIcon size={18} color="#FFFFFF" />
-                  <Text style={styles.reviewSubsectionTitle}>Interactive Quiz:</Text>
-                </View>
-                <Text style={styles.reviewText}>Let's practice what you've learned!</Text>
+              <View style={styles.lessonProgress}>
+                <Text style={styles.lessonProgressText}>0/6</Text>
               </View>
             </View>
-          </View>
-          
-          {/* Bottom Button */}
-          <TouchableOpacity 
-            style={styles.reviewQuizButton} 
-            onPress={() => animateToScreen('quiz')}
-            activeOpacity={0.92}
-          >
-            <LinearGradient
-              colors={['#7C3AED', '#A855F7']}
-              start={{x: 0, y: 0}}
-              end={{x: 1, y: 1}}
-              style={styles.reviewQuizButtonGradient}
-            >
-              <View style={styles.reviewQuizButtonContent}>
-                <RocketIcon size={20} color="#FFFFFF" />
-                <Text style={styles.reviewQuizButtonText}>START PRACTICE QUIZ</Text>
+
+            {/* Progress Bar */}
+            <View style={styles.progressBarContainer}>
+              <View style={styles.progressBarBackground}>
+                <View style={[styles.progressBarFill, { width: '0%' }]} />
               </View>
-            </LinearGradient>
-          </TouchableOpacity>
-        </ScrollView>
-      </SafeAreaView>
-    </LinearGradient>
-  );
+              <Text style={styles.progressBarLabel}>Complete all activities to master this lesson</Text>
+            </View>
+            
+            {/* Activities Grid */}
+            <View style={styles.activitiesContainer}>
+              <Text style={styles.activitiesTitle}>Learning Activities</Text>
+              <View style={styles.activitiesGrid}>
+                {lessonActivities.map((activity, index) => (
+                  <TouchableOpacity
+                    key={activity.id}
+                    style={styles.activityCard}
+                    onPress={() => {
+                      if (activity.type === 'quiz') {
+                        animateToScreen('quiz');
+                      } else {
+                        console.log(`Starting ${activity.type} activity`);
+                      }
+                    }}
+                    activeOpacity={0.8}
+                  >
+                    <LinearGradient
+                      colors={[
+                        `${activity.color}20`,
+                        `${activity.color}10`,
+                        `${activity.color}05`
+                      ]}
+                      style={styles.activityCardGradient}
+                    >
+                      {/* Activity Number */}
+                      <View style={[styles.activityNumber, { backgroundColor: activity.color }]}>
+                        <Text style={styles.activityNumberText}>{index + 1}</Text>
+                      </View>
+                      
+                      {/* Activity Icon */}
+                      <View style={styles.activityIconContainer}>
+                        <Text style={styles.activityIcon}>{activity.icon}</Text>
+                      </View>
+                      
+                      {/* Activity Content */}
+                      <View style={styles.activityContent}>
+                        <Text style={styles.activityTitle}>{activity.title}</Text>
+                        <Text style={styles.activityDescription}>{activity.description}</Text>
+                        <View style={styles.activityMeta}>
+                          <Text style={styles.activityDuration}>{activity.duration}</Text>
+                          {activity.completed && (
+                            <View style={styles.completedBadge}>
+                              <Text style={styles.completedBadgeText}>✓</Text>
+                            </View>
+                          )}
+                        </View>
+                      </View>
+                      
+                      {/* Activity Arrow */}
+                      <View style={styles.activityArrow}>
+                        <Text style={styles.activityArrowText}>›</Text>
+                      </View>
+                    </LinearGradient>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            </View>
+
+            {/* AI Context Card */}
+            <View style={styles.aiContextCard}>
+              <LinearGradient
+                colors={['rgba(255, 255, 255, 0.15)', 'rgba(255, 255, 255, 0.08)']}
+                style={styles.aiContextGradient}
+              >
+                <View style={styles.aiContextHeader}>
+                  <View style={styles.aiContextIconContainer}>
+                    <Text style={styles.aiContextIcon}>🧠</Text>
+                  </View>
+                  <Text style={styles.aiContextTitle}>AI Learning Context</Text>
+                </View>
+                
+                <Text style={styles.aiContextText}>
+                  Based on your notes about AR verb conjugations, I've created this personalized lesson path. 
+                  Each activity builds on the previous one to help you master present tense endings: 
+                  -o, -as, -a, -amos, -áis, -an.
+                </Text>
+                
+                <View style={styles.aiContextMeta}>
+                  <Text style={styles.aiContextMetaText}>📚 Aligned with {selectedTextbook}</Text>
+                  <Text style={styles.aiContextMetaText}>📄 Page {selectedPage}</Text>
+                </View>
+              </LinearGradient>
+            </View>
+          </ScrollView>
+        </SafeAreaView>
+      </LinearGradient>
+    );
+  };
 
   const QuizScreen = () => (
     <LinearGradient
@@ -3724,128 +3796,260 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     elevation: 2,
   },
-  // Review Screen Styles - Glass Morphism Design
-  reviewScreenContainer: {
-    flex: 1,
+  // Lesson Screen Styles - Duolingo-inspired Design
+  lessonScreenContainer: {
+    flexGrow: 1,
+    paddingTop: 32,
     paddingHorizontal: 20,
     paddingBottom: 20,
   },
-  reviewHeader: {
+  lessonHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingTop: 32,
-    paddingBottom: 32,
+    paddingBottom: 24,
     justifyContent: 'space-between',
   },
-  reviewBackButton: {
+  lessonBackButton: {
     width: 48,
     height: 48,
     borderRadius: 24,
     backgroundColor: 'rgba(255, 255, 255, 0.2)',
     alignItems: 'center',
     justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
   },
-  reviewTitle: {
+  lessonHeaderContent: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  lessonTitle: {
     fontSize: 24,
-    fontWeight: Platform.OS === 'ios' ? '600' : 'bold',
+    fontWeight: '800',
     color: '#FFFFFF',
     textAlign: 'center',
-    flex: 1,
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
   },
-  reviewHeaderSpacer: {
-    width: 48,
+  lessonSubtitle: {
+    fontSize: 14,
+    color: 'rgba(255, 255, 255, 0.8)',
+    textAlign: 'center',
+    marginTop: 4,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
   },
-  reviewGlassContainer: {
-    flex: 1,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    borderRadius: 24,
-    marginBottom: 24,
-    overflow: 'hidden',
+  lessonProgress: {
+    width: 52,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 2,
+    borderColor: 'rgba(255, 255, 255, 0.4)',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 8 },
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
-    shadowRadius: 16,
-    elevation: 8,
+    shadowRadius: 4,
+    elevation: 4,
   },
-  reviewGlassContent: {
-    flex: 1,
-    padding: 24,
-  },
-  reviewSectionHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  reviewSectionTitle: {
-    fontSize: 18,
-    fontWeight: Platform.OS === 'ios' ? '600' : 'bold',
+  lessonProgressText: {
+    fontSize: 13,
+    fontWeight: '800',
     color: '#FFFFFF',
-    marginLeft: 8,
+    textAlign: 'center',
+    textShadowColor: 'rgba(0, 0, 0, 0.8)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 3,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+    letterSpacing: 0.5,
+    includeFontPadding: false,
+    textAlignVertical: 'center',
   },
-  reviewSection: {
+  progressBarContainer: {
+    marginBottom: 32,
+    paddingHorizontal: 8,
+  },
+  progressBarBackground: {
+    height: 8,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    borderRadius: 4,
+    marginBottom: 8,
+  },
+  progressBarFill: {
+    height: 8,
+    backgroundColor: '#58CC67',
+    borderRadius: 4,
+  },
+  progressBarLabel: {
+    fontSize: 12,
+    color: 'rgba(255, 255, 255, 0.8)',
+    textAlign: 'center',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  activitiesContainer: {
     marginBottom: 24,
   },
-  reviewSubsectionHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 12,
-  },
-  reviewSubsectionTitle: {
-    fontSize: 16,
-    fontWeight: Platform.OS === 'ios' ? '600' : 'bold',
+  activitiesTitle: {
+    fontSize: 20,
+    fontWeight: '700',
     color: '#FFFFFF',
-    marginLeft: 8,
+    marginBottom: 20,
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
   },
-  reviewText: {
-    fontSize: 15,
-    lineHeight: 22,
-    color: 'rgba(255, 255, 255, 0.9)',
-    fontWeight: Platform.OS === 'ios' ? '400' : 'normal',
+  activitiesGrid: {
+    gap: 12,
   },
-  reviewListText: {
-    fontSize: 15,
-    lineHeight: 22,
-    color: 'rgba(255, 255, 255, 0.8)',
-    marginLeft: 26,
-    marginBottom: 4,
-  },
-  reviewSentenceText: {
-    fontSize: 15,
-    lineHeight: 22,
-    color: 'rgba(255, 255, 255, 0.8)',
-    marginLeft: 26,
-    marginBottom: 6,
-    fontStyle: 'italic',
-  },
-  reviewQuizButton: {
+  activityCard: {
     borderRadius: 16,
     overflow: 'hidden',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
+    shadowOpacity: 0.1,
     shadowRadius: 8,
-    elevation: 8,
+    elevation: 4,
   },
-  reviewQuizButtonGradient: {
-    paddingVertical: 18,
-    paddingHorizontal: 32,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.3)',
-    borderRadius: 16,
-  },
-  reviewQuizButtonContent: {
+  activityCardGradient: {
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+    borderRadius: 16,
+  },
+  activityNumber: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 16,
+  },
+  activityNumberText: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  activityIconContainer: {
+    marginRight: 16,
+  },
+  activityIcon: {
+    fontSize: 24,
+  },
+  activityContent: {
+    flex: 1,
+  },
+  activityTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    marginBottom: 4,
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  activityDescription: {
+    fontSize: 13,
+    color: 'rgba(255, 255, 255, 0.8)',
+    marginBottom: 8,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  activityMeta: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  activityDuration: {
+    fontSize: 12,
+    color: 'rgba(255, 255, 255, 0.7)',
+    fontWeight: '500',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  completedBadge: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    backgroundColor: '#58CC67',
+    alignItems: 'center',
     justifyContent: 'center',
   },
-  reviewQuizButtonText: {
-    fontSize: 16,
-    fontWeight: Platform.OS === 'ios' ? '600' : 'bold',
+  completedBadgeText: {
+    fontSize: 12,
     color: '#FFFFFF',
-    letterSpacing: 0.5,
-    marginLeft: 8,
+    fontWeight: '600',
+  },
+  activityArrow: {
+    marginLeft: 12,
+  },
+  activityArrowText: {
+    fontSize: 24,
+    color: 'rgba(255, 255, 255, 0.6)',
+    fontWeight: '300',
+  },
+  aiContextCard: {
+    borderRadius: 20,
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 12,
+    elevation: 6,
+  },
+  aiContextGradient: {
+    padding: 20,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+    borderRadius: 20,
+  },
+  aiContextHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  aiContextIconContainer: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 12,
+  },
+  aiContextIcon: {
+    fontSize: 20,
+  },
+  aiContextTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  aiContextText: {
+    fontSize: 14,
+    color: 'rgba(255, 255, 255, 0.9)',
+    lineHeight: 20,
+    marginBottom: 16,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  aiContextMeta: {
+    gap: 4,
+  },
+  aiContextMetaText: {
+    fontSize: 12,
+    color: 'rgba(255, 255, 255, 0.7)',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
   },
   quizContainer: {
     flex: 1,
@@ -5398,30 +5602,20 @@ const styles = StyleSheet.create({
     textShadowRadius: 2,
     fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
   },
-  screenshotUploadTextInputContainer: {
+  screenshotUploadTextDisplayContainer: {
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
     borderRadius: 16,
     borderWidth: 1,
     borderColor: 'rgba(255, 255, 255, 0.2)',
-  },
-  screenshotUploadTextInputContainerFocused: {
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    borderColor: 'rgba(255, 255, 255, 0.4)',
-  },
-  screenshotUploadTextInput: {
-    backgroundColor: 'transparent',
     padding: 20,
-    fontSize: 16,
     minHeight: 120,
-    maxHeight: 180,
-    textAlignVertical: 'top',
-    color: '#FFFFFF',
-    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
-    borderWidth: 0,
-    outline: 'none',
   },
-  screenshotUploadTextInputFocused: {
-    backgroundColor: 'transparent',
+  screenshotUploadDemoText: {
+    fontSize: 16,
+    color: '#FFFFFF',
+    lineHeight: 24,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+    opacity: 0.95,
   },
   // Textbook Integration Styles
   textbookSettingsSection: {
