@@ -268,92 +268,177 @@ const CrownIcon = ({ size = 24, color = "#FFD700" }) => (
   </Svg>
 );
 
-// Challenge Carousel Component
-const ChallengeCarousel = ({ challenges, onChallengeSelect, getBadgeConfig }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const scrollViewRef = useRef();
+// Daily Quest Component
+const DailyQuestCard = ({ quest, onQuestAction, userProgress }) => {
+  const progressPercentage = quest.maxProgress > 0 ? (quest.progress / quest.maxProgress) * 100 : 0;
+  const isCompleted = quest.status === 'completed';
+  const isClaimed = quest.status === 'claimed';
+  const isInProgress = quest.status === 'in_progress';
 
-  const handleScroll = (event) => {
-    const { contentOffset, layoutMeasurement } = event.nativeEvent;
-    const currentPage = Math.floor(contentOffset.x / layoutMeasurement.width);
-    setCurrentIndex(currentPage);
+  const getStatusColor = () => {
+    switch (quest.status) {
+      case 'completed': return '#58CC67';
+      case 'claimed': return '#9CA3AF';
+      case 'in_progress': return quest.color;
+      default: return quest.color;
+    }
+  };
+
+  const getActionText = () => {
+    switch (quest.status) {
+      case 'completed': return 'Claim Reward';
+      case 'claimed': return 'Completed ✓';
+      case 'in_progress': return 'Continue';
+      default: return 'Start Quest';
+    }
   };
 
   return (
-    <View style={styles.carouselContainer}>
-      <ScrollView
-        ref={scrollViewRef}
-        horizontal
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        onScroll={handleScroll}
-        scrollEventThrottle={16}
-        style={styles.carouselScrollView}
-        contentContainerStyle={styles.carouselContent}
+    <TouchableOpacity
+      style={[styles.questCard, isClaimed && styles.questCardCompleted]}
+      onPress={() => !isClaimed && onQuestAction(quest)}
+      activeOpacity={isClaimed ? 1 : 0.8}
+    >
+      <LinearGradient
+        colors={
+          isClaimed 
+            ? ['rgba(156, 163, 175, 0.1)', 'rgba(156, 163, 175, 0.05)']
+            : [`${quest.color}15`, `${quest.color}08`]
+        }
+        style={styles.questCardGradient}
       >
-        {challenges.map((challenge, index) => (
-          <View key={challenge.id} style={styles.carouselCardContainer}>
-            <TouchableOpacity
-              style={styles.carouselCard}
-              onPress={() => onChallengeSelect(challenge)}
-              activeOpacity={0.9}
-            >
-              <View style={styles.challengeCardContent}>
-                {/* Header with badge */}
-                <View style={styles.challengeCardHeader}>
-                  <View style={styles.challengeTypeContainer}>
-                    <AwardIcon size={14} color="#6B7280" />
-                    <Text style={styles.challengeTypeText}>
-                      {challenge.type}
-                    </Text>
-                  </View>
-                  <View style={[
-                    styles.dynamicBadge, 
-                    { backgroundColor: getBadgeConfig(challenge.badge).backgroundColor }
-                  ]}>
-                    <Text style={[
-                      styles.dynamicBadgeText,
-                      { color: getBadgeConfig(challenge.badge).textColor }
-                    ]}>
-                      {getBadgeConfig(challenge.badge).text}
-                    </Text>
-                  </View>
-                </View>
-                
-                {/* Challenge Info */}
-                <Text style={styles.challengeTitle} numberOfLines={2}>
-                  {challenge.title}
-                </Text>
-                <Text style={styles.challengeSubtitle} numberOfLines={2}>
-                  {challenge.subtitle}
-                </Text>
-                
-                {/* Challenge Details */}
-                <View style={styles.challengeDetailsContainer}>
-                  <Text style={styles.challengePoints}>+{challenge.points} pts</Text>
-                  <Text style={styles.challengeTime}>{challenge.timeLimit}</Text>
-                </View>
-                
-                {/* Difficulty */}
-                <Text style={styles.challengeDifficulty}>{challenge.difficulty}</Text>
-              </View>
-              
-              {/* Pagination Dots Overlay */}
-              <View style={styles.cardPaginationOverlay}>
-                {challenges.map((_, dotIndex) => (
-                  <View
-                    key={dotIndex}
-                    style={[
-                      styles.cardPaginationDot,
-                      dotIndex === currentIndex ? styles.activeDot : styles.inactiveDot
-                    ]}
-                  />
-                ))}
-              </View>
-            </TouchableOpacity>
+        {/* Quest Header */}
+        <View style={styles.questHeader}>
+          <View style={[styles.questIconContainer, { backgroundColor: getStatusColor() }]}>
+            <Text style={styles.questIcon}>{quest.icon}</Text>
           </View>
-        ))}
-      </ScrollView>
+          <View style={styles.questInfo}>
+            <Text style={[styles.questTitle, isClaimed && styles.questTitleCompleted]}>
+              {quest.title}
+            </Text>
+            <Text style={[styles.questDescription, isClaimed && styles.questDescriptionCompleted]}>
+              {quest.description}
+            </Text>
+          </View>
+          {isClaimed && (
+            <View style={styles.questCompletedBadge}>
+              <Text style={styles.questCompletedBadgeText}>✓</Text>
+            </View>
+          )}
+        </View>
+
+        {/* Progress Bar */}
+        <View style={styles.questProgressContainer}>
+          <View style={styles.questProgressBar}>
+            <View 
+              style={[
+                styles.questProgressFill, 
+                { 
+                  width: `${progressPercentage}%`,
+                  backgroundColor: getStatusColor()
+                }
+              ]} 
+            />
+          </View>
+          <Text style={[styles.questProgressText, isClaimed && styles.questProgressTextCompleted]}>
+            {quest.progress}/{quest.maxProgress}
+          </Text>
+        </View>
+
+        {/* Rewards & Action */}
+        <View style={styles.questFooter}>
+          <View style={styles.questRewards}>
+            <View style={styles.questRewardItem}>
+              <Text style={styles.questRewardIcon}>⭐</Text>
+              <Text style={[styles.questRewardText, isClaimed && styles.questRewardTextCompleted]}>
+                +{quest.xpReward} XP
+              </Text>
+            </View>
+            <View style={styles.questRewardItem}>
+              <Text style={styles.questRewardIcon}>💎</Text>
+              <Text style={[styles.questRewardText, isClaimed && styles.questRewardTextCompleted]}>
+                +{quest.gemReward}
+              </Text>
+            </View>
+          </View>
+          <View style={[
+            styles.questActionButton,
+            { backgroundColor: getStatusColor() },
+            isClaimed && styles.questActionButtonCompleted
+          ]}>
+            <Text style={[
+              styles.questActionText,
+              isClaimed && styles.questActionTextCompleted
+            ]}>
+              {getActionText()}
+            </Text>
+          </View>
+        </View>
+      </LinearGradient>
+    </TouchableOpacity>
+  );
+};
+
+// Daily Quest Grid Component
+const DailyQuestGrid = ({ quests, onQuestAction, userProgress }) => {
+  return (
+    <View style={styles.questGrid}>
+      {quests.map((quest) => (
+        <DailyQuestCard
+          key={quest.id}
+          quest={quest}
+          onQuestAction={onQuestAction}
+          userProgress={userProgress}
+        />
+      ))}
+    </View>
+  );
+};
+
+// Daily Progress Summary Component
+const DailyProgressSummary = ({ userProgress, quests }) => {
+  const completedQuests = quests.filter(q => q.status === 'completed' || q.status === 'claimed').length;
+  const totalQuests = quests.length;
+  const progressPercentage = (completedQuests / totalQuests) * 100;
+
+  return (
+    <View style={styles.progressSummaryContainer}>
+      <LinearGradient
+        colors={['rgba(255, 255, 255, 0.15)', 'rgba(255, 255, 255, 0.08)']}
+        style={styles.progressSummaryGradient}
+      >
+        <View style={styles.progressSummaryHeader}>
+          <Text style={styles.progressSummaryTitle}>Today's Progress</Text>
+          <Text style={styles.progressSummarySubtitle}>
+            {completedQuests}/{totalQuests} quests completed
+          </Text>
+        </View>
+        
+        <View style={styles.progressSummaryStats}>
+          <View style={styles.progressStat}>
+            <Text style={styles.progressStatIcon}>⭐</Text>
+            <Text style={styles.progressStatValue}>+{userProgress.dailyXP}</Text>
+            <Text style={styles.progressStatLabel}>XP Today</Text>
+          </View>
+          <View style={styles.progressStat}>
+            <Text style={styles.progressStatIcon}>🔥</Text>
+            <Text style={styles.progressStatValue}>{userProgress.currentStreak}</Text>
+            <Text style={styles.progressStatLabel}>Day Streak</Text>
+          </View>
+          <View style={styles.progressStat}>
+            <Text style={styles.progressStatIcon}>💎</Text>
+            <Text style={styles.progressStatValue}>{userProgress.totalGems}</Text>
+            <Text style={styles.progressStatLabel}>Total Gems</Text>
+          </View>
+        </View>
+
+        <View style={styles.progressSummaryBar}>
+          <View style={styles.progressSummaryTrack}>
+            <View style={[styles.progressSummaryFill, { width: `${progressPercentage}%` }]} />
+          </View>
+          <Text style={styles.progressSummaryPercentage}>{Math.round(progressPercentage)}%</Text>
+        </View>
+      </LinearGradient>
     </View>
   );
 };
@@ -388,14 +473,17 @@ const LessonsCarousel = ({ lessons, onLessonSelect, getBadgeConfig }) => {
               onPress={() => onLessonSelect(lesson)}
               activeOpacity={0.9}
             >
-              <View style={styles.lessonCardContent}>
+              <LinearGradient
+                colors={['rgba(255, 255, 255, 0.15)', 'rgba(255, 255, 255, 0.08)']}
+                style={[styles.lessonCardContent, { borderWidth: 1, borderColor: 'rgba(255, 255, 255, 0.1)' }]}
+              >
                 {/* Header with dynamic badge */}
                 <View style={styles.lessonCardHeader}>
                   <View style={styles.lessonTypeContainer}>
                     {lesson.type === 'notes' ? (
-                      <DocumentIcon size={14} color="#6B7280" />
+                      <DocumentIcon size={14} color="#FFFFFF" />
                     ) : (
-                      <CameraIcon size={14} color="#6B7280" />
+                      <CameraIcon size={14} color="#FFFFFF" />
                     )}
                     <Text style={styles.lessonTypeText}>
                       {lesson.type === 'notes' ? 'Notes' : 'Photo'}
@@ -438,21 +526,21 @@ const LessonsCarousel = ({ lessons, onLessonSelect, getBadgeConfig }) => {
                 
                 {/* Last Studied */}
                 <Text style={styles.lastStudiedText}>{lesson.lastStudied}</Text>
-              </View>
-              
-              {/* Pagination Dots Overlay */}
-              <View style={styles.cardPaginationOverlay}>
-                {lessons.map((_, dotIndex) => (
-                  <View
-                    key={dotIndex}
-                    style={[
-                      styles.cardPaginationDot,
-                      dotIndex === currentIndex ? styles.activeDot : styles.inactiveDot
-                    ]}
-                  />
-                ))}
-              </View>
+              </LinearGradient>
             </TouchableOpacity>
+            
+            {/* Pagination Dots Overlay */}
+            <View style={styles.cardPaginationOverlay}>
+              {lessons.map((_, dotIndex) => (
+                <View
+                  key={dotIndex}
+                  style={[
+                    styles.cardPaginationDot,
+                    dotIndex === currentIndex ? styles.activeDot : styles.inactiveDot
+                  ]}
+                />
+              ))}
+            </View>
           </View>
         ))}
       </ScrollView>
@@ -514,7 +602,7 @@ const GameModeCarousel = ({ gameModes, onGameModeSelect, uploadCount }) => {
                 
                 {/* Icon */}
                 <View style={[styles.gameModeCardIconContainer, { backgroundColor: mode.color }]}>
-                  {mode.icon}
+                  {mode.icon || null}
                 </View>
                 
                 {/* Title */}
@@ -653,8 +741,8 @@ const WordBankCarousel = ({ words, getCategoryConfig }) => {
   );
 };
 
-// Friends Ranking Modal Component
-const FriendsModal = ({ visible, onClose, friendsData }) => {
+// Leaderboard Ranking Modal Component
+const LeaderboardModal = ({ visible, onClose, leaderboardData }) => {
   const slideAnim = useRef(new Animated.Value(height)).current;
   const opacityAnim = useRef(new Animated.Value(0)).current;
 
@@ -719,61 +807,58 @@ const FriendsModal = ({ visible, onClose, friendsData }) => {
           {/* Modal Header */}
           <View style={styles.friendsModalHeader}>
             <View style={styles.friendsModalHeaderContent}>
-              <Text style={styles.friendsModalTitle}>Friends Leaderboard</Text>
-              <Text style={styles.friendsModalSubtitle}>This week's rankings</Text>
+                              <Text style={styles.friendsModalTitle}>Leaderboard</Text>
+                <Text style={styles.friendsModalSubtitle}>See how you stack up against your peers</Text>
             </View>
             <TouchableOpacity onPress={onClose} style={styles.friendsModalCloseButton}>
               <Text style={styles.friendsModalCloseText}>✕</Text>
             </TouchableOpacity>
           </View>
 
-          {/* Friends List */}
-          <ScrollView 
-            style={styles.friendsModalList}
-            showsVerticalScrollIndicator={false}
-          >
-            {friendsData.map((friend) => (
+                      {/* Leaderboard List */}
+            <ScrollView 
+              style={styles.friendsModalList}
+              showsVerticalScrollIndicator={false}
+            >
+              {leaderboardData.map((player) => (
               <View 
-                key={friend.id} 
+                key={player.id} 
                 style={[
                   styles.friendsModalItem,
-                  friend.isCurrentUser && styles.friendsModalItemCurrent
+                  player.isCurrentUser && styles.friendsModalItemCurrent
                 ]}
               >
                 <View style={styles.friendsModalRankContainer}>
                   <Text style={[
                     styles.friendsModalRankText,
-                    { color: getRankColor(friend.rank) }
+                    player.rank === 1 && { color: '#FFD700' },
+                    player.rank === 2 && { color: '#C0C0C0' },
+                    player.rank === 3 && { color: '#CD7F32' }
                   ]}>
-                    {getRankIcon(friend.rank)}
+                    #{player.rank}
                   </Text>
                 </View>
                 
                 <Image 
-                  source={friend.profilePic} 
+                  source={player.profilePic} 
                   style={[
                     styles.friendsModalAvatar,
-                    friend.isCurrentUser && styles.friendsModalAvatarCurrent
+                    player.isCurrentUser && styles.friendsModalAvatarCurrent
                   ]} 
                 />
                 
                 <View style={styles.friendsModalInfo}>
                   <Text style={[
                     styles.friendsModalName,
-                    friend.isCurrentUser && styles.friendsModalNameCurrent
+                    player.isCurrentUser && styles.friendsModalNameCurrent
                   ]}>
-                    {friend.name} {friend.isCurrentUser && '(You)'}
+                    {player.name} {player.isCurrentUser && '(You)'}
                   </Text>
-                  <View style={styles.friendsModalStats}>
-                    <View style={styles.friendsModalStatItem}>
-                      <Text style={styles.friendsModalStatLabel}>XP</Text>
-                      <Text style={styles.friendsModalStatValue}>{friend.weeklyXP}</Text>
+                                      <View style={styles.friendsModalStats}>
+                      <View style={styles.friendsModalStatItem}>
+                        <Text style={styles.friendsModalStatValue}>{player.weeklyXP} XP</Text>
+                      </View>
                     </View>
-                    <View style={styles.friendsModalStatItem}>
-                      <FireIcon size={14} color="#FF6B6B" />
-                      <Text style={styles.friendsModalStatValue}>{friend.streak}</Text>
-                    </View>
-                  </View>
                 </View>
               </View>
             ))}
@@ -1478,6 +1563,8 @@ const StreakModal = ({ visible, onClose, streakData }) => {
 
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
+  const [showOnboarding, setShowOnboarding] = useState(true);
+  const [onboardingStep, setOnboardingStep] = useState(0);
   const [screen, setScreen] = useState('home');
   const [notes, setNotes] = useState('');
   const [image, setImage] = useState(null);
@@ -1492,6 +1579,11 @@ export default function App() {
   const [selectedTextbook, setSelectedTextbook] = useState('Spanish 1: ¡Avancemos!');
   const [selectedPage, setSelectedPage] = useState('156');
   const [textbooks] = useState(['Spanish 1: ¡Avancemos!', 'Spanish 2: ¡Avancemos!', 'Spanish 3: ¡Avancemos!']);
+  
+  // Onboarding states
+  const [selectedLanguage, setSelectedLanguage] = useState('');
+  const [learningStyle, setLearningStyle] = useState('');
+  const [userName, setUserName] = useState('Zander');
   
   console.log('App component rendered - Current screen:', screen);
   console.log('App component rendered - Notes state:', notes);
@@ -1533,49 +1625,120 @@ export default function App() {
     }
   ]);
 
-  // Daily challenges state
-  const [dailyChallenges] = useState([
+  // Daily quest system state
+  const [dailyQuests, setDailyQuests] = useState([
     {
       id: 1,
-      title: "Morning Quiz",
-      subtitle: "Start your day with 5 quick questions",
-      type: "quiz",
-      badge: "new",
-      difficulty: "easy",
-      points: 25,
-      timeLimit: "3 min"
+      title: "Practice Session",
+      description: "Complete 1 practice session",
+      type: "practice",
+      icon: "🎯",
+      xpReward: 25,
+      gemReward: 5,
+      progress: 0,
+      maxProgress: 1,
+      status: "available", // available, in_progress, completed, claimed
+      color: "#58CC67",
+      category: "daily"
     },
     {
       id: 2,
-      title: "Speed Round",
-      subtitle: "Translate 20 words in 60 seconds",
-      type: "speed",
-      badge: "new",
-      difficulty: "hard",
-      points: 100,
-      timeLimit: "1 min"
+      title: "Vocabulary Review",
+      description: "Review 5 words from yesterday",
+      type: "review",
+      icon: "📚",
+      xpReward: 35,
+      gemReward: 8,
+      progress: 3,
+      maxProgress: 5,
+      status: "in_progress",
+      color: "#3AB1FF",
+      category: "daily"
     },
     {
       id: 3,
-      title: "Grammar Master",
-      subtitle: "Advanced conjugation patterns",
-      type: "grammar",
-      badge: "practice",
-      difficulty: "expert",
-      points: 150,
-      timeLimit: "10 min"
+      title: "Upload Content",
+      description: "Add 1 new lesson material",
+      type: "upload",
+      icon: "📤",
+      xpReward: 50,
+      gemReward: 10,
+      progress: 0,
+      maxProgress: 1,
+      status: "available",
+      color: "#7C3AED",
+      category: "daily"
     },
     {
       id: 4,
-      title: "Listening Challenge",
-      subtitle: "Understand native speaker audio",
-      type: "audio",
-      badge: "new",
-      difficulty: "hard",
-      points: 120,
-      timeLimit: "7 min"
+      title: "Quiz Challenge",
+      description: "Score 80%+ on any quiz",
+      type: "quiz",
+      icon: "🏆",
+      xpReward: 40,
+      gemReward: 12,
+      progress: 0,
+      maxProgress: 1,
+      status: "available",
+      color: "#FF6B6B",
+      category: "daily"
     }
   ]);
+
+  // User progress state
+  const [userProgress, setUserProgress] = useState({
+    totalXP: 1250,
+    totalGems: 68,
+    dailyXP: 95,
+    questsCompleted: 2,
+    currentStreak: 5
+  });
+
+  // User profile information
+  const [userProfile] = useState({
+    languages: [
+      {
+        id: 1,
+        name: 'Spanish',
+        flag: '🇪🇸',
+        proficiency: 'Intermediate',
+        progress: 65,
+        region: 'Latin American'
+      }
+    ],
+    books: [
+      {
+        id: 1,
+        title: 'Spanish for Beginners',
+        author: 'Maria Rodriguez',
+        progress: 85,
+        cover: '📖',
+        status: 'active'
+      },
+      {
+        id: 2,
+        title: 'Advanced Grammar',
+        author: 'Carlos Mendez',
+        progress: 30,
+        cover: '📚',
+        status: 'active'
+      },
+      {
+        id: 3,
+        title: 'Conversation Practice',
+        author: 'Ana Silva',
+        progress: 45,
+        cover: '💬',
+        status: 'active'
+      }
+    ],
+    region: {
+      origin: 'United States',
+      flag: '🇺🇸',
+      timezone: 'PST',
+      learningRegion: 'Latin America'
+    }
+  });
 
   // Game modes data
   const [gameModes] = useState([
@@ -1583,7 +1746,7 @@ export default function App() {
       id: 1,
       title: "Upload & Learn",
       description: "Add notes, photos, or voice recordings to get AI-powered reviews",
-      icon: <DocumentIcon size={32} color="#FFFFFF" />,
+      // icon: <DocumentIcon size={32} color="#FFFFFF" />, // Commented out to fix Text component error
       color: "rgba(88, 204, 103, 0.9)",
       badge: "START HERE",
       badgeColor: "#10B981",
@@ -1594,7 +1757,7 @@ export default function App() {
       id: 2,
       title: "Quiz Challenge",
       description: "Test your knowledge with personalized quizzes",
-      icon: <AwardIcon size={32} color="#FFFFFF" />,
+      // icon: <AwardIcon size={32} color="#FFFFFF" />, // Commented out to fix Text component error
       color: "rgba(124, 58, 237, 0.9)",
       badge: "UNLOCK SOON",
       badgeColor: "#7C3AED",
@@ -1605,7 +1768,7 @@ export default function App() {
       id: 3,
       title: "AI Chat Practice",
       description: "Practice conversations with AI in real scenarios",
-      icon: <ChatIcon size={32} color="#FFFFFF" />,
+      // icon: <ChatIcon size={32} color="#FFFFFF" />, // Commented out to fix Text component error
       color: "rgba(58, 177, 255, 0.9)",
       badge: "COMING SOON",
       badgeColor: "#3B82F6",
@@ -1684,14 +1847,13 @@ export default function App() {
     }
   ]);
 
-  // Friends data for ranking modal - sorted by rank
-  const [friendsData] = useState([
+  // Leaderboard data for ranking modal - sorted by rank
+  const [leaderboardData] = useState([
     {
       id: 1,
       name: "Maria",
       profilePic: require('./assets/one.png'),
-      weeklyXP: 1580,
-      streak: 12,
+      weeklyXP: 2450,
       rank: 1,
       isCurrentUser: false
     },
@@ -1699,8 +1861,7 @@ export default function App() {
       id: 2,
       name: "Carlos",
       profilePic: require('./assets/two.png'),
-      weeklyXP: 1420,
-      streak: 8,
+      weeklyXP: 2180,
       rank: 2,
       isCurrentUser: false
     },
@@ -1708,8 +1869,7 @@ export default function App() {
       id: 3,
       name: "Zander",
       profilePic: require('./assets/zander.jpg'),
-      weeklyXP: 1250,
-      streak: 5,
+      weeklyXP: 1950,
       rank: 3,
       isCurrentUser: true
     },
@@ -1717,8 +1877,7 @@ export default function App() {
       id: 4,
       name: "Sophie",
       profilePic: require('./assets/three.png'),
-      weeklyXP: 980,
-      streak: 3,
+      weeklyXP: 1780,
       rank: 4,
       isCurrentUser: false
     },
@@ -1726,8 +1885,7 @@ export default function App() {
       id: 5,
       name: "Diego",
       profilePic: require('./assets/four.png'),
-      weeklyXP: 850,
-      streak: 15,
+      weeklyXP: 1650,
       rank: 5,
       isCurrentUser: false
     },
@@ -1735,8 +1893,7 @@ export default function App() {
       id: 6,
       name: "Emma",
       profilePic: require('./assets/five.png'),
-      weeklyXP: 720,
-      streak: 2,
+      weeklyXP: 1520,
       rank: 6,
       isCurrentUser: false
     },
@@ -1744,8 +1901,7 @@ export default function App() {
       id: 7,
       name: "Alex",
       profilePic: require('./assets/six.png'),
-      weeklyXP: 650,
-      streak: 7,
+      weeklyXP: 1380,
       rank: 7,
       isCurrentUser: false
     },
@@ -1753,8 +1909,7 @@ export default function App() {
       id: 8,
       name: "Luna",
       profilePic: require('./assets/seven.png'),
-      weeklyXP: 590,
-      streak: 1,
+      weeklyXP: 1180,
       rank: 8,
       isCurrentUser: false
     }
@@ -2073,7 +2228,7 @@ export default function App() {
   
   // Progress screen interactive states
   const [pressedStat, setPressedStat] = useState(null);
-  const [showFriendsModal, setShowFriendsModal] = useState(false);
+  const [showLeaderboardModal, setShowLeaderboardModal] = useState(false);
   const [showAchievementsModal, setShowAchievementsModal] = useState(false);
   const [showLearningPath, setShowLearningPath] = useState(false);
   const [showStreakModal, setShowStreakModal] = useState(false);
@@ -2373,19 +2528,83 @@ export default function App() {
     animateToScreen('review');
   };
 
-  const handleChallengeSelect = (challenge) => {
-    // Set mock challenge content
-    setReview(
-      `🚀 Challenge: ${challenge.title}\n\n` +
-      `🎯 Challenge Details:\n` +
-      `- Difficulty: ${challenge.difficulty}\n` +
-      `- Points: ${challenge.points}\n` +
-      `- Time Limit: ${challenge.timeLimit}\n\n` +
-      `💡 Challenge Description:\n` +
-      `${challenge.subtitle}\n\n` +
-      `📝 Ready to take the challenge?`
+  // Quest action handlers
+  const handleQuestAction = (quest) => {
+    console.log('Quest action:', quest.title, quest.status);
+    
+    if (quest.status === 'completed') {
+      // Claim reward
+      handleClaimReward(quest);
+    } else {
+      // Start or continue quest
+      handleStartQuest(quest);
+    }
+  };
+
+  const handleStartQuest = (quest) => {
+    // Navigate to appropriate screen based on quest type
+    switch (quest.type) {
+      case 'practice':
+        animateToScreen('upload');
+        break;
+      case 'review':
+        // Navigate to word bank or review screen
+        console.log('Starting vocabulary review quest');
+        break;
+      case 'upload':
+        animateToScreen('upload');
+        break;
+      case 'quiz':
+        animateToScreen('quiz');
+        break;
+      default:
+        console.log(`Starting ${quest.type} quest`);
+    }
+    
+    // Update quest status to in_progress
+    setDailyQuests(prevQuests => 
+      prevQuests.map(q => 
+        q.id === quest.id 
+          ? { ...q, status: 'in_progress' }
+          : q
+      )
     );
-    animateToScreen('quiz');
+  };
+
+  const handleClaimReward = (quest) => {
+    // Add XP and gems to user progress
+    setUserProgress(prevProgress => ({
+      ...prevProgress,
+      totalXP: prevProgress.totalXP + quest.xpReward,
+      totalGems: prevProgress.totalGems + quest.gemReward,
+      dailyXP: prevProgress.dailyXP + quest.xpReward,
+      questsCompleted: prevProgress.questsCompleted + 1
+    }));
+
+    // Mark quest as claimed
+    setDailyQuests(prevQuests => 
+      prevQuests.map(q => 
+        q.id === quest.id 
+          ? { ...q, status: 'claimed' }
+          : q
+      )
+    );
+
+    // Show reward notification (could add animation here)
+    console.log(`Claimed: +${quest.xpReward} XP, +${quest.gemReward} gems`);
+  };
+
+  const updateQuestProgress = (questType, progressAmount = 1) => {
+    setDailyQuests(prevQuests => 
+      prevQuests.map(quest => {
+        if (quest.type === questType && quest.status !== 'claimed') {
+          const newProgress = Math.min(quest.progress + progressAmount, quest.maxProgress);
+          const newStatus = newProgress >= quest.maxProgress ? 'completed' : 'in_progress';
+          return { ...quest, progress: newProgress, status: newStatus };
+        }
+        return quest;
+      })
+    );
   };
 
   const handleGameModeSelect = (gameMode) => {
@@ -2393,11 +2612,16 @@ export default function App() {
     if (gameMode.route === 'upload') {
       animateToScreen('upload');
     } else if (gameMode.route === 'quiz') {
+      // Update quiz quest progress when quiz is started
+      updateQuestProgress('quiz');
       animateToScreen('quiz');
     } else if (gameMode.route === 'chat') {
       // For now, just show a placeholder
       console.log('AI Chat coming soon!');
     }
+    
+    // Update practice quest progress when any game mode is selected
+    updateQuestProgress('practice');
   };
 
   // Badge configuration function
@@ -2486,7 +2710,7 @@ export default function App() {
     // Handle specific stat actions
     if (statType === 'friends') {
       setTimeout(() => {
-        setShowFriendsModal(true);
+        setShowLeaderboardModal(true);
       }, 150); // Small delay for press animation
     } else if (statType === 'badges') {
       setTimeout(() => {
@@ -2608,7 +2832,7 @@ export default function App() {
         <View style={styles.actionContainer}>
           <TouchableOpacity 
             style={styles.premiumPillButton} 
-            onPress={() => animateToScreen('gamemode', 'lesson')}
+            onPress={() => animateToScreen('upload')}
             activeOpacity={0.85}
           >
             <LinearGradient
@@ -2625,20 +2849,26 @@ export default function App() {
           </TouchableOpacity>
         </View>
 
-        {/* Daily Challenges Section */}
-        <View style={styles.dailyChallengesContainer}>
+        {/* Daily Progress Summary */}
+        <DailyProgressSummary 
+          userProgress={userProgress}
+          quests={dailyQuests}
+        />
+
+        {/* Daily Quests Section */}
+        <View style={styles.dailyQuestsContainer}>
           <View style={styles.sectionHeader}>
             <View style={styles.sectionTitleContainer}>
               <AwardIcon size={22} color="#FFFFFF" />
-              <Text style={styles.sectionTitle}>Daily Challenges</Text>
+              <Text style={styles.sectionTitle}>Daily Quests</Text>
             </View>
-            <Text style={styles.sectionSubtitle}>Test your skills and earn rewards</Text>
+            <Text style={styles.sectionSubtitle}>Complete quests to earn XP and gems</Text>
           </View>
           
-          <ChallengeCarousel 
-            challenges={dailyChallenges}
-            onChallengeSelect={handleChallengeSelect}
-            getBadgeConfig={getBadgeConfig}
+          <DailyQuestGrid 
+            quests={dailyQuests}
+            onQuestAction={handleQuestAction}
+            userProgress={userProgress}
           />
         </View>
 
@@ -2876,6 +3106,337 @@ export default function App() {
             </LinearGradient>
           </TouchableOpacity>
         </ScrollView>
+      </SafeAreaView>
+    </LinearGradient>
+  );
+
+  // Onboarding data
+  const languages = [
+    { id: 'spanish', name: 'Spanish', flag: '🇪🇸', description: 'Most popular choice' },
+    { id: 'french', name: 'French', flag: '🇫🇷', description: 'Romance language' },
+    { id: 'german', name: 'German', flag: '🇩🇪', description: 'Logical structure' },
+    { id: 'italian', name: 'Italian', flag: '🇮🇹', description: 'Beautiful sounds' }
+  ];
+
+  const learningStyles = [
+    {
+      id: 'games',
+      title: 'Interactive Games',
+      description: 'Learn through fun challenges and quizzes',
+      icon: '🎮',
+      color: '#FF6B6B'
+    },
+    {
+      id: 'ai_chat',
+      title: 'AI Conversations',
+      description: 'Practice with our AI language partner',
+      icon: '🤖',
+      color: '#4ECDC4'
+    },
+    {
+      id: 'flashcards',
+      title: 'Flashcards & Drills',
+      description: 'Traditional study with smart repetition',
+      icon: '📚',
+      color: '#45B7D1'
+    },
+    {
+      id: 'mixed',
+      title: 'Mixed Approach',
+      description: 'A bit of everything for maximum learning',
+      icon: '🎯',
+      color: '#96CEB4'
+    }
+  ];
+
+  // Onboarding Screen 1: Welcome & Language Selection
+  const OnboardingWelcome = () => (
+    <LinearGradient
+      colors={['#58CC67', '#3AB1FF', '#7C3AED']}
+      locations={[0, 0.5, 1]}
+      style={styles.gradientContainer}
+    >
+      <StatusBar barStyle="light-content" />
+      <SafeAreaView style={styles.safeArea}>
+        <View style={styles.onboardingContainer}>
+          {/* Header */}
+          <View style={styles.onboardingHeader}>
+            <Image 
+              source={require('./assets/polytalk-logo.png')} 
+              style={styles.onboardingLogo}
+              resizeMode="contain"
+            />
+            <Text style={styles.onboardingTitle}>Welcome to PolyTalk</Text>
+            <Text style={styles.onboardingSubtitle}>AI-powered language learning for university students</Text>
+          </View>
+
+          {/* Language Selection */}
+          <View style={styles.onboardingContent}>
+            <Text style={styles.onboardingSectionTitle}>Choose your language</Text>
+            <View style={styles.languageGrid}>
+              {languages.map((language) => (
+                <TouchableOpacity
+                  key={language.id}
+                  style={[
+                    styles.languageCard,
+                    selectedLanguage === language.id && styles.languageCardSelected
+                  ]}
+                  onPress={() => {
+                    setSelectedLanguage(language.id);
+                    setOnboardingStep(1);
+                  }}
+                  activeOpacity={0.8}
+                >
+                  <LinearGradient
+                    colors={
+                      selectedLanguage === language.id 
+                        ? ['rgba(255, 255, 255, 0.3)', 'rgba(255, 255, 255, 0.1)']
+                        : ['rgba(255, 255, 255, 0.15)', 'rgba(255, 255, 255, 0.05)']
+                    }
+                    style={styles.languageCardGradient}
+                  >
+                    <Text style={styles.languageFlag}>{language.flag}</Text>
+                    <Text style={styles.languageName}>{language.name}</Text>
+                  </LinearGradient>
+                </TouchableOpacity>
+              ))}
+            </View>
+          </View>
+        </View>
+      </SafeAreaView>
+    </LinearGradient>
+  );
+
+  // Onboarding Screen 2: Learning Style Selection
+  const OnboardingLearningStyle = () => (
+    <LinearGradient
+      colors={['#58CC67', '#3AB1FF', '#7C3AED']}
+      locations={[0, 0.5, 1]}
+      style={styles.gradientContainer}
+    >
+      <StatusBar barStyle="light-content" />
+      <SafeAreaView style={styles.safeArea}>
+        <View style={styles.onboardingContainer}>
+          {/* Back Button */}
+          <TouchableOpacity 
+            style={styles.onboardingBackButton}
+            onPress={() => setOnboardingStep(0)}
+          >
+            <BackArrowIcon size={24} color="#FFFFFF" />
+          </TouchableOpacity>
+
+          {/* Header */}
+          <View style={styles.onboardingHeader}>
+            <Text style={styles.onboardingTitle}>How do you learn best?</Text>
+            <Text style={styles.onboardingSubtitle}>We'll personalize your experience based on your preference</Text>
+          </View>
+
+          {/* Learning Style Selection */}
+          <View style={styles.onboardingContent}>
+            <View style={styles.learningStyleGrid2x2}>
+              {learningStyles.map((style) => (
+                <TouchableOpacity
+                  key={style.id}
+                  style={[
+                    styles.learningStyleCard2x2,
+                    learningStyle === style.id && styles.learningStyleCardSelected
+                  ]}
+                  onPress={() => setLearningStyle(style.id)}
+                  activeOpacity={0.8}
+                >
+                  <LinearGradient
+                    colors={
+                      learningStyle === style.id 
+                        ? [`${style.color}30`, `${style.color}10`]
+                        : ['rgba(255, 255, 255, 0.15)', 'rgba(255, 255, 255, 0.05)']
+                    }
+                    style={styles.learningStyleCardGradient2x2}
+                  >
+                    <View style={[styles.learningStyleIcon2x2, { backgroundColor: style.color }]}>
+                      <Text style={styles.learningStyleIconText}>{style.icon}</Text>
+                    </View>
+                    <Text style={styles.learningStyleTitle2x2}>{style.title}</Text>
+                    <Text style={styles.learningStyleDescription2x2}>{style.description}</Text>
+                  </LinearGradient>
+                </TouchableOpacity>
+              ))}
+            </View>
+          </View>
+
+          {/* Continue Button */}
+          <TouchableOpacity
+            style={[styles.onboardingButton, !learningStyle && styles.onboardingButtonDisabled]}
+            onPress={() => learningStyle && setOnboardingStep(2)}
+            disabled={!learningStyle}
+            activeOpacity={learningStyle ? 0.9 : 1}
+          >
+            <LinearGradient
+              colors={learningStyle ? ['#58CC67', '#42B883'] : ['rgba(150,150,150,0.4)', 'rgba(120,120,120,0.3)']}
+              style={styles.onboardingButtonGradient}
+            >
+              <Text style={[styles.onboardingButtonText, !learningStyle && styles.onboardingButtonTextDisabled]}>
+                Set My Learning Style
+              </Text>
+            </LinearGradient>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
+    </LinearGradient>
+  );
+
+  // Onboarding Screen 3: Quick Setup
+  const OnboardingSetup = () => (
+    <LinearGradient
+      colors={['#58CC67', '#3AB1FF', '#7C3AED']}
+      locations={[0, 0.5, 1]}
+      style={styles.gradientContainer}
+    >
+      <StatusBar barStyle="light-content" />
+      <SafeAreaView style={styles.safeArea}>
+        <View style={styles.onboardingContainer}>
+          {/* Back Button */}
+          <TouchableOpacity 
+            style={styles.onboardingBackButton}
+            onPress={() => setOnboardingStep(1)}
+          >
+            <BackArrowIcon size={24} color="#FFFFFF" />
+          </TouchableOpacity>
+
+          {/* Header */}
+          <View style={styles.onboardingHeader}>
+            <Text style={styles.onboardingTitle}>Almost ready!</Text>
+            <Text style={styles.onboardingSubtitle}>Here's what you can do with PolyTalk</Text>
+          </View>
+
+          {/* Features */}
+          <View style={styles.onboardingContent}>
+            <View style={styles.featuresGrid}>
+              <View style={styles.featureCard}>
+                <LinearGradient
+                  colors={['rgba(255, 255, 255, 0.15)', 'rgba(255, 255, 255, 0.05)']}
+                  style={styles.featureCardGradient}
+                >
+                  <Text style={styles.featureTitle}>Upload & Review</Text>
+                  <Text style={styles.featureDescription}>Get AI-powered reviews of your notes and materials</Text>
+                </LinearGradient>
+              </View>
+              
+              <View style={styles.featureCard}>
+                <LinearGradient
+                  colors={['rgba(255, 255, 255, 0.15)', 'rgba(255, 255, 255, 0.05)']}
+                  style={styles.featureCardGradient}
+                >
+                  <Text style={styles.featureTitle}>Track Progress</Text>
+                  <Text style={styles.featureDescription}>Monitor your learning with detailed analytics</Text>
+                </LinearGradient>
+              </View>
+              
+              <View style={styles.featureCard}>
+                <LinearGradient
+                  colors={['rgba(255, 255, 255, 0.15)', 'rgba(255, 255, 255, 0.05)']}
+                  style={styles.featureCardGradient}
+                >
+                  <Text style={styles.featureTitle}>Textbook Aligned</Text>
+                  <Text style={styles.featureDescription}>Connect with your course curriculum</Text>
+                </LinearGradient>
+              </View>
+            </View>
+
+            {/* Name Display */}
+            <View style={styles.nameInputContainer}>
+              <Text style={styles.nameInputLabel}>What should we call you?</Text>
+              <View style={styles.nameDisplayWrapper}>
+                <Text style={styles.nameDisplay}>Zander</Text>
+              </View>
+            </View>
+          </View>
+
+          {/* Continue Button */}
+          <TouchableOpacity
+            style={styles.onboardingButton}
+            onPress={() => setOnboardingStep(3)}
+            activeOpacity={0.9}
+          >
+            <LinearGradient
+              colors={['#58CC67', '#42B883']}
+              style={styles.onboardingButtonGradient}
+            >
+              <Text style={styles.onboardingButtonText}>Continue</Text>
+            </LinearGradient>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
+    </LinearGradient>
+  );
+
+  // Onboarding Screen 4: Success
+  const OnboardingSuccess = () => (
+    <LinearGradient
+      colors={['#58CC67', '#3AB1FF', '#7C3AED']}
+      locations={[0, 0.5, 1]}
+      style={styles.gradientContainer}
+    >
+      <StatusBar barStyle="light-content" />
+      <SafeAreaView style={styles.safeArea}>
+        <View style={styles.onboardingContainer}>
+          {/* Success Animation */}
+          <View style={styles.successHeader}>
+            <View style={styles.successIcon}>
+              <Text style={styles.successEmoji}>🎉</Text>
+            </View>
+            <Text style={styles.onboardingTitle}>You're all set!</Text>
+            <Text style={styles.onboardingSubtitle}>
+              {userName ? `Welcome ${userName}! ` : 'Welcome! '}
+              Your personalized learning experience is ready.
+            </Text>
+          </View>
+
+          {/* Learning Style Summary */}
+          <View style={styles.onboardingContent}>
+            <View style={styles.summaryCard}>
+              <LinearGradient
+                colors={['rgba(255, 255, 255, 0.2)', 'rgba(255, 255, 255, 0.1)']}
+                style={styles.summaryCardGradient}
+              >
+                <Text style={styles.summaryTitle}>Your Learning Style</Text>
+                {(() => {
+                  const selectedStyle = learningStyles.find(style => style.id === learningStyle);
+                  return (
+                    <View style={styles.summaryStyle}>
+                      <View style={[styles.summaryStyleIcon, { backgroundColor: selectedStyle?.color }]}>
+                        <Text style={styles.summaryStyleIconText}>{selectedStyle?.icon}</Text>
+                      </View>
+                      <View style={styles.summaryStyleContent}>
+                        <Text style={styles.summaryStyleTitle}>{selectedStyle?.title}</Text>
+                        <Text style={styles.summaryStyleDescription}>{selectedStyle?.description}</Text>
+                      </View>
+                    </View>
+                  );
+                })()}
+              </LinearGradient>
+            </View>
+          </View>
+
+          {/* Start Learning Button */}
+          <TouchableOpacity
+            style={styles.onboardingButton}
+            onPress={() => {
+              setShowOnboarding(false);
+              setShowSplash(false);
+            }}
+            activeOpacity={0.9}
+          >
+            <LinearGradient
+              colors={['#58CC67', '#42B883']}
+              style={styles.onboardingButtonGradient}
+            >
+              <View style={styles.startLearningButtonContent}>
+                <RocketIcon size={20} color="#FFFFFF" />
+                <Text style={styles.onboardingButtonText}>Start Learning</Text>
+              </View>
+            </LinearGradient>
+          </TouchableOpacity>
+        </View>
       </SafeAreaView>
     </LinearGradient>
   );
@@ -3208,7 +3769,7 @@ export default function App() {
             <Image source={require('./assets/zander.jpg')} style={styles.centeredAvatar} />
           </View>
 
-          {/* Stats Row - Single Horizontal Line */}
+          {/* Stats Row - Under Profile */}
           <View style={styles.gradientStatsSection}>
             <View style={styles.gradientStatsRow}>
               <TouchableOpacity 
@@ -3226,10 +3787,10 @@ export default function App() {
                 ]}>
                   <BookIcon size={20} color="#FFFFFF" />
                 </View>
-                <Text style={styles.gradientStatValue}>2</Text>
+                <Text style={styles.gradientStatValue}>4</Text>
                 <Text style={styles.gradientStatLabel}>Courses</Text>
               </TouchableOpacity>
-              
+
               <TouchableOpacity 
                 style={[
                   styles.gradientStatItem,
@@ -3245,10 +3806,10 @@ export default function App() {
                 ]}>
                   <FireIcon size={20} color="#FFFFFF" />
                 </View>
-                <Text style={styles.gradientStatValue}>5</Text>
+                <Text style={styles.gradientStatValue}>23</Text>
                 <Text style={styles.gradientStatLabel}>Streak</Text>
               </TouchableOpacity>
-              
+
               <TouchableOpacity 
                 style={[
                   styles.gradientStatItem,
@@ -3265,7 +3826,7 @@ export default function App() {
                   <AwardIcon size={20} color="#FFFFFF" />
                 </View>
                 <Text style={styles.gradientStatValue}>8</Text>
-                <Text style={styles.gradientStatLabel}>Friends</Text>
+                <Text style={styles.gradientStatLabel}>Rank</Text>
               </TouchableOpacity>
               
               <TouchableOpacity 
@@ -3281,12 +3842,154 @@ export default function App() {
                   styles.gradientStatIconCircle,
                   pressedStat === 'badges' && styles.gradientStatIconCirclePressed
                 ]}>
-                  <ChartIcon size={20} color="#FFFFFF" />
+                  <AwardIcon size={20} color="#FFFFFF" />
                 </View>
-                <Text style={styles.gradientStatValue}>10</Text>
+                <Text style={styles.gradientStatValue}>12</Text>
                 <Text style={styles.gradientStatLabel}>Badges</Text>
               </TouchableOpacity>
             </View>
+          </View>
+
+          {/* Learning Style Display */}
+          {learningStyle && (
+            <View style={styles.learningStyleSection}>
+              <TouchableOpacity 
+                style={styles.learningStyleDisplay}
+                onPress={() => {
+                  // Add modal to change learning style
+                  console.log('Change learning style');
+                }}
+                activeOpacity={0.8}
+              >
+                <LinearGradient
+                  colors={['rgba(255, 255, 255, 0.15)', 'rgba(255, 255, 255, 0.08)']}
+                  style={styles.learningStyleDisplayGradient}
+                >
+                  {/* Header Section */}
+                  <View style={styles.learningStyleHeader}>
+                    <Text style={styles.learningStyleSectionTitle}>Your Learning Style</Text>
+                    <Text style={styles.learningStyleDisplayArrow}>›</Text>
+                  </View>
+                  
+                  {/* Content Section */}
+                  {(() => {
+                    const selectedStyle = learningStyles.find(style => style.id === learningStyle);
+                    return (
+                      <View style={styles.learningStyleContentRow}>
+                        <View style={[styles.learningStyleDisplayIcon, { backgroundColor: selectedStyle?.color }]}>
+                          <Text style={styles.learningStyleDisplayIconText}>{selectedStyle?.icon}</Text>
+                        </View>
+                        <View style={styles.learningStyleDisplayContent}>
+                          <Text style={styles.learningStyleDisplayTitle}>{selectedStyle?.title}</Text>
+                          <Text style={styles.learningStyleDisplayDescription}>{selectedStyle?.description}</Text>
+                        </View>
+                      </View>
+                    );
+                  })()}
+                </LinearGradient>
+              </TouchableOpacity>
+            </View>
+          )}
+
+          {/* Languages Being Studied */}
+          <View style={styles.profileSection}>
+            <LinearGradient
+              colors={['rgba(255, 255, 255, 0.15)', 'rgba(255, 255, 255, 0.08)']}
+              style={styles.profileCardGradient}
+            >
+              {userProfile.languages.map((language) => (
+                <View key={language.id} style={styles.languageItem}>
+                  <View style={[styles.languageIconContainer, { backgroundColor: '#3AB1FF' }]}>
+                    <Text style={styles.languageFlag}>{language.flag}</Text>
+                  </View>
+                  <View style={styles.languageInfo}>
+                    <Text style={styles.languageName}>{language.name}</Text>
+                    <Text style={styles.languageProficiency}>{language.proficiency} • {language.region}</Text>
+                    <View style={styles.languageProgressContainer}>
+                      <View style={styles.languageProgressTrack}>
+                        <View style={[
+                          styles.languageProgressFill, 
+                          { width: `${language.progress}%` }
+                        ]} />
+                      </View>
+                      <Text style={styles.languageProgressText}>{language.progress}%</Text>
+                    </View>
+                  </View>
+                </View>
+              ))}
+            </LinearGradient>
+          </View>
+
+          {/* Books Enrolled */}
+          <View style={styles.profileSection}>
+            <LinearGradient
+              colors={['rgba(255, 255, 255, 0.15)', 'rgba(255, 255, 255, 0.08)']}
+              style={styles.profileCardGradient}
+            >
+              {userProfile.books.map((book) => (
+                <View key={book.id} style={styles.bookItem}>
+                  <View style={styles.bookCoverContainer}>
+                    <Text style={styles.bookCover}>{book.cover}</Text>
+                  </View>
+                  <View style={styles.bookInfo}>
+                    <Text style={styles.bookTitle}>{book.title}</Text>
+                    <Text style={styles.bookAuthor}>by {book.author}</Text>
+                    <View style={styles.bookProgressContainer}>
+                      <View style={styles.bookProgressTrack}>
+                        <View style={[
+                          styles.bookProgressFill, 
+                          { width: `${book.progress}%` }
+                        ]} />
+                      </View>
+                      <Text style={styles.bookProgressText}>{book.progress}%</Text>
+                    </View>
+                  </View>
+                </View>
+              ))}
+            </LinearGradient>
+          </View>
+
+          {/* Today's Quest Progress */}
+          <View style={styles.profileSection}>
+            <LinearGradient
+              colors={['rgba(255, 255, 255, 0.15)', 'rgba(255, 255, 255, 0.08)']}
+              style={styles.profileCardGradient}
+            >
+              <Text style={styles.profileSectionTitle}>Today's Quest Progress</Text>
+                <View style={styles.profileQuestList}>
+                  {dailyQuests.slice(0, 3).map((quest) => (
+                    <View key={quest.id} style={styles.profileQuestItem}>
+                      <View style={[styles.profileQuestIcon, { backgroundColor: quest.color }]}>
+                        <Text style={styles.profileQuestIconText}>{quest.icon}</Text>
+                      </View>
+                      <View style={styles.profileQuestDetails}>
+                        <Text style={styles.profileQuestName}>{quest.title}</Text>
+                        <View style={styles.profileQuestProgressContainer}>
+                          <View style={styles.profileQuestProgressTrack}>
+                            <View style={[
+                              styles.profileQuestProgressFill, 
+                              { 
+                                width: `${(quest.progress / quest.maxProgress) * 100}%`,
+                                backgroundColor: quest.color
+                              }
+                            ]} />
+                          </View>
+                          <Text style={styles.profileQuestProgressText}>
+                            {quest.progress}/{quest.maxProgress}
+                          </Text>
+                        </View>
+                      </View>
+                      <View style={styles.profileQuestStatus}>
+                        {quest.status === 'claimed' ? (
+                          <Text style={styles.profileQuestStatusIcon}>✅</Text>
+                        ) : quest.status === 'completed' ? (
+                          <Text style={styles.profileQuestStatusIcon}>🏆</Text>
+                        ) : null}
+                      </View>
+                    </View>
+                  ))}
+                </View>
+              </LinearGradient>
           </View>
 
           {/* Textbook Settings Section */}
@@ -3327,52 +4030,14 @@ export default function App() {
             </View>
           </View>
 
-          {/* Premium Action Cards */}
-          <View style={styles.premiumActionCardsSection}>
-            <TouchableOpacity style={styles.premiumActionCard}>
-              <LinearGradient
-                colors={['rgba(255, 255, 255, 0.15)', 'rgba(255, 255, 255, 0.05)']}
-                style={styles.premiumActionCardGradient}
-              >
-                <View style={styles.premiumActionIconContainer}>
-                  <BookIcon size={24} color="#FFFFFF" />
-                </View>
-                <View style={styles.premiumActionContent}>
-                  <Text style={styles.premiumActionTitle}>Courses Enrolled</Text>
-                  <Text style={styles.premiumActionSubtitle}>2 active courses • Spanish & French</Text>
-                </View>
-                <View style={styles.premiumActionArrow}>
-                  <Text style={styles.premiumActionArrowText}>›</Text>
-                </View>
-              </LinearGradient>
-            </TouchableOpacity>
-            
-            <TouchableOpacity style={styles.premiumActionCard}>
-              <LinearGradient
-                colors={['rgba(255, 255, 255, 0.15)', 'rgba(255, 255, 255, 0.05)']}
-                style={styles.premiumActionCardGradient}
-              >
-                <View style={styles.premiumActionIconContainer}>
-                  <AwardIcon size={24} color="#FFFFFF" />
-                </View>
-                <View style={styles.premiumActionContent}>
-                  <Text style={styles.premiumActionTitle}>Achievements</Text>
-                  <Text style={styles.premiumActionSubtitle}>10 earned • 5 new this week</Text>
-                </View>
-                <View style={styles.premiumActionArrow}>
-                  <Text style={styles.premiumActionArrowText}>›</Text>
-                </View>
-              </LinearGradient>
-            </TouchableOpacity>
-          </View>
         </ScrollView>
       </SafeAreaView>
       
-      {/* Friends Modal */}
-      <FriendsModal 
-        visible={showFriendsModal}
-        onClose={() => setShowFriendsModal(false)}
-        friendsData={friendsData}
+      {/* Leaderboard Modal */}
+      <LeaderboardModal 
+        visible={showLeaderboardModal}
+        onClose={() => setShowLeaderboardModal(false)}
+        leaderboardData={leaderboardData}
       />
       
       {/* Achievements Modal */}
@@ -3412,7 +4077,14 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      {showSplash ? (
+      {showOnboarding ? (
+        <>
+          {onboardingStep === 0 && <OnboardingWelcome />}
+          {onboardingStep === 1 && <OnboardingLearningStyle />}
+          {onboardingStep === 2 && <OnboardingSetup />}
+          {onboardingStep === 3 && <OnboardingSuccess />}
+        </>
+      ) : showSplash ? (
         <>
           <SplashScreen />
           {/* Pre-render main screen for slide-up animation */}
@@ -3425,7 +4097,7 @@ export default function App() {
             ]}
           >
             {screen === 'home' && <HomeScreen />}
-            {screen === 'gamemode' && <GameModeScreen />}
+            {/* GameModeScreen removed - going directly to lesson */}
             {screen === 'upload' && <UploadScreen />}
             {screen === 'review' && <ReviewScreen />}
             {screen === 'quiz' && <QuizScreen />}
@@ -3448,7 +4120,7 @@ export default function App() {
             ]}
           >
             {screen === 'home' && <HomeScreen />}
-            {screen === 'gamemode' && <GameModeScreen />}
+            {/* GameModeScreen removed - going directly to lesson */}
             {screen === 'upload' && <UploadScreen />}
             {screen === 'review' && <ReviewScreen />}
             {screen === 'quiz' && <QuizScreen />}
@@ -4051,6 +4723,762 @@ const styles = StyleSheet.create({
     color: 'rgba(255, 255, 255, 0.7)',
     fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
   },
+
+  // Onboarding Styles
+  onboardingContainer: {
+    flex: 1,
+    paddingHorizontal: 24,
+    paddingTop: 40,
+    paddingBottom: 32,
+    justifyContent: 'space-between',
+  },
+  onboardingBackButton: {
+    position: 'absolute',
+    top: 40,
+    left: 24,
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 10,
+  },
+  onboardingHeader: {
+    alignItems: 'center',
+    marginBottom: 40,
+    marginTop: 60,
+  },
+  onboardingLogo: {
+    width: 80,
+    height: 80,
+    marginBottom: 24,
+  },
+  onboardingTitle: {
+    fontSize: 28,
+    fontWeight: '800',
+    color: '#FFFFFF',
+    textAlign: 'center',
+    marginBottom: 12,
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+  },
+  onboardingSubtitle: {
+    fontSize: 16,
+    color: 'rgba(255, 255, 255, 0.9)',
+    textAlign: 'center',
+    lineHeight: 22,
+    marginBottom: 8,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  onboardingContent: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    paddingTop: 20,
+  },
+  onboardingSectionTitle: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    textAlign: 'center',
+    marginBottom: 24,
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+  },
+
+  // Language Selection - 2x2 Grid
+  languageGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    gap: 12,
+    marginTop: 20,
+    paddingHorizontal: 4,
+  },
+  languageCard: {
+    width: '48%',
+    borderRadius: 16,
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 4,
+    marginBottom: 12,
+  },
+  languageCardSelected: {
+    shadowOpacity: 0.2,
+    elevation: 8,
+  },
+  languageCardGradient: {
+    padding: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+    borderRadius: 16,
+    minHeight: 100,
+  },
+  languageFlag: {
+    fontSize: 32,
+    marginBottom: 8,
+  },
+  languageName: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    textAlign: 'center',
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+
+  // Learning Style Selection - 2x2 Grid
+  learningStyleGrid2x2: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    gap: 12,
+    marginTop: 20,
+    marginBottom: 40,
+  },
+  learningStyleCard2x2: {
+    width: '48%',
+    borderRadius: 16,
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 4,
+  },
+  learningStyleCardSelected: {
+    shadowOpacity: 0.2,
+    elevation: 8,
+  },
+  learningStyleCardGradient2x2: {
+    padding: 16,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+    borderRadius: 16,
+    minHeight: 140,
+    justifyContent: 'center',
+  },
+  learningStyleIcon2x2: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 12,
+  },
+  learningStyleIconText: {
+    fontSize: 20,
+  },
+  learningStyleTitle2x2: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    marginBottom: 6,
+    textAlign: 'center',
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  learningStyleDescription2x2: {
+    fontSize: 11,
+    color: 'rgba(255, 255, 255, 0.8)',
+    lineHeight: 14,
+    textAlign: 'center',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+
+  // Features Grid
+  featuresGrid: {
+    gap: 16,
+    marginBottom: 32,
+  },
+  featureCard: {
+    borderRadius: 16,
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  featureCardGradient: {
+    padding: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+    borderRadius: 16,
+  },
+  featureTitle: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    marginBottom: 4,
+    marginLeft: 16,
+    flex: 1,
+    textShadowColor: 'rgba(0, 0, 0, 0.5)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  featureDescription: {
+    fontSize: 13,
+    color: 'rgba(255, 255, 255, 0.8)',
+    marginLeft: 16,
+    flex: 1,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+
+  // Name Input
+  nameInputContainer: {
+    marginBottom: 24,
+  },
+  nameInputLabel: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    marginBottom: 12,
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  nameDisplayWrapper: {
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.3)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  nameDisplay: {
+    padding: 16,
+    fontSize: 16,
+    color: '#FFFFFF',
+    fontWeight: '600',
+    textAlign: 'center',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+
+  // Success Screen
+  successHeader: {
+    alignItems: 'center',
+    marginBottom: 40,
+    marginTop: 60,
+  },
+  successIcon: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 24,
+  },
+  successEmoji: {
+    fontSize: 48,
+  },
+  summaryCard: {
+    borderRadius: 20,
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 12,
+    elevation: 6,
+    marginBottom: 32,
+  },
+  summaryCardGradient: {
+    padding: 24,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.3)',
+    borderRadius: 20,
+  },
+  summaryTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    textAlign: 'center',
+    marginBottom: 20,
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  summaryStyle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  summaryStyleIcon: {
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 16,
+  },
+  summaryStyleIconText: {
+    fontSize: 28,
+  },
+  summaryStyleContent: {
+    flex: 1,
+  },
+  summaryStyleTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    marginBottom: 4,
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  summaryStyleDescription: {
+    fontSize: 14,
+    color: 'rgba(255, 255, 255, 0.8)',
+    lineHeight: 20,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+
+  // Onboarding Buttons
+  onboardingButton: {
+    borderRadius: 16,
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 6,
+  },
+  onboardingButtonDisabled: {
+    shadowOpacity: 0.1,
+    elevation: 2,
+  },
+  onboardingButtonGradient: {
+    paddingVertical: 18,
+    paddingHorizontal: 32,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 16,
+  },
+  onboardingButtonText: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  onboardingButtonTextDisabled: {
+    color: 'rgba(255, 255, 255, 0.4)',
+  },
+  startLearningButtonContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 12,
+    gap: 8,
+  },
+
+  // Learning Style Display in Progress Screen
+  learningStyleSection: {
+    marginHorizontal: 20,
+    marginBottom: 32,
+  },
+  learningStyleSectionTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+  },
+  learningStyleDisplay: {
+    borderRadius: 16,
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 12,
+    elevation: 6,
+  },
+  learningStyleDisplayGradient: {
+    padding: 20,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.3)',
+    borderRadius: 16,
+  },
+  learningStyleHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 16,
+  },
+  learningStyleHeaderLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  learningStyleHeaderIcon: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 12,
+  },
+  learningStyleHeaderEmoji: {
+    fontSize: 16,
+  },
+  learningStyleContentRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  learningStyleDisplayIcon: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 16,
+  },
+  learningStyleDisplayIconText: {
+    fontSize: 24,
+  },
+  learningStyleDisplayContent: {
+    flex: 1,
+  },
+  learningStyleDisplayTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    marginBottom: 4,
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  learningStyleDisplayDescription: {
+    fontSize: 13,
+    color: 'rgba(255, 255, 255, 0.8)',
+    lineHeight: 18,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  learningStyleDisplayArrow: {
+    fontSize: 24,
+    color: 'rgba(255, 255, 255, 0.6)',
+    fontWeight: '300',
+    marginLeft: 12,
+  },
+
+  // Profile Section Styles
+  profileSection: {
+    marginHorizontal: 20,
+    marginBottom: 32,
+  },
+  profileSectionHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 16,
+  },
+  profileSectionIcon: {
+    fontSize: 20,
+    marginRight: 8,
+  },
+  profileSectionTitle: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    marginBottom: 16,
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+  },
+  profileCardGradient: {
+    padding: 20,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.1)',
+    borderRadius: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.15,
+    shadowRadius: 16,
+    elevation: 8,
+  },
+
+  // Language Profile Styles
+  languageItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  languageIconContainer: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  languageFlag: {
+    fontSize: 24,
+  },
+  languageInfo: {
+    flex: 1,
+  },
+  languageName: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    marginBottom: 4,
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  languageProficiency: {
+    fontSize: 14,
+    color: '#FFFFFF',
+    opacity: 0.8,
+    marginBottom: 8,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  languageProgressContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  languageProgressTrack: {
+    flex: 1,
+    height: 6,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    borderRadius: 3,
+    marginRight: 12,
+  },
+  languageProgressFill: {
+    height: '100%',
+    backgroundColor: '#3AB1FF',
+    borderRadius: 3,
+  },
+  languageProgressText: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    opacity: 0.9,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+
+  // Book Profile Styles
+  bookItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  bookCoverContainer: {
+    width: 40,
+    height: 40,
+    borderRadius: 8,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  bookCover: {
+    fontSize: 20,
+  },
+  bookInfo: {
+    flex: 1,
+  },
+  bookTitle: {
+    fontSize: 15,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    marginBottom: 2,
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  bookAuthor: {
+    fontSize: 13,
+    color: '#FFFFFF',
+    opacity: 0.7,
+    marginBottom: 6,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  bookProgressContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  bookProgressTrack: {
+    flex: 1,
+    height: 4,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    borderRadius: 2,
+    marginRight: 8,
+  },
+  bookProgressFill: {
+    height: '100%',
+    backgroundColor: '#58CC67',
+    borderRadius: 2,
+  },
+  bookProgressText: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    opacity: 0.8,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+
+  // Region Profile Styles
+  regionItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  regionIconContainer: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  regionFlag: {
+    fontSize: 24,
+  },
+  regionInfo: {
+    flex: 1,
+  },
+  regionOrigin: {
+    fontSize: 15,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    marginBottom: 3,
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  regionLearning: {
+    fontSize: 14,
+    color: '#FFFFFF',
+    opacity: 0.8,
+    marginBottom: 3,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  regionTimezone: {
+    fontSize: 13,
+    color: '#FFFFFF',
+    opacity: 0.7,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  profileQuestHeader: {
+    marginBottom: 16,
+  },
+  profileQuestTitle: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    marginBottom: 4,
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  profileQuestSubtitle: {
+    fontSize: 14,
+    color: '#FFFFFF',
+    opacity: 0.8,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  profileQuestList: {
+    gap: 12,
+  },
+  profileQuestItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  profileQuestIcon: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 12,
+  },
+  profileQuestIconText: {
+    fontSize: 16,
+  },
+  profileQuestDetails: {
+    flex: 1,
+    marginRight: 12,
+  },
+  profileQuestName: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    marginBottom: 4,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  profileQuestProgressContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  profileQuestProgressTrack: {
+    flex: 1,
+    height: 4,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    borderRadius: 2,
+    marginRight: 8,
+  },
+  profileQuestProgressFill: {
+    height: '100%',
+    borderRadius: 2,
+  },
+  profileQuestProgressText: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    opacity: 0.8,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  profileQuestStatus: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  profileQuestStatusIcon: {
+    fontSize: 18,
+  },
   quizContainer: {
     flex: 1,
     padding: 20,
@@ -4273,10 +5701,251 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   
-  // Daily Challenges Section Styles
-  dailyChallengesContainer: {
+  // Daily Quest System Styles
+  dailyQuestsContainer: {
     marginTop: 0,
     marginBottom: 20,
+  },
+  
+  // Progress Summary Styles
+  progressSummaryContainer: {
+    marginHorizontal: 20,
+    marginBottom: 24,
+  },
+  progressSummaryGradient: {
+    borderRadius: 20,
+    padding: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.15,
+    shadowRadius: 16,
+    elevation: 8,
+  },
+  progressSummaryHeader: {
+    marginBottom: 16,
+  },
+  progressSummaryTitle: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    marginBottom: 4,
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+  },
+  progressSummarySubtitle: {
+    fontSize: 14,
+    color: '#FFFFFF',
+    opacity: 0.8,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  progressSummaryStats: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 16,
+  },
+  progressStat: {
+    alignItems: 'center',
+    flex: 1,
+  },
+  progressStatIcon: {
+    fontSize: 20,
+    marginBottom: 4,
+  },
+  progressStatValue: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    marginBottom: 2,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
+  },
+  progressStatLabel: {
+    fontSize: 12,
+    color: '#FFFFFF',
+    opacity: 0.7,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  progressSummaryBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  progressSummaryTrack: {
+    flex: 1,
+    height: 8,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    borderRadius: 4,
+    marginRight: 12,
+  },
+  progressSummaryFill: {
+    height: '100%',
+    backgroundColor: '#58CC67',
+    borderRadius: 4,
+  },
+  progressSummaryPercentage: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+
+  // Quest Grid and Card Styles
+  questGrid: {
+    paddingHorizontal: 20,
+    gap: 16,
+  },
+  questCard: {
+    borderRadius: 20,
+    marginBottom: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.12,
+    shadowRadius: 16,
+    elevation: 8,
+  },
+  questCardCompleted: {
+    opacity: 0.7,
+  },
+  questCardGradient: {
+    borderRadius: 20,
+    padding: 20,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.1)',
+  },
+  questHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  questIconContainer: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  questIcon: {
+    fontSize: 24,
+  },
+  questInfo: {
+    flex: 1,
+  },
+  questTitle: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    marginBottom: 4,
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  questTitleCompleted: {
+    opacity: 0.6,
+  },
+  questDescription: {
+    fontSize: 14,
+    color: '#FFFFFF',
+    opacity: 0.8,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  questDescriptionCompleted: {
+    opacity: 0.5,
+  },
+  questCompletedBadge: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: '#58CC67',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  questCompletedBadgeText: {
+    fontSize: 18,
+    color: '#FFFFFF',
+    fontWeight: '700',
+  },
+  questProgressContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  questProgressBar: {
+    flex: 1,
+    height: 6,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    borderRadius: 3,
+    marginRight: 12,
+  },
+  questProgressFill: {
+    height: '100%',
+    borderRadius: 3,
+  },
+  questProgressText: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    opacity: 0.8,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  questProgressTextCompleted: {
+    opacity: 0.5,
+  },
+  questFooter: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  questRewards: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  questRewardItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: 16,
+  },
+  questRewardIcon: {
+    fontSize: 14,
+    marginRight: 4,
+  },
+  questRewardText: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    opacity: 0.9,
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  questRewardTextCompleted: {
+    opacity: 0.5,
+  },
+  questActionButton: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  questActionButtonCompleted: {
+    backgroundColor: '#9CA3AF',
+  },
+  questActionText: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
+  },
+  questActionTextCompleted: {
+    opacity: 0.8,
   },
   challengesScroll: {
     marginHorizontal: -20,
@@ -4393,7 +6062,7 @@ const styles = StyleSheet.create({
     textShadowColor: 'rgba(0, 0, 0, 0.4)',
     textShadowOffset: { width: 0, height: 2 },
     textShadowRadius: 6,
-    marginLeft: 8,
+    marginLeft: 12,
     fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
   },
   sectionSubtitle: {
@@ -4423,12 +6092,9 @@ const styles = StyleSheet.create({
     elevation: 12,
   },
   lessonCardContent: {
-    backgroundColor: '#FFFFFF',
     borderRadius: 20,
     padding: 18,
     height: 180,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.8)',
     justifyContent: 'space-between',
   },
   lessonCardHeader: {
@@ -4438,24 +6104,25 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   lessonTypeContainer: {
-    backgroundColor: '#F8F9FA',
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 12,
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#E9ECEF',
+    borderColor: 'rgba(255, 255, 255, 0.3)',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
+    shadowOpacity: 0.15,
     shadowRadius: 2,
     elevation: 1,
   },
   lessonTypeText: {
     fontSize: 9,
     fontWeight: '600',
-    color: '#6B7280',
+    color: '#FFFFFF',
+    opacity: 0.9,
     textTransform: 'uppercase',
     marginLeft: 4,
     letterSpacing: 0.5,
@@ -4478,14 +6145,18 @@ const styles = StyleSheet.create({
   lessonTitle: {
     fontSize: 15,
     fontWeight: 'bold',
-    color: '#1F2937',
+    color: '#FFFFFF',
     marginBottom: 6,
     lineHeight: 19,
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
     fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
   },
   lessonSubtitle: {
     fontSize: 12,
-    color: '#6B7280',
+    color: '#FFFFFF',
+    opacity: 0.8,
     marginBottom: 8,
     fontStyle: 'italic',
     lineHeight: 17,
@@ -4493,7 +6164,8 @@ const styles = StyleSheet.create({
   },
   lessonDate: {
     fontSize: 11,
-    color: '#9CA3AF',
+    color: '#FFFFFF',
+    opacity: 0.7,
     marginBottom: 12,
     fontWeight: '500',
   },
@@ -4505,25 +6177,27 @@ const styles = StyleSheet.create({
   lessonProgressBar: {
     flex: 1,
     height: 5,
-    backgroundColor: '#F3F4F6',
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
     borderRadius: 6,
     marginRight: 8,
   },
   lessonProgressFill: {
     height: '100%',
-    backgroundColor: '#58CC67',
+    backgroundColor: '#FFFFFF',
     borderRadius: 6,
   },
   lessonProgressText: {
     fontSize: 11,
     fontWeight: '600',
-    color: '#58CC67',
+    color: '#FFFFFF',
+    opacity: 0.9,
     minWidth: 30,
     fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
   },
   lastStudiedText: {
     fontSize: 10,
-    color: '#9CA3AF',
+    color: '#FFFFFF',
+    opacity: 0.6,
     fontStyle: 'italic',
     marginTop: 0,
   },
@@ -5097,6 +6771,7 @@ const styles = StyleSheet.create({
     shadowRadius: 12,
     elevation: 8,
   },
+
   gradientStatsSection: {
     paddingHorizontal: 20,
     marginBottom: 24,
@@ -6440,19 +8115,21 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   friendsModalTitle: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: '700',
     color: '#FFFFFF',
-    marginBottom: 4,
+    marginBottom: 6,
+    textAlign: 'center',
     textShadowColor: 'rgba(0, 0, 0, 0.3)',
     textShadowOffset: { width: 0, height: 2 },
     textShadowRadius: 4,
     fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
   },
   friendsModalSubtitle: {
-    fontSize: 16,
+    fontSize: 15,
     color: '#FFFFFF',
-    opacity: 0.8,
+    opacity: 0.85,
+    textAlign: 'center',
     textShadowColor: 'rgba(0, 0, 0, 0.2)',
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 2,
@@ -6504,11 +8181,13 @@ const styles = StyleSheet.create({
     marginRight: 12,
   },
   friendsModalRankText: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: '700',
+    color: '#FFFFFF',
     textShadowColor: 'rgba(0, 0, 0, 0.3)',
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 2,
+    textAlign: 'center',
   },
   friendsModalAvatar: {
     width: 48,
@@ -6544,23 +8223,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   friendsModalStatItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginRight: 16,
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    marginBottom: 4,
   },
   friendsModalStatLabel: {
     fontSize: 12,
     color: '#FFFFFF',
     opacity: 0.7,
-    marginRight: 4,
     fontWeight: '500',
     fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
   },
   friendsModalStatValue: {
-    fontSize: 14,
+    fontSize: 16,
     color: '#FFFFFF',
-    fontWeight: '600',
-    marginLeft: 4,
+    fontWeight: '700',
     fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
   },
 
