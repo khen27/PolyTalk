@@ -17,256 +17,31 @@ import {
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { LinearGradient } from 'expo-linear-gradient';
-import Svg, { Path, G, ClipPath, Rect, Defs } from 'react-native-svg';
+import {
+  BookIcon,
+  RocketIcon, 
+  ChartIcon,
+  FireIcon,
+  DocumentIcon,
+  CameraIcon,
+  ClockIcon,
+  AwardIcon,
+  MicrophoneIcon,
+  BackArrowIcon,
+  ChatIcon,
+  LockIcon,
+  MagicWandIcon,
+  UploadIcon,
+  MicIcon,
+  CrownIcon
+} from './src/components/icons';
+import { gameModes, dailyQuests, initialWordBank } from './src/constants/gameData';
 
 const { width, height } = Dimensions.get('window');
 
-// Professional SVG Icon Components
-const BookIcon = ({ size = 24, color = "#fff" }) => (
-  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-    <G clipPath="url(#clip0_4418_3848)">
-      <Path d="M2 4.65969C2 3.46969 2.96997 2.5697 4.15997 2.6697C6.25997 2.8397 9.43997 3.89973 11.22 5.00973L11.47 5.15969C11.76 5.33969 12.24 5.33969 12.53 5.15969L12.7 5.04971C13.33 4.65971 14.13 4.2697 15 3.9197V7.99972L17 6.6697L19 7.99972V2.77975C19.27 2.72975 19.53 2.69971 19.77 2.67971H19.83C21.02 2.57971 22 3.4697 22 4.6697V16.7397C22 17.6997 21.22 18.5997 20.26 18.7197L19.93 18.7597C17.75 19.0497 14.39 20.1597 12.47 21.2197C12.21 21.3697 11.78 21.3697 11.51 21.2197L11.47 21.1997C9.54997 20.1497 6.20003 19.0497 4.03003 18.7597L3.73999 18.7197C2.77999 18.5997 2 17.6997 2 16.7397V8.84969" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M12 5.49023V20.4902" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M19 2.7793V7.99927L17 6.66925L15 7.99927V3.91925C16.31 3.39925 17.77 2.9793 19 2.7793Z" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </G>
-    <Defs>
-      <ClipPath id="clip0_4418_3848">
-        <Rect width="24" height="24" fill="white"/>
-      </ClipPath>
-    </Defs>
-  </Svg>
-);
 
-const RocketIcon = ({ size = 24, color = "#fff" }) => (
-  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-    <G clipPath="url(#clip0_4418_3015)">
-      <Path d="M19.0598 18.6703L16.9198 14.4004L14.7798 18.6703" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M15.1699 17.9102H18.6899" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M19.9201 21.0198C19.0801 21.6298 18.0501 21.9998 16.9301 21.9998C14.1301 21.9998 11.8501 19.7298 11.8501 16.9198C11.8501 14.1198 14.1201 11.8398 16.9301 11.8398C19.7301 11.8398 22.0101 14.1098 22.0101 16.9198" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M11.95 8.93024C12 11.0002 11 12.0003 8.92999 11.9503H5.00999C2.99999 12.0003 2 11.0002 2 8.93024V5.01025C2 2.99025 3 1.99023 5.02 1.99023H8.94C11.01 1.99023 12.01 2.99025 11.96 5.01025" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M9.0097 5.84961H4.94971" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M6.96973 5.16992V5.84991" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M7.98994 5.83984C7.98994 7.58984 6.61994 9.00983 4.93994 9.00983" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M9.01015 9.01001C8.28015 9.01001 7.62016 8.62 7.16016 8" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M2 15C2 18.87 5.13 22 9 22L7.95 20.25" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M22 9C22 5.13 18.87 2 15 2L16.05 3.75" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </G>
-    <Defs>
-      <ClipPath id="clip0_4418_3015">
-        <Rect width="24" height="24" fill="white"/>
-      </ClipPath>
-    </Defs>
-  </Svg>
-);
 
-const ChartIcon = ({ size = 24, color = "#fff" }) => (
-  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-    <G clipPath="url(#clip0_4418_3961)">
-      <Path d="M9 22H21" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M2 22H6" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M3 13.0009V18.0009C3 18.5509 3.45 19.0009 4 19.0009H5.59998C6.14998 19.0009 6.59998 18.5509 6.59998 18.0009V9.38086C6.59998 8.83086 6.14998 8.38086 5.59998 8.38086H4C3.45 8.38086 3 8.83086 3 9.38086" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M12.8002 5.18945H11.2002C10.6502 5.18945 10.2002 5.63945 10.2002 6.18945V17.9995C10.2002 18.5495 10.6502 18.9995 11.2002 18.9995H12.8002C13.3502 18.9995 13.8002 18.5495 13.8002 17.9995V6.18945C13.8002 5.63945 13.3502 5.18945 12.8002 5.18945Z" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M20.9999 3C20.9999 2.45 20.5499 2 19.9999 2H18.3999C17.8499 2 17.3999 2.45 17.3999 3V18C17.3999 18.55 17.8499 19 18.3999 19H19.9999C20.5499 19 20.9999 18.55 20.9999 18V7.13" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </G>
-    <Defs>
-      <ClipPath id="clip0_4418_3961">
-        <Rect width="24" height="24" fill="white"/>
-      </ClipPath>
-    </Defs>
-  </Svg>
-);
 
-const FireIcon = ({ size = 24, color = "#fff" }) => (
-  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-    <G clipPath="url(#clip0_4418_3795)">
-      <Path d="M20.59 4.96961C21.47 5.95961 22 7.25961 22 8.68961C22 15.6896 15.52 19.8196 12.62 20.8196C12.28 20.9396 11.72 20.9396 11.38 20.8196C8.48 19.8196 2 15.6896 2 8.68961C2 5.59961 4.49 3.09961 7.56 3.09961C9.38 3.09961 10.99 3.97961 12 5.33961C13.01 3.97961 14.63 3.09961 16.44 3.09961" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </G>
-    <Defs>
-      <ClipPath id="clip0_4418_3795">
-        <Rect width="24" height="24" fill="white"/>
-      </ClipPath>
-    </Defs>
-  </Svg>
-);
-
-const DocumentIcon = ({ size = 24, color = "#fff" }) => (
-  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-    <G clipPath="url(#clip0_4418_3620)">
-      <Path d="M20 15.04V18C20 21 18.21 22 16 22H8C5.79 22 4 21 4 18V8.25C4 5 5.79 4.25 8 4.25C8 4.87 8.24997 5.43 8.65997 5.84C9.06997 6.25 9.63 6.5 10.25 6.5H13.75C14.99 6.5 16 5.49 16 4.25C18.21 4.25 20 5 20 8.25V10.07" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M16 4.25C16 5.49 14.99 6.5 13.75 6.5H10.25C9.63 6.5 9.06997 6.25 8.65997 5.84C8.24997 5.43 8 4.87 8 4.25C8 3.01 9.01 2 10.25 2H13.75C14.37 2 14.93 2.25 15.34 2.66C15.75 3.07 16 3.63 16 4.25Z" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M8 13H12" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M8 17H16" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </G>
-    <Defs>
-      <ClipPath id="clip0_4418_3620">
-        <Rect width="24" height="24" fill="white"/>
-      </ClipPath>
-    </Defs>
-  </Svg>
-);
-
-const CameraIcon = ({ size = 24, color = "#fff" }) => (
-  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-    <G clipPath="url(#clip0_4418_3159)">
-      <Path d="M2.77017 18.25C2.89017 20.31 4.00017 22 6.76017 22H17.2402C20.0002 22 21.1002 20.31 21.2302 18.25L21.7502 9.99C21.8902 7.83 20.1702 6 18.0002 6C17.3902 6 16.8302 5.65 16.5502 5.11L15.8302 3.66C15.3702 2.75 14.1702 2 13.1502 2H10.8602C9.83017 2 8.63017 2.75 8.17017 3.66L7.45017 5.11C7.17017 5.65 6.61017 6 6.00017 6C3.83017 6 2.11017 7.83 2.25017 9.99L2.51017 14.06" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M10.5 8H13.5" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M12 18C13.79 18 15.25 16.54 15.25 14.75C15.25 12.96 13.79 11.5 12 11.5C10.21 11.5 8.75 12.96 8.75 14.75C8.75 16.54 10.21 18 12 18Z" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </G>
-    <Defs>
-      <ClipPath id="clip0_4418_3159">
-        <Rect width="24" height="24" fill="white"/>
-      </ClipPath>
-    </Defs>
-  </Svg>
-);
-
-const ClockIcon = ({ size = 24, color = "#fff" }) => (
-  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-    <G clipPath="url(#clip0_4418_3933)">
-      <Path d="M12 9.66016V12.4502L13.4 13.8502" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M6.96 7.89C8.16 6.43 9.97 5.5 12 5.5C15.59 5.5 18.5 8.41 18.5 12C18.5 14.08 17.52 15.94 16 17.13H15.99C14.89 17.99 13.51 18.5 12 18.5C10.51 18.5 9.14 18 8.04 17.15H8.03C6.49 15.96 5.5 14.1 5.5 12" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M8.02979 17.1509H8.03979C9.13979 18.0009 10.5098 18.5009 11.9998 18.5009C13.5098 18.5009 14.8898 17.9909 15.9898 17.1309H15.9998L15.4898 19.6009C14.9998 21.5009 13.8998 22.0009 12.5498 22.0009H11.4598C10.1098 22.0009 8.99979 21.5009 8.51979 19.5909L8.02979 17.1509Z" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M8.02979 6.85H8.03979C9.13979 6 10.5098 5.5 11.9998 5.5C13.5098 5.5 14.8898 6.01 15.9898 6.87H15.9998L15.4898 4.4C14.9998 2.5 13.8998 2 12.5498 2H11.4598C10.1098 2 8.99979 2.5 8.51979 4.41L8.02979 6.85Z" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </G>
-    <Defs>
-      <ClipPath id="clip0_4418_3933">
-        <Rect width="24" height="24" fill="white"/>
-      </ClipPath>
-    </Defs>
-  </Svg>
-);
-
-const AwardIcon = ({ size = 24, color = "#fff" }) => (
-  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-    <G clipPath="url(#clip0_4418_3372)">
-      <Path d="M18.0198 18.9597C19.7398 17.7997 19.7398 17.7997 19.7398 15.9797V11.0097C19.7398 9.18969 19.7398 9.18969 18.0198 8.02969L13.2898 5.29969C12.5798 4.88969 11.4198 4.88969 10.7098 5.29969L5.97977 8.03969C4.25977 9.19969 4.25977 9.19969 4.25977 11.0197V15.9897C4.25977 17.8097 4.25977 17.8097 5.97977 18.9697L10.7098 21.6997C11.4198 22.1097 12.5798 22.1097 13.2898 21.6997L14.8098 20.8197" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M17.5 7.63V5C17.5 3 16.5 2 14.5 2H9.5C7.5 2 6.5 3 6.5 5V7.56" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M12.28 16.4199C12.13 16.3599 11.88 16.3599 11.73 16.4199L10.75 16.8099C10.15 17.0499 9.69003 16.7099 9.73003 16.0699L9.79003 15.0199C9.80003 14.8599 9.72003 14.6199 9.62003 14.4999L8.95003 13.6899C8.54003 13.1899 8.71003 12.6499 9.34003 12.4899L10.36 12.2299C10.52 12.1899 10.72 12.0399 10.8 11.9099L11.37 11.0199C11.72 10.4699 12.29 10.4699 12.64 11.0199L13.21 11.9099C13.3 12.0499 13.5 12.1899 13.65 12.2299L14.67 12.4899C15.3 12.6499 15.47 13.1899 15.06 13.6899L14.39 14.4999C14.29 14.6299 14.21 14.8599 14.22 15.0199" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </G>
-    <Defs>
-      <ClipPath id="clip0_4418_3372">
-        <Rect width="24" height="24" fill="white"/>
-      </ClipPath>
-    </Defs>
-  </Svg>
-);
-
-const MicrophoneIcon = ({ size = 24, color = "#fff" }) => (
-  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-    <G clipPath="url(#clip0_4418_3500)">
-      <Path d="M12 15.5C14.21 15.5 16 13.71 16 11.5V6C16 3.79 14.21 2 12 2C9.79 2 8 3.79 8 6V11.5C8 13.71 9.79 15.5 12 15.5Z" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M4.35 9.65V11.5C4.35 15.92 7.58 19.5 12 19.5C16.42 19.5 19.65 15.92 19.65 11.5V9.65" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M10.61 6.43C11.51 6.1 12.49 6.1 13.39 6.43" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M11.2 8.55C11.73 8.41 12.27 8.41 12.8 8.55" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M12 19.5V22" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </G>
-    <Defs>
-      <ClipPath id="clip0_4418_3500">
-        <Rect width="24" height="24" fill="white"/>
-      </ClipPath>
-    </Defs>
-  </Svg>
-);
-
-const BackArrowIcon = ({ size = 24, color = "#fff" }) => (
-  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-    <Path d="M13.98 5.31975L10.77 8.52975L8.79999 10.4897C7.96999 11.3197 7.96999 12.6697 8.79999 13.4997L13.98 18.6797C14.66 19.3597 15.82 18.8697 15.82 17.9197V12.3097V6.07975C15.82 5.11975 14.66 4.63975 13.98 5.31975Z" fill={color} />
-  </Svg>
-);
-
-// Add ChatIcon SVG component
-const ChatIcon = ({ size = 24, color = "#fff" }) => (
-  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-    <G clipPath="url(#clip0_4418_3701)">
-      <Path d="M8.5 19H8C4 19 2 17 2 13V8C2 4 4 2 8 2H16C20 2 22 4 22 8V13C22 17 20 19 16 19H15.5C15.19 19 14.89 19.15 14.7 19.4L13.2 21.4C12.54 22.28 11.46 22.28 10.8 21.4L9.3 19.4C9.14 19.18 8.77 19 8.5 19Z" stroke={color} strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M15.9965 11H16.0054" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M11.9955 11H12.0045" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M7.99451 11H8.00349" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    </G>
-    <Defs>
-      <ClipPath id="clip0_4418_3701">
-        <Rect width="24" height="24" fill="white"/>
-      </ClipPath>
-    </Defs>
-  </Svg>
-);
-
-// Add LockIcon SVG component
-const LockIcon = ({ size = 24, color = "#fff" }) => (
-  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-    <G clipPath="url(#clip0_4418_3802)">
-      <Path d="M6 10V8C6 5.79086 7.79086 4 10 4H14C16.2091 4 18 5.79086 18 8V10M5 12C5 10.8954 5.89543 10 7 10H17C18.1046 10 19 10.8954 19 12V18C19 19.1046 18.1046 20 17 20H7C5.89543 20 5 19.1046 5 18V12Z" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M12 14V16" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </G>
-    <Defs>
-      <ClipPath id="clip0_4418_3802">
-        <Rect width="24" height="24" fill="white"/>
-      </ClipPath>
-    </Defs>
-  </Svg>
-);
-
-// Add MagicWandIcon SVG component
-const MagicWandIcon = ({ size = 24, color = "#fff" }) => (
-  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-    <G clipPath="url(#clip0_3261_13705)">
-      <Path d="M7.31005 9.15001L6.38005 9.37001C5.71005 9.52001 5.19005 10.05 5.03005 10.71L4.81005 11.64C4.79005 11.74 4.64005 11.74 4.62005 11.64L4.40005 10.71C4.25005 10.04 3.72005 9.52001 3.06005 9.36001L2.13005 9.14001C2.03005 9.12001 2.03005 8.97001 2.13005 8.95001L3.06005 8.73001C3.73005 8.58001 4.25005 8.05001 4.41005 7.39001L4.63005 6.46001C4.65005 6.36001 4.80005 6.36001 4.82005 6.46001L5.04005 7.39001C5.19005 8.06001 5.72005 8.58001 6.38005 8.74001L7.31005 8.96001C7.41005 8.98001 7.41005 9.13001 7.31005 9.15001Z" stroke={color} strokeWidth="1.5" strokeMiterlimit="10" />
-      <Path d="M17.38 4.90993L18.73 3.55993C19.41 2.87993 20.51 2.87993 21.19 3.55993C21.87 4.23993 21.87 5.33993 21.19 6.01993L19.84 7.36993" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M13.49 13.86L5.90001 21.45C5.18001 22.17 4.02001 22.17 3.30001 21.45C2.58001 20.73 2.58001 19.57 3.30001 18.85L4.3375 17.8125M10.89 11.26L8.00024 14.1498" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M16.34 12.93L20.87 17.46C21.16 17.75 21.58 17.84 21.96 17.72C22.34 17.59 22.62 17.26 22.68 16.86C22.97 14.86 22.29 12.85 20.87 11.43L19.36 9.91996L20.13 9.14996C20.33 8.94996 20.44 8.68996 20.44 8.40996C20.44 8.12996 20.33 7.85996 20.13 7.66996L17.09 4.62996C16.68 4.21996 16.01 4.21996 15.6 4.62996L14.83 5.39996L13.32 3.88996C11.89 2.45996 9.88005 1.78996 7.89005 2.07996C7.49005 2.13996 7.16005 2.41996 7.03005 2.79996C6.90005 3.17996 7.00005 3.60996 7.29005 3.88996L11.82 8.41996L10.68 9.55996C10.27 9.96996 10.27 10.64 10.68 11.05L13.72 14.09C13.92 14.29 14.18 14.4 14.46 14.4C14.74 14.4 15.01 14.29 15.2 14.09L16.34 12.95V12.93Z" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </G>
-    <Defs>
-      <ClipPath id="clip0_3261_13705">
-        <Rect width="24" height="24" fill="white"/>
-      </ClipPath>
-    </Defs>
-  </Svg>
-);
-
-const UploadIcon = ({ size = 24, color = "#fff" }) => (
-  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-    <G clipPath="url(#clip0_4418_6753)">
-      <Path d="M15 22.75H9C3.57 22.75 1.25 20.43 1.25 15V9C1.25 3.57 3.57 1.25 9 1.25H15C20.43 1.25 22.75 3.57 22.75 9V15C22.75 20.43 20.43 22.75 15 22.75ZM9 2.75C4.39 2.75 2.75 4.39 2.75 9V15C2.75 19.61 4.39 21.25 9 21.25H15C19.61 21.25 21.25 19.61 21.25 15V9C21.25 4.39 19.61 2.75 15 2.75H9Z" fill={color} />
-      <Path d="M9 10.75C7.48 10.75 6.25 9.52 6.25 8C6.25 6.48 7.48 5.25 9 5.25C10.52 5.25 11.75 6.48 11.75 8C11.75 9.52 10.52 10.75 9 10.75ZM9 6.75C8.31 6.75 7.75 7.31 7.75 8C7.75 8.69 8.31 9.25 9 9.25C9.69 9.25 10.25 8.69 10.25 8C10.25 7.31 9.69 6.75 9 6.75Z" fill={color} />
-      <Path d="M2.67002 19.6996C2.43002 19.6996 2.19002 19.5796 2.05002 19.3696C1.82002 19.0296 1.91002 18.5596 2.26002 18.3296L7.19002 15.0196C8.27002 14.2896 9.76002 14.3796 10.74 15.2096L11.07 15.4996C11.57 15.9296 12.42 15.9296 12.91 15.4996L17.07 11.9296C18.13 11.0196 19.8 11.0196 20.87 11.9296L22.5 13.3296C22.81 13.5996 22.85 14.0696 22.58 14.3896C22.31 14.6996 21.84 14.7396 21.52 14.4696L19.89 13.0696C19.39 12.6396 18.54 12.6396 18.04 13.0696L13.88 16.6396C12.82 17.5496 11.15 17.5496 10.08 16.6396L9.75002 16.3496C9.29002 15.9596 8.53002 15.9196 8.02002 16.2696L3.09002 19.5796C2.96002 19.6596 2.81002 19.6996 2.67002 19.6996Z" fill={color} />
-    </G>
-    <Defs>
-      <ClipPath id="clip0_4418_6753">
-        <Rect width="24" height="24" fill="white"/>
-      </ClipPath>
-    </Defs>
-  </Svg>
-);
-
-const MicIcon = ({ size = 24, color = "#fff" }) => (
-  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-    <G clipPath="url(#clip0_4418_9248)">
-      <Path d="M12 19C15.31 19 18 16.31 18 13V8C18 4.69 15.31 2 12 2C8.69 2 6 4.69 6 8V13C6 16.31 8.69 19 12 19Z" stroke={color} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M3 11V13C3 17.97 7.03 22 12 22C16.97 22 21 17.97 21 13V11" stroke={color} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M9.10999 7.47969C10.89 6.82969 12.83 6.82969 14.61 7.47969" stroke={color} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M10.03 10.4799C11.23 10.1499 12.5 10.1499 13.7 10.4799" stroke={color} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
-    </G>
-    <Defs>
-      <ClipPath id="clip0_4418_9248">
-        <Rect width="24" height="24" fill="white"/>
-      </ClipPath>
-    </Defs>
-  </Svg>
-);
-
-const CrownIcon = ({ size = 24, color = "#FFD700" }) => (
-  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-    <G clipPath="url(#clip0_4418_8590)">
-      <Path d="M17 22H7C6.59 22 6.25 21.66 6.25 21.25C6.25 20.84 6.59 20.5 7 20.5H17C17.41 20.5 17.75 20.84 17.75 21.25C17.75 21.66 17.41 22 17 22Z" fill={color} />
-      <Path d="M20.35 5.51906L16.35 8.37906C15.82 8.75906 15.06 8.52906 14.83 7.91906L12.94 2.87906C12.62 2.00906 11.39 2.00906 11.07 2.87906L9.16998 7.90906C8.93998 8.52906 8.18997 8.75906 7.65998 8.36906L3.65998 5.50906C2.85998 4.94906 1.79998 5.73906 2.12998 6.66906L6.28998 18.3191C6.42998 18.7191 6.80998 18.9791 7.22998 18.9791H16.76C17.18 18.9791 17.56 18.7091 17.7 18.3191L21.86 6.66906C22.2 5.73906 21.14 4.94906 20.35 5.51906ZM14.5 14.7491H9.49998C9.08998 14.7491 8.74998 14.4091 8.74998 13.9991C8.74998 13.5891 9.08998 13.2491 9.49998 13.2491H14.5C14.91 13.2491 15.25 13.5891 15.25 13.9991C15.25 14.4091 14.91 14.7491 14.5 14.7491Z" fill={color} />
-    </G>
-    <Defs>
-      <ClipPath id="clip0_4418_8590">
-        <Rect width="24" height="24" fill="white"/>
-      </ClipPath>
-    </Defs>
-  </Svg>
-);
 
 // Daily Quest Component
 const DailyQuestCard = ({ quest, onQuestAction, userProgress }) => {
@@ -1625,65 +1400,9 @@ export default function App() {
     }
   ]);
 
-  // Daily quest system state
-  const [dailyQuests, setDailyQuests] = useState([
-    {
-      id: 1,
-      title: "Practice Session",
-      description: "Complete 1 practice session",
-      type: "practice",
-      icon: "🎯",
-      xpReward: 25,
-      gemReward: 5,
-      progress: 0,
-      maxProgress: 1,
-      status: "available", // available, in_progress, completed, claimed
-      color: "#58CC67",
-      category: "daily"
-    },
-    {
-      id: 2,
-      title: "Vocabulary Review",
-      description: "Review 5 words from yesterday",
-      type: "review",
-      icon: "📚",
-      xpReward: 35,
-      gemReward: 8,
-      progress: 3,
-      maxProgress: 5,
-      status: "in_progress",
-      color: "#3AB1FF",
-      category: "daily"
-    },
-    {
-      id: 3,
-      title: "Upload Content",
-      description: "Add 1 new lesson material",
-      type: "upload",
-      icon: "📤",
-      xpReward: 50,
-      gemReward: 10,
-      progress: 0,
-      maxProgress: 1,
-      status: "available",
-      color: "#7C3AED",
-      category: "daily"
-    },
-    {
-      id: 4,
-      title: "Quiz Challenge",
-      description: "Score 80%+ on any quiz",
-      type: "quiz",
-      icon: "🏆",
-      xpReward: 40,
-      gemReward: 12,
-      progress: 0,
-      maxProgress: 1,
-      status: "available",
-      color: "#FF6B6B",
-      category: "daily"
-    }
-  ]);
+  const [gameModesState] = useState(gameModes);
+  const [dailyQuestsState, setDailyQuestsState] = useState(dailyQuests);
+  const [initialWordBankState] = useState(initialWordBank);
 
   // User progress state
   const [userProgress, setUserProgress] = useState({
@@ -1739,113 +1458,6 @@ export default function App() {
       learningRegion: 'Latin America'
     }
   });
-
-  // Game modes data
-  const [gameModes] = useState([
-    {
-      id: 1,
-      title: "Upload & Learn",
-      description: "Add notes, photos, or voice recordings to get AI-powered reviews",
-      // icon: <DocumentIcon size={32} color="#FFFFFF" />, // Commented out to fix Text component error
-      color: "rgba(88, 204, 103, 0.9)",
-      badge: "START HERE",
-      badgeColor: "#10B981",
-      requiresUploads: 0,
-      route: "upload"
-    },
-    {
-      id: 2,
-      title: "Quiz Challenge",
-      description: "Test your knowledge with personalized quizzes",
-      // icon: <AwardIcon size={32} color="#FFFFFF" />, // Commented out to fix Text component error
-      color: "rgba(124, 58, 237, 0.9)",
-      badge: "UNLOCK SOON",
-      badgeColor: "#7C3AED",
-      requiresUploads: 3,
-      route: "quiz"
-    },
-    {
-      id: 3,
-      title: "AI Chat Practice",
-      description: "Practice conversations with AI in real scenarios",
-      // icon: <ChatIcon size={32} color="#FFFFFF" />, // Commented out to fix Text component error
-      color: "rgba(58, 177, 255, 0.9)",
-      badge: "COMING SOON",
-      badgeColor: "#3B82F6",
-      requiresUploads: 0,
-      route: "chat"
-    }
-  ]);
-
-  // Word Bank initial data - Spanish vocabulary
-  const [initialWordBank] = useState([
-    {
-      id: 1,
-      word: "estudiar",
-      translation: "to study",
-      category: "verbs",
-      difficulty: "beginner",
-      dateAdded: "Today",
-      source: "upload",
-      example: "Me gusta estudiar español",
-      exampleTranslation: "I like to study Spanish"
-    },
-    {
-      id: 2,
-      word: "biblioteca",
-      translation: "library",
-      category: "places",
-      difficulty: "beginner",
-      dateAdded: "Yesterday",
-      source: "ai_review",
-      example: "La biblioteca está cerrada",
-      exampleTranslation: "The library is closed"
-    },
-    {
-      id: 3,
-      word: "subjuntivo",
-      translation: "subjunctive",
-      category: "grammar",
-      difficulty: "advanced",
-      dateAdded: "Dec 28",
-      source: "upload",
-      example: "Espero que estudies el subjuntivo",
-      exampleTranslation: "I hope you study the subjunctive"
-    },
-    {
-      id: 4,
-      word: "aeropuerto",
-      translation: "airport",
-      category: "travel",
-      difficulty: "intermediate",
-      dateAdded: "Dec 27",
-      source: "ai_review",
-      example: "El aeropuerto está muy lejos",
-      exampleTranslation: "The airport is very far"
-    },
-    {
-      id: 5,
-      word: "restaurante",
-      translation: "restaurant",
-      category: "places",
-      difficulty: "beginner",
-      dateAdded: "Dec 26",
-      source: "upload",
-      example: "Este restaurante es muy bueno",
-      exampleTranslation: "This restaurant is very good"
-    },
-    {
-      id: 6,
-      word: "imperfecto",
-      translation: "imperfect tense",
-      category: "grammar",
-      difficulty: "intermediate",
-      dateAdded: "Dec 25",
-      source: "ai_review",
-      example: "Cuando era niño, jugaba mucho",
-      exampleTranslation: "When I was a child, I used to play a lot"
-    }
-  ]);
 
   // Leaderboard data for ranking modal - sorted by rank
   const [leaderboardData] = useState([
@@ -2207,7 +1819,7 @@ export default function App() {
   // Initialize word bank with sample data
   useEffect(() => {
     if (wordBank.length === 0) {
-      setWordBank(initialWordBank);
+      setWordBank(initialWordBankState);
     }
   }, []);
 
@@ -2562,7 +2174,7 @@ export default function App() {
     }
     
     // Update quest status to in_progress
-    setDailyQuests(prevQuests => 
+    setDailyQuestsState(prevQuests => 
       prevQuests.map(q => 
         q.id === quest.id 
           ? { ...q, status: 'in_progress' }
@@ -2582,7 +2194,7 @@ export default function App() {
     }));
 
     // Mark quest as claimed
-    setDailyQuests(prevQuests => 
+    setDailyQuestsState(prevQuests => 
       prevQuests.map(q => 
         q.id === quest.id 
           ? { ...q, status: 'claimed' }
@@ -2595,7 +2207,7 @@ export default function App() {
   };
 
   const updateQuestProgress = (questType, progressAmount = 1) => {
-    setDailyQuests(prevQuests => 
+    setDailyQuestsState(prevQuests => 
       prevQuests.map(quest => {
         if (quest.type === questType && quest.status !== 'claimed') {
           const newProgress = Math.min(quest.progress + progressAmount, quest.maxProgress);
@@ -2852,7 +2464,7 @@ export default function App() {
         {/* Daily Progress Summary */}
         <DailyProgressSummary 
           userProgress={userProgress}
-          quests={dailyQuests}
+          quests={dailyQuestsState}
         />
 
         {/* Daily Quests Section */}
@@ -2866,7 +2478,7 @@ export default function App() {
           </View>
           
           <DailyQuestGrid 
-            quests={dailyQuests}
+            quests={dailyQuestsState}
             onQuestAction={handleQuestAction}
             userProgress={userProgress}
           />
@@ -2950,7 +2562,7 @@ export default function App() {
           
           {/* Game Mode Carousel */}
           <GameModeCarousel 
-            gameModes={gameModes}
+            gameModes={gameModesState}
             onGameModeSelect={handleGameModeSelect}
             uploadCount={uploadCount}
           />
@@ -3957,7 +3569,7 @@ export default function App() {
             >
               <Text style={styles.profileSectionTitle}>Today's Quest Progress</Text>
                 <View style={styles.profileQuestList}>
-                  {dailyQuests.slice(0, 3).map((quest) => (
+                  {dailyQuestsState.slice(0, 3).map((quest) => (
                     <View key={quest.id} style={styles.profileQuestItem}>
                       <View style={[styles.profileQuestIcon, { backgroundColor: quest.color }]}>
                         <Text style={styles.profileQuestIconText}>{quest.icon}</Text>
