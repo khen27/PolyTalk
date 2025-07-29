@@ -17,7 +17,6 @@ import {
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { LinearGradient } from 'expo-linear-gradient';
-import Svg, { Path, G, ClipPath, Rect, Defs } from 'react-native-svg';
 import {
   BookIcon,
   RocketIcon, 
