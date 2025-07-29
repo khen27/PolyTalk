@@ -12,6 +12,14 @@ export { AwardIcon } from './AwardIcon';
 export { MicrophoneIcon } from './MicrophoneIcon';
 export { BackArrowIcon } from './BackArrowIcon';
 
+// SVG Icon Components - Batch 3 (Phase 2.3) - FINAL BATCH
+export { ChatIcon } from './ChatIcon';
+export { LockIcon } from './LockIcon';
+export { MagicWandIcon } from './MagicWandIcon';
+export { UploadIcon } from './UploadIcon';
+export { MicIcon } from './MicIcon';
+export { CrownIcon } from './CrownIcon';
+
 // Type definitions
 export interface IconProps {
   size?: number;

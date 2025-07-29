@@ -28,106 +28,20 @@ import {
   ClockIcon,
   AwardIcon,
   MicrophoneIcon,
-  BackArrowIcon
+  BackArrowIcon,
+  ChatIcon,
+  LockIcon,
+  MagicWandIcon,
+  UploadIcon,
+  MicIcon,
+  CrownIcon
 } from './src/components/icons';
 
 const { width, height } = Dimensions.get('window');
 
 
 
-// Add ChatIcon SVG component
-const ChatIcon = ({ size = 24, color = "#fff" }) => (
-  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-    <G clipPath="url(#clip0_4418_3701)">
-      <Path d="M8.5 19H8C4 19 2 17 2 13V8C2 4 4 2 8 2H16C20 2 22 4 22 8V13C22 17 20 19 16 19H15.5C15.19 19 14.89 19.15 14.7 19.4L13.2 21.4C12.54 22.28 11.46 22.28 10.8 21.4L9.3 19.4C9.14 19.18 8.77 19 8.5 19Z" stroke={color} strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M15.9965 11H16.0054" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M11.9955 11H12.0045" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M7.99451 11H8.00349" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    </G>
-    <Defs>
-      <ClipPath id="clip0_4418_3701">
-        <Rect width="24" height="24" fill="white"/>
-      </ClipPath>
-    </Defs>
-  </Svg>
-);
 
-// Add LockIcon SVG component
-const LockIcon = ({ size = 24, color = "#fff" }) => (
-  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-    <G clipPath="url(#clip0_4418_3802)">
-      <Path d="M6 10V8C6 5.79086 7.79086 4 10 4H14C16.2091 4 18 5.79086 18 8V10M5 12C5 10.8954 5.89543 10 7 10H17C18.1046 10 19 10.8954 19 12V18C19 19.1046 18.1046 20 17 20H7C5.89543 20 5 19.1046 5 18V12Z" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M12 14V16" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </G>
-    <Defs>
-      <ClipPath id="clip0_4418_3802">
-        <Rect width="24" height="24" fill="white"/>
-      </ClipPath>
-    </Defs>
-  </Svg>
-);
-
-// Add MagicWandIcon SVG component
-const MagicWandIcon = ({ size = 24, color = "#fff" }) => (
-  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-    <G clipPath="url(#clip0_3261_13705)">
-      <Path d="M7.31005 9.15001L6.38005 9.37001C5.71005 9.52001 5.19005 10.05 5.03005 10.71L4.81005 11.64C4.79005 11.74 4.64005 11.74 4.62005 11.64L4.40005 10.71C4.25005 10.04 3.72005 9.52001 3.06005 9.36001L2.13005 9.14001C2.03005 9.12001 2.03005 8.97001 2.13005 8.95001L3.06005 8.73001C3.73005 8.58001 4.25005 8.05001 4.41005 7.39001L4.63005 6.46001C4.65005 6.36001 4.80005 6.36001 4.82005 6.46001L5.04005 7.39001C5.19005 8.06001 5.72005 8.58001 6.38005 8.74001L7.31005 8.96001C7.41005 8.98001 7.41005 9.13001 7.31005 9.15001Z" stroke={color} strokeWidth="1.5" strokeMiterlimit="10" />
-      <Path d="M17.38 4.90993L18.73 3.55993C19.41 2.87993 20.51 2.87993 21.19 3.55993C21.87 4.23993 21.87 5.33993 21.19 6.01993L19.84 7.36993" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M13.49 13.86L5.90001 21.45C5.18001 22.17 4.02001 22.17 3.30001 21.45C2.58001 20.73 2.58001 19.57 3.30001 18.85L4.3375 17.8125M10.89 11.26L8.00024 14.1498" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M16.34 12.93L20.87 17.46C21.16 17.75 21.58 17.84 21.96 17.72C22.34 17.59 22.62 17.26 22.68 16.86C22.97 14.86 22.29 12.85 20.87 11.43L19.36 9.91996L20.13 9.14996C20.33 8.94996 20.44 8.68996 20.44 8.40996C20.44 8.12996 20.33 7.85996 20.13 7.66996L17.09 4.62996C16.68 4.21996 16.01 4.21996 15.6 4.62996L14.83 5.39996L13.32 3.88996C11.89 2.45996 9.88005 1.78996 7.89005 2.07996C7.49005 2.13996 7.16005 2.41996 7.03005 2.79996C6.90005 3.17996 7.00005 3.60996 7.29005 3.88996L11.82 8.41996L10.68 9.55996C10.27 9.96996 10.27 10.64 10.68 11.05L13.72 14.09C13.92 14.29 14.18 14.4 14.46 14.4C14.74 14.4 15.01 14.29 15.2 14.09L16.34 12.95V12.93Z" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </G>
-    <Defs>
-      <ClipPath id="clip0_3261_13705">
-        <Rect width="24" height="24" fill="white"/>
-      </ClipPath>
-    </Defs>
-  </Svg>
-);
-
-const UploadIcon = ({ size = 24, color = "#fff" }) => (
-  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-    <G clipPath="url(#clip0_4418_6753)">
-      <Path d="M15 22.75H9C3.57 22.75 1.25 20.43 1.25 15V9C1.25 3.57 3.57 1.25 9 1.25H15C20.43 1.25 22.75 3.57 22.75 9V15C22.75 20.43 20.43 22.75 15 22.75ZM9 2.75C4.39 2.75 2.75 4.39 2.75 9V15C2.75 19.61 4.39 21.25 9 21.25H15C19.61 21.25 21.25 19.61 21.25 15V9C21.25 4.39 19.61 2.75 15 2.75H9Z" fill={color} />
-      <Path d="M9 10.75C7.48 10.75 6.25 9.52 6.25 8C6.25 6.48 7.48 5.25 9 5.25C10.52 5.25 11.75 6.48 11.75 8C11.75 9.52 10.52 10.75 9 10.75ZM9 6.75C8.31 6.75 7.75 7.31 7.75 8C7.75 8.69 8.31 9.25 9 9.25C9.69 9.25 10.25 8.69 10.25 8C10.25 7.31 9.69 6.75 9 6.75Z" fill={color} />
-      <Path d="M2.67002 19.6996C2.43002 19.6996 2.19002 19.5796 2.05002 19.3696C1.82002 19.0296 1.91002 18.5596 2.26002 18.3296L7.19002 15.0196C8.27002 14.2896 9.76002 14.3796 10.74 15.2096L11.07 15.4996C11.57 15.9296 12.42 15.9296 12.91 15.4996L17.07 11.9296C18.13 11.0196 19.8 11.0196 20.87 11.9296L22.5 13.3296C22.81 13.5996 22.85 14.0696 22.58 14.3896C22.31 14.6996 21.84 14.7396 21.52 14.4696L19.89 13.0696C19.39 12.6396 18.54 12.6396 18.04 13.0696L13.88 16.6396C12.82 17.5496 11.15 17.5496 10.08 16.6396L9.75002 16.3496C9.29002 15.9596 8.53002 15.9196 8.02002 16.2696L3.09002 19.5796C2.96002 19.6596 2.81002 19.6996 2.67002 19.6996Z" fill={color} />
-    </G>
-    <Defs>
-      <ClipPath id="clip0_4418_6753">
-        <Rect width="24" height="24" fill="white"/>
-      </ClipPath>
-    </Defs>
-  </Svg>
-);
-
-const MicIcon = ({ size = 24, color = "#fff" }) => (
-  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-    <G clipPath="url(#clip0_4418_9248)">
-      <Path d="M12 19C15.31 19 18 16.31 18 13V8C18 4.69 15.31 2 12 2C8.69 2 6 4.69 6 8V13C6 16.31 8.69 19 12 19Z" stroke={color} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M3 11V13C3 17.97 7.03 22 12 22C16.97 22 21 17.97 21 13V11" stroke={color} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M9.10999 7.47969C10.89 6.82969 12.83 6.82969 14.61 7.47969" stroke={color} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M10.03 10.4799C11.23 10.1499 12.5 10.1499 13.7 10.4799" stroke={color} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
-    </G>
-    <Defs>
-      <ClipPath id="clip0_4418_9248">
-        <Rect width="24" height="24" fill="white"/>
-      </ClipPath>
-    </Defs>
-  </Svg>
-);
-
-const CrownIcon = ({ size = 24, color = "#FFD700" }) => (
-  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-    <G clipPath="url(#clip0_4418_8590)">
-      <Path d="M17 22H7C6.59 22 6.25 21.66 6.25 21.25C6.25 20.84 6.59 20.5 7 20.5H17C17.41 20.5 17.75 20.84 17.75 21.25C17.75 21.66 17.41 22 17 22Z" fill={color} />
-      <Path d="M20.35 5.51906L16.35 8.37906C15.82 8.75906 15.06 8.52906 14.83 7.91906L12.94 2.87906C12.62 2.00906 11.39 2.00906 11.07 2.87906L9.16998 7.90906C8.93998 8.52906 8.18997 8.75906 7.65998 8.36906L3.65998 5.50906C2.85998 4.94906 1.79998 5.73906 2.12998 6.66906L6.28998 18.3191C6.42998 18.7191 6.80998 18.9791 7.22998 18.9791H16.76C17.18 18.9791 17.56 18.7091 17.7 18.3191L21.86 6.66906C22.2 5.73906 21.14 4.94906 20.35 5.51906ZM14.5 14.7491H9.49998C9.08998 14.7491 8.74998 14.4091 8.74998 13.9991C8.74998 13.5891 9.08998 13.2491 9.49998 13.2491H14.5C14.91 13.2491 15.25 13.5891 15.25 13.9991C15.25 14.4091 14.91 14.7491 14.5 14.7491Z" fill={color} />
-    </G>
-    <Defs>
-      <ClipPath id="clip0_4418_8590">
-        <Rect width="24" height="24" fill="white"/>
-      </ClipPath>
-    </Defs>
-  </Svg>
-);
 
 // Daily Quest Component
 const DailyQuestCard = ({ quest, onQuestAction, userProgress }) => {
