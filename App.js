@@ -35,6 +35,7 @@ import {
   MicIcon,
   CrownIcon
 } from './src/components/icons';
+import { gameModes, dailyQuests, initialWordBank } from './src/constants/gameData';
 
 const { width, height } = Dimensions.get('window');
 
@@ -1399,65 +1400,9 @@ export default function App() {
     }
   ]);
 
-  // Daily quest system state
-  const [dailyQuests, setDailyQuests] = useState([
-    {
-      id: 1,
-      title: "Practice Session",
-      description: "Complete 1 practice session",
-      type: "practice",
-      icon: "🎯",
-      xpReward: 25,
-      gemReward: 5,
-      progress: 0,
-      maxProgress: 1,
-      status: "available", // available, in_progress, completed, claimed
-      color: "#58CC67",
-      category: "daily"
-    },
-    {
-      id: 2,
-      title: "Vocabulary Review",
-      description: "Review 5 words from yesterday",
-      type: "review",
-      icon: "📚",
-      xpReward: 35,
-      gemReward: 8,
-      progress: 3,
-      maxProgress: 5,
-      status: "in_progress",
-      color: "#3AB1FF",
-      category: "daily"
-    },
-    {
-      id: 3,
-      title: "Upload Content",
-      description: "Add 1 new lesson material",
-      type: "upload",
-      icon: "📤",
-      xpReward: 50,
-      gemReward: 10,
-      progress: 0,
-      maxProgress: 1,
-      status: "available",
-      color: "#7C3AED",
-      category: "daily"
-    },
-    {
-      id: 4,
-      title: "Quiz Challenge",
-      description: "Score 80%+ on any quiz",
-      type: "quiz",
-      icon: "🏆",
-      xpReward: 40,
-      gemReward: 12,
-      progress: 0,
-      maxProgress: 1,
-      status: "available",
-      color: "#FF6B6B",
-      category: "daily"
-    }
-  ]);
+  const [gameModesState] = useState(gameModes);
+  const [dailyQuestsState, setDailyQuestsState] = useState(dailyQuests);
+  const [initialWordBankState] = useState(initialWordBank);
 
   // User progress state
   const [userProgress, setUserProgress] = useState({
@@ -1513,113 +1458,6 @@ export default function App() {
       learningRegion: 'Latin America'
     }
   });
-
-  // Game modes data
-  const [gameModes] = useState([
-    {
-      id: 1,
-      title: "Upload & Learn",
-      description: "Add notes, photos, or voice recordings to get AI-powered reviews",
-      // icon: <DocumentIcon size={32} color="#FFFFFF" />, // Commented out to fix Text component error
-      color: "rgba(88, 204, 103, 0.9)",
-      badge: "START HERE",
-      badgeColor: "#10B981",
-      requiresUploads: 0,
-      route: "upload"
-    },
-    {
-      id: 2,
-      title: "Quiz Challenge",
-      description: "Test your knowledge with personalized quizzes",
-      // icon: <AwardIcon size={32} color="#FFFFFF" />, // Commented out to fix Text component error
-      color: "rgba(124, 58, 237, 0.9)",
-      badge: "UNLOCK SOON",
-      badgeColor: "#7C3AED",
-      requiresUploads: 3,
-      route: "quiz"
-    },
-    {
-      id: 3,
-      title: "AI Chat Practice",
-      description: "Practice conversations with AI in real scenarios",
-      // icon: <ChatIcon size={32} color="#FFFFFF" />, // Commented out to fix Text component error
-      color: "rgba(58, 177, 255, 0.9)",
-      badge: "COMING SOON",
-      badgeColor: "#3B82F6",
-      requiresUploads: 0,
-      route: "chat"
-    }
-  ]);
-
-  // Word Bank initial data - Spanish vocabulary
-  const [initialWordBank] = useState([
-    {
-      id: 1,
-      word: "estudiar",
-      translation: "to study",
-      category: "verbs",
-      difficulty: "beginner",
-      dateAdded: "Today",
-      source: "upload",
-      example: "Me gusta estudiar español",
-      exampleTranslation: "I like to study Spanish"
-    },
-    {
-      id: 2,
-      word: "biblioteca",
-      translation: "library",
-      category: "places",
-      difficulty: "beginner",
-      dateAdded: "Yesterday",
-      source: "ai_review",
-      example: "La biblioteca está cerrada",
-      exampleTranslation: "The library is closed"
-    },
-    {
-      id: 3,
-      word: "subjuntivo",
-      translation: "subjunctive",
-      category: "grammar",
-      difficulty: "advanced",
-      dateAdded: "Dec 28",
-      source: "upload",
-      example: "Espero que estudies el subjuntivo",
-      exampleTranslation: "I hope you study the subjunctive"
-    },
-    {
-      id: 4,
-      word: "aeropuerto",
-      translation: "airport",
-      category: "travel",
-      difficulty: "intermediate",
-      dateAdded: "Dec 27",
-      source: "ai_review",
-      example: "El aeropuerto está muy lejos",
-      exampleTranslation: "The airport is very far"
-    },
-    {
-      id: 5,
-      word: "restaurante",
-      translation: "restaurant",
-      category: "places",
-      difficulty: "beginner",
-      dateAdded: "Dec 26",
-      source: "upload",
-      example: "Este restaurante es muy bueno",
-      exampleTranslation: "This restaurant is very good"
-    },
-    {
-      id: 6,
-      word: "imperfecto",
-      translation: "imperfect tense",
-      category: "grammar",
-      difficulty: "intermediate",
-      dateAdded: "Dec 25",
-      source: "ai_review",
-      example: "Cuando era niño, jugaba mucho",
-      exampleTranslation: "When I was a child, I used to play a lot"
-    }
-  ]);
 
   // Leaderboard data for ranking modal - sorted by rank
   const [leaderboardData] = useState([
@@ -1981,7 +1819,7 @@ export default function App() {
   // Initialize word bank with sample data
   useEffect(() => {
     if (wordBank.length === 0) {
-      setWordBank(initialWordBank);
+      setWordBank(initialWordBankState);
     }
   }, []);
 
@@ -2336,7 +2174,7 @@ export default function App() {
     }
     
     // Update quest status to in_progress
-    setDailyQuests(prevQuests => 
+    setDailyQuestsState(prevQuests => 
       prevQuests.map(q => 
         q.id === quest.id 
           ? { ...q, status: 'in_progress' }
@@ -2356,7 +2194,7 @@ export default function App() {
     }));
 
     // Mark quest as claimed
-    setDailyQuests(prevQuests => 
+    setDailyQuestsState(prevQuests => 
       prevQuests.map(q => 
         q.id === quest.id 
           ? { ...q, status: 'claimed' }
@@ -2369,7 +2207,7 @@ export default function App() {
   };
 
   const updateQuestProgress = (questType, progressAmount = 1) => {
-    setDailyQuests(prevQuests => 
+    setDailyQuestsState(prevQuests => 
       prevQuests.map(quest => {
         if (quest.type === questType && quest.status !== 'claimed') {
           const newProgress = Math.min(quest.progress + progressAmount, quest.maxProgress);
@@ -2626,7 +2464,7 @@ export default function App() {
         {/* Daily Progress Summary */}
         <DailyProgressSummary 
           userProgress={userProgress}
-          quests={dailyQuests}
+          quests={dailyQuestsState}
         />
 
         {/* Daily Quests Section */}
@@ -2640,7 +2478,7 @@ export default function App() {
           </View>
           
           <DailyQuestGrid 
-            quests={dailyQuests}
+            quests={dailyQuestsState}
             onQuestAction={handleQuestAction}
             userProgress={userProgress}
           />
@@ -2724,7 +2562,7 @@ export default function App() {
           
           {/* Game Mode Carousel */}
           <GameModeCarousel 
-            gameModes={gameModes}
+            gameModes={gameModesState}
             onGameModeSelect={handleGameModeSelect}
             uploadCount={uploadCount}
           />
@@ -3731,7 +3569,7 @@ export default function App() {
             >
               <Text style={styles.profileSectionTitle}>Today's Quest Progress</Text>
                 <View style={styles.profileQuestList}>
-                  {dailyQuests.slice(0, 3).map((quest) => (
+                  {dailyQuestsState.slice(0, 3).map((quest) => (
                     <View key={quest.id} style={styles.profileQuestItem}>
                       <View style={[styles.profileQuestIcon, { backgroundColor: quest.color }]}>
                         <Text style={styles.profileQuestIconText}>{quest.icon}</Text>

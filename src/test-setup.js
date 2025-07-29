@@ -5,29 +5,38 @@
 jest.mock('react-native-svg', () => {
   const React = require('react');
   const { View } = require('react-native');
-  
+
+  const MockComponent = React.forwardRef((props, ref) => {
+    const { testID, children, ...rest } = props;
+    return React.createElement(View, { testID, ref, ...rest }, children);
+  });
+
   return {
-    Svg: (props) => React.createElement(View, props),
-    Path: (props) => React.createElement(View, props),
-    G: (props) => React.createElement(View, props),
-    ClipPath: (props) => React.createElement(View, props),
-    Rect: (props) => React.createElement(View, props),
-    Defs: (props) => React.createElement(View, props),
+    Svg: MockComponent,
+    Circle: MockComponent,
+    Rect: MockComponent,
+    Path: MockComponent,
+    G: MockComponent,
+    Defs: MockComponent,
+    ClipPath: MockComponent,
+    Use: MockComponent,
+    Symbol: MockComponent,
+    LinearGradient: MockComponent,
+    RadialGradient: MockComponent,
+    Stop: MockComponent,
+    Line: MockComponent,
+    Polyline: MockComponent,
+    Polygon: MockComponent,
+    Text: MockComponent,
+    TSpan: MockComponent,
+    TextPath: MockComponent,
+    Image: MockComponent,
+    Ellipse: MockComponent
   };
 });
 
 // Mock expo modules
-jest.mock('expo-linear-gradient', () => {
-  const React = require('react');
-  const { View } = require('react-native');
-  return {
-    LinearGradient: (props) => React.createElement(View, props),
-  };
-});
-
-jest.mock('expo-image-picker', () => ({
-  launchImageLibraryAsync: jest.fn(() => Promise.resolve({ canceled: true })),
-  MediaTypeOptions: {
-    Images: 'Images',
-  },
+jest.mock('expo-image-picker', () => ({}));
+jest.mock('expo-linear-gradient', () => ({
+  LinearGradient: 'LinearGradient'
 })); 
