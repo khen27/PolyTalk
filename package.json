@@ -7,7 +7,11 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "export:web": "expo export --platform web --output-dir dist"
+    "export:web": "expo export --platform web --output-dir dist",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "benchmark": "node scripts/performance-benchmark.js"
   },
   "dependencies": {
     "@expo/metro-runtime": "~5.0.4",
@@ -24,10 +28,15 @@
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@babel/preset-typescript": "^7.27.1",
+    "@testing-library/jest-native": "^5.4.3",
+    "@testing-library/react-native": "^13.2.1",
+    "@types/jest": "^30.0.0",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@types/react-native": "^0.72.8",
     "babel-plugin-module-resolver": "^5.0.2",
+    "jest": "^30.0.5",
+    "react-test-renderer": "^19.0.0",
     "typescript": "^5.8.3"
   },
   "private": true

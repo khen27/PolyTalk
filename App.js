@@ -18,92 +18,15 @@ import {
 import * as ImagePicker from 'expo-image-picker';
 import { LinearGradient } from 'expo-linear-gradient';
 import Svg, { Path, G, ClipPath, Rect, Defs } from 'react-native-svg';
+import {
+  BookIcon,
+  RocketIcon, 
+  ChartIcon,
+  FireIcon,
+  DocumentIcon
+} from './src/components/icons';
 
 const { width, height } = Dimensions.get('window');
-
-// Professional SVG Icon Components
-const BookIcon = ({ size = 24, color = "#fff" }) => (
-  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-    <G clipPath="url(#clip0_4418_3848)">
-      <Path d="M2 4.65969C2 3.46969 2.96997 2.5697 4.15997 2.6697C6.25997 2.8397 9.43997 3.89973 11.22 5.00973L11.47 5.15969C11.76 5.33969 12.24 5.33969 12.53 5.15969L12.7 5.04971C13.33 4.65971 14.13 4.2697 15 3.9197V7.99972L17 6.6697L19 7.99972V2.77975C19.27 2.72975 19.53 2.69971 19.77 2.67971H19.83C21.02 2.57971 22 3.4697 22 4.6697V16.7397C22 17.6997 21.22 18.5997 20.26 18.7197L19.93 18.7597C17.75 19.0497 14.39 20.1597 12.47 21.2197C12.21 21.3697 11.78 21.3697 11.51 21.2197L11.47 21.1997C9.54997 20.1497 6.20003 19.0497 4.03003 18.7597L3.73999 18.7197C2.77999 18.5997 2 17.6997 2 16.7397V8.84969" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M12 5.49023V20.4902" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M19 2.7793V7.99927L17 6.66925L15 7.99927V3.91925C16.31 3.39925 17.77 2.9793 19 2.7793Z" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </G>
-    <Defs>
-      <ClipPath id="clip0_4418_3848">
-        <Rect width="24" height="24" fill="white"/>
-      </ClipPath>
-    </Defs>
-  </Svg>
-);
-
-const RocketIcon = ({ size = 24, color = "#fff" }) => (
-  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-    <G clipPath="url(#clip0_4418_3015)">
-      <Path d="M19.0598 18.6703L16.9198 14.4004L14.7798 18.6703" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M15.1699 17.9102H18.6899" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M19.9201 21.0198C19.0801 21.6298 18.0501 21.9998 16.9301 21.9998C14.1301 21.9998 11.8501 19.7298 11.8501 16.9198C11.8501 14.1198 14.1201 11.8398 16.9301 11.8398C19.7301 11.8398 22.0101 14.1098 22.0101 16.9198" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M11.95 8.93024C12 11.0002 11 12.0003 8.92999 11.9503H5.00999C2.99999 12.0003 2 11.0002 2 8.93024V5.01025C2 2.99025 3 1.99023 5.02 1.99023H8.94C11.01 1.99023 12.01 2.99025 11.96 5.01025" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M9.0097 5.84961H4.94971" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M6.96973 5.16992V5.84991" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M7.98994 5.83984C7.98994 7.58984 6.61994 9.00983 4.93994 9.00983" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M9.01015 9.01001C8.28015 9.01001 7.62016 8.62 7.16016 8" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M2 15C2 18.87 5.13 22 9 22L7.95 20.25" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M22 9C22 5.13 18.87 2 15 2L16.05 3.75" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </G>
-    <Defs>
-      <ClipPath id="clip0_4418_3015">
-        <Rect width="24" height="24" fill="white"/>
-      </ClipPath>
-    </Defs>
-  </Svg>
-);
-
-const ChartIcon = ({ size = 24, color = "#fff" }) => (
-  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-    <G clipPath="url(#clip0_4418_3961)">
-      <Path d="M9 22H21" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M2 22H6" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M3 13.0009V18.0009C3 18.5509 3.45 19.0009 4 19.0009H5.59998C6.14998 19.0009 6.59998 18.5509 6.59998 18.0009V9.38086C6.59998 8.83086 6.14998 8.38086 5.59998 8.38086H4C3.45 8.38086 3 8.83086 3 9.38086" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M12.8002 5.18945H11.2002C10.6502 5.18945 10.2002 5.63945 10.2002 6.18945V17.9995C10.2002 18.5495 10.6502 18.9995 11.2002 18.9995H12.8002C13.3502 18.9995 13.8002 18.5495 13.8002 17.9995V6.18945C13.8002 5.63945 13.3502 5.18945 12.8002 5.18945Z" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M20.9999 3C20.9999 2.45 20.5499 2 19.9999 2H18.3999C17.8499 2 17.3999 2.45 17.3999 3V18C17.3999 18.55 17.8499 19 18.3999 19H19.9999C20.5499 19 20.9999 18.55 20.9999 18V7.13" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </G>
-    <Defs>
-      <ClipPath id="clip0_4418_3961">
-        <Rect width="24" height="24" fill="white"/>
-      </ClipPath>
-    </Defs>
-  </Svg>
-);
-
-const FireIcon = ({ size = 24, color = "#fff" }) => (
-  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-    <G clipPath="url(#clip0_4418_3795)">
-      <Path d="M20.59 4.96961C21.47 5.95961 22 7.25961 22 8.68961C22 15.6896 15.52 19.8196 12.62 20.8196C12.28 20.9396 11.72 20.9396 11.38 20.8196C8.48 19.8196 2 15.6896 2 8.68961C2 5.59961 4.49 3.09961 7.56 3.09961C9.38 3.09961 10.99 3.97961 12 5.33961C13.01 3.97961 14.63 3.09961 16.44 3.09961" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </G>
-    <Defs>
-      <ClipPath id="clip0_4418_3795">
-        <Rect width="24" height="24" fill="white"/>
-      </ClipPath>
-    </Defs>
-  </Svg>
-);
-
-const DocumentIcon = ({ size = 24, color = "#fff" }) => (
-  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-    <G clipPath="url(#clip0_4418_3620)">
-      <Path d="M20 15.04V18C20 21 18.21 22 16 22H8C5.79 22 4 21 4 18V8.25C4 5 5.79 4.25 8 4.25C8 4.87 8.24997 5.43 8.65997 5.84C9.06997 6.25 9.63 6.5 10.25 6.5H13.75C14.99 6.5 16 5.49 16 4.25C18.21 4.25 20 5 20 8.25V10.07" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M16 4.25C16 5.49 14.99 6.5 13.75 6.5H10.25C9.63 6.5 9.06997 6.25 8.65997 5.84C8.24997 5.43 8 4.87 8 4.25C8 3.01 9.01 2 10.25 2H13.75C14.37 2 14.93 2.25 15.34 2.66C15.75 3.07 16 3.63 16 4.25Z" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M8 13H12" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M8 17H16" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </G>
-    <Defs>
-      <ClipPath id="clip0_4418_3620">
-        <Rect width="24" height="24" fill="white"/>
-      </ClipPath>
-    </Defs>
-  </Svg>
-);
 
 const CameraIcon = ({ size = 24, color = "#fff" }) => (
   <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
