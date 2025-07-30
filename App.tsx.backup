@@ -1,0 +1,460 @@
+import React from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  StatusBar,
+  TouchableOpacity,
+} from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Animated } from 'react-native';
+
+// Import custom hooks
+import { useModalState } from './src/hooks/useModalState';
+import { useAnimationState } from './src/hooks/useAnimationState';
+import { useUserState } from './src/hooks/useUserState';
+import { useNavigationState } from './src/hooks/useNavigationState';
+import { useQuestState } from './src/hooks/useQuestState';
+import { useGameModeState } from './src/hooks/useGameModeState';
+import { useWordBankState } from './src/hooks/useWordBankState';
+import { useDataState } from './src/hooks/useDataState';
+
+// Main App Component
+const App: React.FC = () => {
+  // Use custom hooks for state management
+  const {
+    showLeaderboardModal,
+    showAchievementsModal,
+    showLearningPath,
+    showStreakModal,
+    showTextbookModal,
+    setShowLeaderboardModal,
+    setShowAchievementsModal,
+    setShowLearningPath,
+    setShowStreakModal,
+    setShowTextbookModal,
+    closeAllModals
+  } = useModalState();
+
+  const {
+    logoScale,
+    isTransitioning,
+    nextScreen,
+    pressedStat,
+    setPressedStat,
+    setIsTransitioning,
+    setNextScreen
+  } = useAnimationState();
+
+  const {
+    userName,
+    selectedLanguage,
+    learningStyle,
+    uploadCount,
+    setUploadCount,
+    setUserName,
+    setSelectedLanguage,
+    setLearningStyle
+  } = useUserState();
+
+  const {
+    screen,
+    showSplash,
+    showOnboarding,
+    onboardingStep,
+    setScreen,
+    setShowSplash,
+    setShowOnboarding,
+    setOnboardingStep
+  } = useNavigationState();
+
+  const {
+    dailyQuestsState,
+    userProgress,
+    handleQuestAction
+  } = useQuestState();
+
+  const {
+    gameModesState,
+    handleGameModeSelect,
+    getBadgeConfig
+  } = useGameModeState();
+
+  const {
+    wordBank: wordBankState,
+    getCategoryConfig
+  } = useWordBankState();
+
+  const {
+    leaderboardData,
+    achievementsData,
+    learningPathData,
+    streakData,
+    textbooks,
+    userProfile,
+    learningStyles
+  } = useDataState();
+
+  // Animation functions
+  const animateToScreen = (targetScreen: string, transitionType: string = 'default') => {
+    if (isTransitioning) return;
+    
+    setIsTransitioning(true);
+    setNextScreen(targetScreen);
+
+    // Animation logic here
+    setTimeout(() => {
+      setScreen(targetScreen);
+      setIsTransitioning(false);
+      setNextScreen(null);
+    }, 300);
+  };
+
+  // Event handlers
+  const handlePickImage = async (): Promise<void> => {
+    console.log('Image picker functionality');
+    setUploadCount(uploadCount + 1);
+  };
+
+  const handleVoiceRecord = (): void => {
+    console.log('Voice recording started');
+  };
+
+  const handleTextSubmit = (): void => {
+    console.log('Text submitted');
+    setUploadCount(uploadCount + 1);
+  };
+
+  const handleQuizAnswer = (answer: string): void => {
+    console.log('Quiz answer:', answer);
+  };
+
+  const handleLessonSelect = (lesson: any): void => {
+    console.log('Lesson selected:', lesson);
+  };
+
+  const handleStatPress = (statType: string): void => {
+    setPressedStat(statType);
+  };
+
+  const handleStatPressOut = (): void => {
+    setPressedStat(null);
+  };
+
+  // Splash Screen Component
+  const SplashScreen: React.FC = () => (
+    <LinearGradient
+      colors={['#58CC67', '#3AB1FF', '#7C3AED']}
+      style={styles.splashContainer}
+    >
+      <StatusBar barStyle="light-content" />
+      <Animated.View style={[styles.splashContent, { transform: [{ scale: logoScale }] }]}>
+        <Text style={styles.splashTitle}>PolyTalk</Text>
+        <Text style={styles.splashSubtitle}>Learn languages with AI</Text>
+      </Animated.View>
+    </LinearGradient>
+  );
+
+  // Onboarding Components
+  const OnboardingWelcome: React.FC = () => (
+    <View style={styles.onboardingContainer}>
+      <Text style={styles.onboardingTitle}>Welcome to PolyTalk!</Text>
+      <Text style={styles.onboardingSubtitle}>Let's get you started</Text>
+    </View>
+  );
+
+  const OnboardingLearningStyle: React.FC = () => (
+    <View style={styles.onboardingContainer}>
+      <Text style={styles.onboardingTitle}>Choose Your Learning Style</Text>
+      <Text style={styles.onboardingSubtitle}>We'll personalize your experience</Text>
+    </View>
+  );
+
+  const OnboardingSetup: React.FC = () => (
+    <View style={styles.onboardingContainer}>
+      <Text style={styles.onboardingTitle}>Almost Done!</Text>
+      <Text style={styles.onboardingSubtitle}>Just a few more steps</Text>
+    </View>
+  );
+
+  const OnboardingSuccess: React.FC = () => (
+    <View style={styles.onboardingContainer}>
+      <Text style={styles.onboardingTitle}>You're All Set!</Text>
+      <Text style={styles.onboardingSubtitle}>Ready to start learning</Text>
+    </View>
+  );
+
+  // Main render logic - P0 BUG FIX: Skip onboarding for now
+  if (showOnboarding && false) { // Temporarily disabled
+    return (
+      <View style={styles.container}>
+        {onboardingStep === 0 && <OnboardingWelcome />}
+        {onboardingStep === 1 && <OnboardingLearningStyle />}
+        {onboardingStep === 2 && <OnboardingSetup />}
+        {onboardingStep === 3 && <OnboardingSuccess />}
+      </View>
+    );
+  }
+
+  if (showSplash) {
+    return <SplashScreen />;
+  }
+
+  return (
+    <View style={styles.container}>
+      <StatusBar barStyle="light-content" />
+      
+      {/* Render screens based on current screen state */}
+      {screen === 'home' && (
+        <View style={styles.screenContainer}>
+          <Text style={styles.screenTitle}>Home Screen</Text>
+          <Text style={styles.screenSubtitle}>Welcome to PolyTalk!</Text>
+          <Text style={styles.screenInfo}>Upload Count: {uploadCount}</Text>
+          <Text style={styles.screenInfo}>Daily Quests: {dailyQuestsState.length}</Text>
+          
+          {/* Navigation buttons for testing */}
+          <View style={styles.navigationButtons}>
+            <TouchableOpacity 
+              style={styles.navButton} 
+              onPress={() => animateToScreen('upload')}
+            >
+              <Text style={styles.navButtonText}>Go to Upload</Text>
+            </TouchableOpacity>
+            <TouchableOpacity 
+              style={styles.navButton} 
+              onPress={() => animateToScreen('review')}
+            >
+              <Text style={styles.navButtonText}>Go to Review</Text>
+            </TouchableOpacity>
+            <TouchableOpacity 
+              style={styles.navButton} 
+              onPress={() => animateToScreen('progress')}
+            >
+              <Text style={styles.navButtonText}>Go to Progress</Text>
+            </TouchableOpacity>
+            <TouchableOpacity 
+              style={styles.navButton} 
+              onPress={() => setUploadCount(uploadCount + 1)}
+            >
+              <Text style={styles.navButtonText}>Test Upload Count (+1)</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      )}
+      
+      {screen === 'upload' && (
+        <View style={styles.screenContainer}>
+          <Text style={styles.screenTitle}>Upload Screen</Text>
+          <Text style={styles.screenSubtitle}>Add your content here</Text>
+          
+          <TouchableOpacity 
+            style={styles.navButton} 
+            onPress={() => animateToScreen('home')}
+          >
+            <Text style={styles.navButtonText}>Back to Home</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+      
+      {screen === 'review' && (
+        <View style={styles.screenContainer}>
+          <Text style={styles.screenTitle}>Review Screen</Text>
+          <Text style={styles.screenSubtitle}>Review your progress</Text>
+          
+          <TouchableOpacity 
+            style={styles.navButton} 
+            onPress={() => animateToScreen('home')}
+          >
+            <Text style={styles.navButtonText}>Back to Home</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+      
+      {screen === 'quiz' && (
+        <View style={styles.screenContainer}>
+          <Text style={styles.screenTitle}>Quiz Screen</Text>
+          <Text style={styles.screenSubtitle}>Test your knowledge</Text>
+        </View>
+      )}
+      
+      {screen === 'progress' && (
+        <View style={styles.screenContainer}>
+          <Text style={styles.screenTitle}>Progress Screen</Text>
+          <Text style={styles.screenSubtitle}>Track your learning</Text>
+          
+          <TouchableOpacity 
+            style={styles.navButton} 
+            onPress={() => animateToScreen('home')}
+          >
+            <Text style={styles.navButtonText}>Back to Home</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+
+      {/* Placeholder modals */}
+      {showLeaderboardModal && (
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Leaderboard</Text>
+            <Text style={styles.modalText}>Leaderboard data will be displayed here</Text>
+          </View>
+        </View>
+      )}
+      
+      {showAchievementsModal && (
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Achievements</Text>
+            <Text style={styles.modalText}>Achievements will be displayed here</Text>
+          </View>
+        </View>
+      )}
+      
+      {showLearningPath && (
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Learning Path</Text>
+            <Text style={styles.modalText}>Learning path will be displayed here</Text>
+          </View>
+        </View>
+      )}
+      
+      {showStreakModal && (
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Streak</Text>
+            <Text style={styles.modalText}>Streak information will be displayed here</Text>
+          </View>
+        </View>
+      )}
+      
+      {showTextbookModal && (
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Textbook Selection</Text>
+            <Text style={styles.modalText}>Textbook selection will be displayed here</Text>
+          </View>
+        </View>
+      )}
+    </View>
+  );
+};
+
+// Styles
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+  },
+  splashContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  splashContent: {
+    alignItems: 'center',
+  },
+  splashTitle: {
+    fontSize: 48,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+    marginBottom: 8,
+  },
+  splashSubtitle: {
+    fontSize: 18,
+    color: '#FFFFFF',
+    opacity: 0.8,
+  },
+  onboardingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  onboardingTitle: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: '#1F2937',
+    marginBottom: 16,
+    textAlign: 'center',
+  },
+  onboardingSubtitle: {
+    fontSize: 18,
+    color: '#6B7280',
+    textAlign: 'center',
+  },
+  screenContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  screenTitle: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: '#1F2937',
+    marginBottom: 16,
+    textAlign: 'center',
+  },
+  screenSubtitle: {
+    fontSize: 18,
+    color: '#6B7280',
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  screenInfo: {
+    fontSize: 16,
+    color: '#374151',
+    marginBottom: 8,
+  },
+  modalOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
+    padding: 20,
+    margin: 20,
+    minWidth: 300,
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#1F2937',
+    marginBottom: 16,
+    textAlign: 'center',
+  },
+     modalText: {
+     fontSize: 14,
+     color: '#6B7280',
+     textAlign: 'center',
+   },
+   // Navigation styles
+   navigationButtons: {
+     marginTop: 20,
+     alignItems: 'center',
+   },
+   navButton: {
+     backgroundColor: '#58CC67',
+     paddingVertical: 12,
+     paddingHorizontal: 24,
+     borderRadius: 8,
+     marginVertical: 8,
+     minWidth: 200,
+     alignItems: 'center',
+   },
+   navButtonText: {
+     color: '#FFFFFF',
+     fontSize: 16,
+     fontWeight: '600',
+   },
+ });
+
+export default App; 
