@@ -107,6 +107,7 @@ export interface StreakData {
   totalDays: number;
   weeklyGoal: number;
   reviewItems: ReviewItem[];
+  recommendations: Recommendation[];
 }
 
 export interface ReviewItem {
@@ -115,6 +116,7 @@ export interface ReviewItem {
   translation: string;
   category: string;
   difficulty: string;
+  dueDate?: string;
 }
 
 // Recommendation Types
