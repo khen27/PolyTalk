@@ -1,11 +1,12 @@
 import { useState } from 'react';
+import type { WordBankEntry } from '../types';
 
 interface UserState {
   userName: string;
   selectedLanguage: string;
   learningStyle: string;
   uploadCount: number;
-  wordBank: any[];
+  wordBank: WordBankEntry[];
   textbookLinked: boolean;
   selectedTextbook: string;
   selectedPage: string;
@@ -22,7 +23,7 @@ interface UserActions {
   setSelectedLanguage: (language: string) => void;
   setLearningStyle: (style: string) => void;
   setUploadCount: (count: number) => void;
-  setWordBank: (words: any[]) => void;
+  setWordBank: (words: WordBankEntry[]) => void;
   setTextbookLinked: (linked: boolean) => void;
   setSelectedTextbook: (textbook: string) => void;
   setSelectedPage: (page: string) => void;
@@ -39,7 +40,7 @@ export const useUserState = (): UserState & UserActions => {
   const [selectedLanguage, setSelectedLanguage] = useState('');
   const [learningStyle, setLearningStyle] = useState('');
   const [uploadCount, setUploadCount] = useState(0);
-  const [wordBank, setWordBank] = useState([]);
+  const [wordBank, setWordBank] = useState<WordBankEntry[]>([]);
   const [textbookLinked, setTextbookLinked] = useState(true);
   const [selectedTextbook, setSelectedTextbook] = useState('Spanish 1: ¡Avancemos!');
   const [selectedPage, setSelectedPage] = useState('156');

@@ -6,7 +6,8 @@ import {
   Image, 
   ScrollView, 
   SafeAreaView, 
-  StatusBar 
+  StatusBar,
+  TextInput
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as ImagePicker from 'expo-image-picker';
@@ -23,6 +24,8 @@ import { MagicWandIcon } from '@/components/icons/MagicWandIcon';
 // TypeScript interfaces
 interface UploadScreenProps {
   image: string | null;
+  notes: string;
+  setNotes: (notes: string) => void;
   onNavigate: (screen: string) => void;
   onPickImage: () => Promise<void>;
   onVoiceRecord: () => void;
@@ -32,6 +35,8 @@ interface UploadScreenProps {
 
 export const UploadScreen: React.FC<UploadScreenProps> = ({
   image,
+  notes,
+  setNotes,
   onNavigate,
   onPickImage,
   onVoiceRecord,
@@ -77,23 +82,15 @@ export const UploadScreen: React.FC<UploadScreenProps> = ({
                   <Text style={styles.screenshotUploadSectionTitle}>Write Your Notes</Text>
                 </View>
                 <View style={styles.screenshotUploadTextDisplayContainer}>
-                  <Text style={styles.screenshotUploadDemoText}>
-                    Today we learned about Spanish verb conjugations. The present tense endings for -AR verbs are:
-                    {'\n\n'}
-                    • yo: -o (hablo)
-                    {'\n'}
-                    • tú: -as (hablas)  
-                    {'\n'}
-                    • él/ella: -a (habla)
-                    {'\n'}
-                    • nosotros: -amos (hablamos)
-                    {'\n'}
-                    • vosotros: -áis (habláis)
-                    {'\n'}
-                    • ellos/ellas: -an (hablan)
-                    {'\n\n'}
-                    We practiced with verbs like "estudiar" (to study), "caminar" (to walk), and "cocinar" (to cook).
-                  </Text>
+                  <TextInput
+                    style={styles.screenshotUploadDemoText}
+                    value={notes || "Today we learned about Spanish verb conjugations. The present tense endings for -AR verbs are:\n\n• yo: -o (hablo)\n• tú: -as (hablas)\n• él/ella: -a (habla)\n• nosotros: -amos (hablamos)\n• vosotros: -áis (habláis)\n• ellos/ellas: -an (hablan)\n\nWe practiced with verbs like \"estudiar\" (to study), \"caminar\" (to walk), and \"cocinar\" (to cook)."}
+                    onChangeText={setNotes}
+                    placeholder="Write your lesson notes here..."
+                    placeholderTextColor="rgba(255, 255, 255, 0.7)"
+                    multiline={true}
+                    textAlignVertical="top"
+                  />
                 </View>
               </View>
               

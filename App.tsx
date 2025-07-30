@@ -36,6 +36,7 @@ import {
   CrownIcon
 } from './src/components/icons';
 import { gameModes, dailyQuests, initialWordBank } from './src/constants/gameData';
+import { UploadScreen } from './src/screens/UploadScreen';
 import type {
   Quest,
   GameMode,
@@ -76,35 +77,6 @@ interface Lesson {
 }
 
 // Additional local interfaces that don't conflict with imported types
-interface Lesson {
-  id: number;
-  title: string;
-  subtitle: string;
-  date: string;
-  type: 'notes' | 'photo' | 'voice';
-  progress: number;
-  badge: 'review' | 'mastered' | 'practice';
-  lastStudied: string;
-  difficulty: 'beginner' | 'intermediate' | 'advanced';
-}
-
-interface Textbook {
-  id: number;
-  title: string;
-  author: string;
-  progress: number;
-  cover: string;
-  status: string;
-}
-
-interface Textbook {
-  id: number;
-  title: string;
-  author: string;
-  progress: number;
-  cover: string;
-  status: string;
-}
 
 // Component Props Interfaces
 interface DailyQuestCardProps {
@@ -491,7 +463,7 @@ const GameModeCarousel = ({ gameModes, onGameModeSelect, uploadCount }: GameMode
               onPress={() => !isLocked && onGameModeSelect(mode)}
               activeOpacity={isLocked ? 1 : 0.85}
             >
-              <View style={[styles.gameModeCardInner, isLocked && styles.gameModeCardLocked]}>
+              <View style={[styles.gameModeCardInner, isLocked ? styles.gameModeCardLocked : null]}>
                 {/* Lock Overlay */}
                 {isLocked && (
                   <View style={styles.gameModeCardLockOverlay}>
@@ -747,7 +719,7 @@ const LeaderboardModal = ({ visible, onClose, leaderboardData }: LeaderboardModa
                 </View>
                 
                 <Image 
-                  source={player.avatar} 
+                  source={{ uri: player.avatar }} 
                   style={[
                     styles.friendsModalAvatar,
                     player.isCurrentUser && styles.friendsModalAvatarCurrent
@@ -828,11 +800,11 @@ const AchievementsModal = ({ visible, onClose, achievementsData }: AchievementsM
       conversation: '#9370DB',
       endurance: '#DC143C'
     };
-    return colors[category] || '#FFFFFF';
+    return colors[category as keyof typeof colors] || '#FFFFFF';
   };
 
-  const earnedAchievements = achievementsData.filter(achievement => achievement.isUnlocked);
-  const inProgressAchievements = achievementsData.filter(achievement => !achievement.isUnlocked);
+  const earnedAchievements = achievementsData.filter(achievement => achievement.earned);
+  const inProgressAchievements = achievementsData.filter(achievement => !achievement.earned);
 
   return (
     <Animated.View style={[styles.achievementsModalOverlay, { opacity: opacityAnim }]}>
@@ -910,7 +882,7 @@ const AchievementsModal = ({ visible, onClose, achievementsData }: AchievementsM
                         <View style={styles.achievementsModalProgressBar}>
                           <View style={[
                             styles.achievementsModalProgressFill,
-                            { width: `${achievement.progress}%` }
+                            { width: `${achievement.progress || 0}%` }
                           ]} />
                         </View>
                         <Text style={styles.achievementsModalProgressText}>{achievement.progress}%</Text>
@@ -1401,7 +1373,7 @@ const StreakModal = ({ visible, onClose, streakData }: StreakModalProps) => {
               style={styles.recommendationsList}
               showsVerticalScrollIndicator={false}
             >
-              {streakData.recommendations.map((rec, index) => (
+              {streakData.recommendations.map((rec: Recommendation, index: number) => (
                 <TouchableOpacity 
                   key={index}
                   style={[
@@ -1474,13 +1446,13 @@ export default function App() {
   const [onboardingStep, setOnboardingStep] = useState(0);
   const [screen, setScreen] = useState('home');
   const [notes, setNotes] = useState('');
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState<string | null>(null);
   const [review, setReview] = useState('');
-  const [selectedAnswer, setSelectedAnswer] = useState(null);
+      const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [showResult, setShowResult] = useState(false);
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [uploadCount, setUploadCount] = useState(0); // Track uploads for unlocking features
-  const [wordBank, setWordBank] = useState([]); // Store collected vocabulary
+  const [wordBank, setWordBank] = useState<WordBankEntry[]>([]); // Store collected vocabulary
   const [textbookLinked, setTextbookLinked] = useState(true); // Textbook integration toggle
   const [showTextbookModal, setShowTextbookModal] = useState(false);
   const [selectedTextbook, setSelectedTextbook] = useState('Spanish 1: ¡Avancemos!');
@@ -1592,14 +1564,16 @@ export default function App() {
   });
 
   // Leaderboard data for ranking modal - sorted by rank
-  const [leaderboardData] = useState([
+  const [leaderboardData] = useState<LeaderboardEntry[]>([
     {
       id: 1,
       name: "Maria",
       avatar: require('./assets/one.png'),
       xp: 2450,
       rank: 1,
-      isCurrentUser: false
+      isCurrentUser: false,
+      gems: 150,
+      streak: 12
     },
     {
       id: 2,
@@ -1607,7 +1581,9 @@ export default function App() {
       avatar: require('./assets/two.png'),
       xp: 2180,
       rank: 2,
-      isCurrentUser: false
+      isCurrentUser: false,
+      gems: 130,
+      streak: 8
     },
     {
       id: 3,
@@ -1615,7 +1591,9 @@ export default function App() {
       avatar: require('./assets/zander.jpg'),
       xp: 1950,
       rank: 3,
-      isCurrentUser: true
+      isCurrentUser: true,
+      gems: 120,
+      streak: 5
     },
     {
       id: 4,
@@ -1623,7 +1601,9 @@ export default function App() {
       avatar: require('./assets/three.png'),
       xp: 1780,
       rank: 4,
-      isCurrentUser: false
+      isCurrentUser: false,
+      gems: 95,
+      streak: 3
     },
     {
       id: 5,
@@ -1631,7 +1611,9 @@ export default function App() {
       avatar: require('./assets/four.png'),
       xp: 1650,
       rank: 5,
-      isCurrentUser: false
+      isCurrentUser: false,
+      gems: 85,
+      streak: 7
     },
     {
       id: 6,
@@ -1639,7 +1621,9 @@ export default function App() {
       avatar: require('./assets/five.png'),
       xp: 1520,
       rank: 6,
-      isCurrentUser: false
+      isCurrentUser: false,
+      gems: 78,
+      streak: 4
     },
     {
       id: 7,
@@ -1647,7 +1631,9 @@ export default function App() {
       avatar: require('./assets/six.png'),
       xp: 1380,
       rank: 7,
-      isCurrentUser: false
+      isCurrentUser: false,
+      gems: 65,
+      streak: 2
     },
     {
       id: 8,
@@ -1655,22 +1641,23 @@ export default function App() {
       avatar: require('./assets/seven.png'),
       xp: 1180,
       rank: 8,
-      isCurrentUser: false
+      isCurrentUser: false,
+      gems: 55,
+      streak: 1
     }
   ]);
 
   // Achievements data for badges modal
-  const [achievementsData] = useState([
+  const [achievementsData] = useState<Achievement[]>([
     {
       id: 1,
       title: "First Steps",
       description: "Complete your first lesson",
       icon: "🎯",
       category: "learning",
-      isUnlocked: true,
+      earned: true,
       earnedDate: "Dec 28, 2024",
-      progress: 100,
-      maxProgress: 100
+      progress: 100
     },
     {
       id: 2,
@@ -1678,10 +1665,9 @@ export default function App() {
       description: "Maintain a 5-day learning streak",
       icon: "🔥",
       category: "consistency",
-      isUnlocked: true,
+      earned: true,
       earnedDate: "Dec 27, 2024",
-      progress: 100,
-      maxProgress: 100
+      progress: 100
     },
     {
       id: 3,
@@ -1689,10 +1675,9 @@ export default function App() {
       description: "Add 10 words to your Word Bank",
       icon: "📚",
       category: "vocabulary",
-      isUnlocked: true,
+      earned: true,
       earnedDate: "Dec 26, 2024",
-      progress: 100,
-      maxProgress: 100
+      progress: 100
     },
     {
       id: 4,
@@ -1700,10 +1685,9 @@ export default function App() {
       description: "Add 5 friends to your network",
       icon: "👥",
       category: "social",
-      isUnlocked: true,
+      earned: true,
       earnedDate: "Dec 25, 2024",
-      progress: 100,
-      maxProgress: 100
+      progress: 100
     },
     {
       id: 5,
@@ -1711,10 +1695,9 @@ export default function App() {
       description: "Master 3 grammar concepts",
       icon: "✍️",
       category: "grammar",
-      isUnlocked: true,
+      earned: true,
       earnedDate: "Dec 24, 2024",
-      progress: 100,
-      maxProgress: 100
+      progress: 100
     },
     {
       id: 6,
@@ -1722,10 +1705,9 @@ export default function App() {
       description: "Upload 5 lesson materials",
       icon: "📤",
       category: "content",
-      isUnlocked: true,
+      earned: true,
       earnedDate: "Dec 23, 2024",
-      progress: 100,
-      maxProgress: 100
+      progress: 100
     },
     {
       id: 7,
@@ -1733,10 +1715,9 @@ export default function App() {
       description: "Score 100% on 3 quizzes",
       icon: "🏆",
       category: "performance",
-      isUnlocked: true,
+      earned: true,
       earnedDate: "Dec 22, 2024",
-      progress: 100,
-      maxProgress: 100
+      progress: 100
     },
     {
       id: 8,
@@ -1744,10 +1725,9 @@ export default function App() {
       description: "Complete 10 lesson reviews",
       icon: "🔍",
       category: "review",
-      isUnlocked: true,
+      earned: true,
       earnedDate: "Dec 21, 2024",
-      progress: 100,
-      maxProgress: 100
+      progress: 100
     },
     {
       id: 9,
@@ -1755,10 +1735,9 @@ export default function App() {
       description: "Complete 5 lessons in one day",
       icon: "⚡",
       category: "speed",
-      isUnlocked: true,
+      earned: true,
       earnedDate: "Dec 20, 2024",
-      progress: 100,
-      maxProgress: 100
+      progress: 100
     },
     {
       id: 10,
@@ -1766,10 +1745,9 @@ export default function App() {
       description: "Get 10 perfect scores",
       icon: "💯",
       category: "accuracy",
-      isUnlocked: true,
+      earned: true,
       earnedDate: "Dec 19, 2024",
-      progress: 100,
-      maxProgress: 100
+      progress: 100
     },
     {
       id: 11,
@@ -1777,10 +1755,9 @@ export default function App() {
       description: "Complete 5 AI chat sessions",
       icon: "💬",
       category: "conversation",
-      isUnlocked: false,
-      earnedDate: null,
-      progress: 60,
-      maxProgress: 100
+      earned: false,
+      earnedDate: undefined,
+      progress: 60
     },
     {
       id: 12,
@@ -1788,15 +1765,14 @@ export default function App() {
       description: "Study for 30 days straight",
       icon: "🏃",
       category: "endurance",
-      isUnlocked: false,
-      earnedDate: null,
-      progress: 17,
-      maxProgress: 30
+      earned: false,
+      earnedDate: undefined,
+      progress: 17
     }
   ]);
 
   // Learning Path data for roadmap visualization
-  const [learningPathData] = useState([
+  const [learningPathData] = useState<LearningPathItem[]>([
     {
       id: 1,
       title: "Spanish Basics",
@@ -1828,13 +1804,13 @@ export default function App() {
       id: 3,
       title: "Daily Activities",
       description: "Learn vocabulary for daily activities",
-      status: "current",
+      status: "available",
       progress: 75,
       xpReward: 300,
       lessons: [
         { id: 8, title: "Morning Routine", status: "completed", xp: 35 },
         { id: 9, title: "Work & Study", status: "completed", xp: 35 },
-        { id: 10, title: "Evening Activities", status: "current", xp: 0 },
+        { id: 10, title: "Evening Activities", status: "available", xp: 0 },
         { id: 11, title: "Weekend Plans", status: "locked", xp: 0 }
       ]
     },
@@ -1881,10 +1857,29 @@ export default function App() {
   ]);
 
   // Streak data for customized learning modal
-  const [streakData] = useState({
+  const [streakData] = useState<StreakData>({
     currentStreak: 5,
     longestStreak: 12,
     totalDays: 30,
+    weeklyGoal: 5,
+    reviewItems: [
+      {
+        id: 1,
+        word: "hablar",
+        translation: "to speak",
+        category: "verbs",
+        difficulty: "beginner",
+        dueDate: "2024-12-29"
+      },
+      {
+        id: 2,
+        word: "estudiar",
+        translation: "to study",
+        category: "verbs",
+        difficulty: "beginner",
+        dueDate: "2024-12-30"
+      }
+    ],
     recommendations: [
       {
         type: "review",
@@ -1934,10 +1929,10 @@ export default function App() {
   const screenOpacity = useRef(new Animated.Value(1)).current;
   const screenScale = useRef(new Animated.Value(1)).current;
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [nextScreen, setNextScreen] = useState(null);
+  const [nextScreen, setNextScreen] = useState<string | null>(null);
   
   // Progress screen interactive states
-  const [pressedStat, setPressedStat] = useState(null);
+  const [pressedStat, setPressedStat] = useState<string | null>(null);
   const [showLeaderboardModal, setShowLeaderboardModal] = useState(false);
   const [showAchievementsModal, setShowAchievementsModal] = useState(false);
   const [showLearningPath, setShowLearningPath] = useState(false);
@@ -1950,7 +1945,6 @@ export default function App() {
         // First pulse: 80% → 110%
         Animated.spring(logoScale, {
           toValue: 1.1,
-          duration: 300,
           useNativeDriver: true,
           tension: 200,
           friction: 8,
@@ -1958,7 +1952,6 @@ export default function App() {
         // Return to 80%
         Animated.spring(logoScale, {
           toValue: 0.8,
-          duration: 300,
           useNativeDriver: true,
           tension: 200,
           friction: 8,
@@ -1966,7 +1959,6 @@ export default function App() {
         // Second pulse: 80% → 110%
         Animated.spring(logoScale, {
           toValue: 1.1,
-          duration: 300,
           useNativeDriver: true,
           tension: 200,
           friction: 8,
@@ -1974,7 +1966,6 @@ export default function App() {
         // Final settle at 100%
         Animated.spring(logoScale, {
           toValue: 1,
-          duration: 300,
           useNativeDriver: true,
           tension: 200,
           friction: 8,
@@ -2177,13 +2168,15 @@ export default function App() {
     console.log('handleTextSubmit called - using demo content');
     
     // Simulate adding new words to Word Bank from AI review
-    const newWords = [
+    const newWords: WordBankEntry[] = [
       {
         id: Date.now() + 1,
         word: "conjugar",
         translation: "to conjugate",
         category: "verbs",
         difficulty: "intermediate",
+        dateAdded: new Date().toISOString().split('T')[0],
+        source: "lesson",
         lastReviewed: "Just now",
         example: "Es importante conjugar los verbos correctamente",
         exampleTranslation: "It's important to conjugate verbs correctly"
@@ -2194,6 +2187,8 @@ export default function App() {
         translation: "to study",
         category: "verbs",
         difficulty: "beginner",
+        dateAdded: new Date().toISOString().split('T')[0],
+        source: "lesson",
         lastReviewed: "Just now",
         example: "Me gusta estudiar español todos los días",
         exampleTranslation: "I like to study Spanish every day"
@@ -2283,9 +2278,9 @@ export default function App() {
     // Add XP and gems to user progress
     setUserProgress(prevProgress => ({
       ...prevProgress,
-      totalXP: prevProgress.totalXP + quest.reward.xp,
-      totalGems: prevProgress.totalGems + quest.reward.gems,
-      dailyXP: prevProgress.dailyXP + quest.reward.xp,
+      totalXP: prevProgress.totalXP + quest.xpReward,
+      totalGems: prevProgress.totalGems + quest.gemReward,
+      dailyXP: prevProgress.dailyXP + quest.xpReward,
       questsCompleted: prevProgress.questsCompleted + 1
     }));
 
@@ -2299,7 +2294,7 @@ export default function App() {
     );
 
     // Show reward notification (could add animation here)
-    console.log(`Claimed: +${quest.reward.xp} XP, +${quest.reward.gems} gems`);
+    console.log(`Claimed: +${quest.xpReward} XP, +${quest.gemReward} gems`);
   };
 
   const updateQuestProgress = (questType: string, progressAmount = 1) => {
@@ -2366,7 +2361,7 @@ export default function App() {
         textColor: "#FFFFFF"
       }
     };
-    return badgeConfigs[badgeType] || badgeConfigs.review;
+    return badgeConfigs[badgeType as keyof typeof badgeConfigs] || badgeConfigs.review;
   };
 
   // Category configuration function for Word Bank
@@ -2403,7 +2398,7 @@ export default function App() {
         textColor: "#FFFFFF"
       }
     };
-    return categoryConfigs[category] || categoryConfigs.general;
+    return categoryConfigs[category as keyof typeof categoryConfigs] || categoryConfigs.general;
   };
 
   // Progress screen stat handlers
@@ -2443,12 +2438,17 @@ export default function App() {
 
   const SplashScreen = () => {
     // Dynamic gradient colors that shift subtly
-    const gradientColors = gradientShift.interpolate({
+    const color1 = gradientShift.interpolate({
       inputRange: [0, 1],
-      outputRange: [
-        ['#7C3AED', '#3AB1FF', '#58CC67'], // Original colors
-        ['#9333EA', '#60A5FA', '#6EE7B7'], // Slightly lighter versions
-      ],
+      outputRange: ['#7C3AED', '#9333EA'],
+    });
+    const color2 = gradientShift.interpolate({
+      inputRange: [0, 1],
+      outputRange: ['#3AB1FF', '#60A5FA'],
+    });
+    const color3 = gradientShift.interpolate({
+      inputRange: [0, 1],
+      outputRange: ['#58CC67', '#6EE7B7'],
     });
 
     return (
@@ -2573,21 +2573,7 @@ export default function App() {
     </LinearGradient>
   );
 
-  // UploadScreen component extracted to src/screens/UploadScreen.tsx
-  const UploadScreen = () => {
-    const { UploadScreen: UploadScreenComponent } = require('./src/screens/UploadScreen');
-    
-    return (
-      <UploadScreenComponent
-        image={image}
-        onNavigate={animateToScreen}
-        onPickImage={handlePickImage}
-        onVoiceRecord={handleVoiceRecord}
-        onTextSubmit={handleTextSubmit}
-        styles={styles}
-      />
-    );
-  };
+
 
   // Onboarding data
   const languages = [
@@ -2821,11 +2807,17 @@ export default function App() {
               </View>
             </View>
 
-            {/* Name Display */}
+            {/* Name Input */}
             <View style={styles.nameInputContainer}>
               <Text style={styles.nameInputLabel}>What should we call you?</Text>
               <View style={styles.nameDisplayWrapper}>
-                <Text style={styles.nameDisplay}>Zander</Text>
+                <TextInput
+                  style={styles.nameDisplay}
+                  value={userName}
+                  onChangeText={setUserName}
+                  placeholder="Enter your name"
+                  placeholderTextColor="rgba(255, 255, 255, 0.7)"
+                />
               </View>
             </View>
           </View>
@@ -3401,7 +3393,16 @@ export default function App() {
           >
             {screen === 'home' && <HomeScreen />}
             {/* GameModeScreen removed - going directly to lesson */}
-            {screen === 'upload' && <UploadScreen />}
+            {screen === 'upload' && <UploadScreen 
+              image={image}
+              notes={notes}
+              setNotes={setNotes}
+              onNavigate={setScreen}
+              onPickImage={handlePickImage}
+              onVoiceRecord={() => console.log('Voice recording')}
+              onTextSubmit={() => console.log('Text submitted')}
+              styles={styles}
+            />}
             {screen === 'review' && <ReviewScreen />}
             {screen === 'quiz' && <QuizScreen />}
             {screen === 'progress' && <ProgressScreen />}
@@ -3424,7 +3425,16 @@ export default function App() {
           >
             {screen === 'home' && <HomeScreen />}
             {/* GameModeScreen removed - going directly to lesson */}
-            {screen === 'upload' && <UploadScreen />}
+            {screen === 'upload' && <UploadScreen 
+              image={image}
+              notes={notes}
+              setNotes={setNotes}
+              onNavigate={setScreen}
+              onPickImage={handlePickImage}
+              onVoiceRecord={() => console.log('Voice recording')}
+              onTextSubmit={() => console.log('Text submitted')}
+              styles={styles}
+            />}
             {screen === 'review' && <ReviewScreen />}
             {screen === 'quiz' && <QuizScreen />}
             {screen === 'progress' && <ProgressScreen />}
@@ -4786,10 +4796,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
   },
-  progressBarContainer: {
-    alignItems: 'center',
-    marginBottom: 30,
-  },
+
   progressBar: {
     width: '100%',
     height: 8,
@@ -5445,26 +5452,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     letterSpacing: 0.5,
   },
-  lessonTitle: {
-    fontSize: 15,
-    fontWeight: 'bold',
-    color: '#FFFFFF',
-    marginBottom: 6,
-    lineHeight: 19,
-    textShadowColor: 'rgba(0, 0, 0, 0.2)',
-    textShadowOffset: { width: 0, height: 1 },
-    textShadowRadius: 2,
-    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
-  },
-  lessonSubtitle: {
-    fontSize: 12,
-    color: '#FFFFFF',
-    opacity: 0.8,
-    marginBottom: 8,
-    fontStyle: 'italic',
-    lineHeight: 17,
-    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
-  },
+
   lessonDate: {
     fontSize: 11,
     color: '#FFFFFF',
@@ -5489,14 +5477,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderRadius: 6,
   },
-  lessonProgressText: {
-    fontSize: 11,
-    fontWeight: '600',
-    color: '#FFFFFF',
-    opacity: 0.9,
-    minWidth: 30,
-    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
-  },
+
   lastStudiedText: {
     fontSize: 10,
     color: '#FFFFFF',
@@ -5698,12 +5679,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginRight: 16,
   },
-  achievementTitle: {
-    fontSize: 20,
-    fontWeight: '700',
-    color: '#1F2937',
-    fontFamily: Platform.OS === 'ios' ? 'SF Pro Display' : 'Roboto',
-  },
+
   achievementDescription: {
     fontSize: 16,
     color: '#6B7280',
@@ -7206,13 +7182,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
 
-  // League Status Styles (reused from existing implementation)
-  leagueStatusContainer: {
-    position: 'absolute',
-    top: 60,
-    right: 20,
-    zIndex: 100,
-  },
+
   leagueStatusPill: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -7226,13 +7196,7 @@ const styles = StyleSheet.create({
     shadowRadius: 12,
     elevation: 6,
   },
-  leagueStatusText: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#FFFFFF',
-    marginLeft: 6,
-    fontFamily: Platform.OS === 'ios' ? 'SF Pro Text' : 'Roboto',
-  },
+
 
   // Word Bank Section Styles
   wordBankContainer: {
