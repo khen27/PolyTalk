@@ -36,15 +36,147 @@ import {
   CrownIcon
 } from './src/components/icons';
 import { gameModes, dailyQuests, initialWordBank } from './src/constants/gameData';
+import type {
+  Quest,
+  GameMode,
+  WordBankEntry,
+  LeaderboardEntry,
+  Achievement,
+  LearningPathItem,
+  StreakData,
+  Recommendation,
+  CategoryConfig,
+  BadgeConfig,
+  RankType,
+  CategoryType,
+  BadgeType,
+  StatType
+} from './src/types';
 
 const { width, height } = Dimensions.get('window');
 
+interface UserProgress {
+  totalXP: number;
+  totalGems: number;
+  dailyXP: number;
+  questsCompleted: number;
+  currentStreak: number;
+}
 
+interface Lesson {
+  id: number;
+  title: string;
+  subtitle: string;
+  date: string;
+  type: 'notes' | 'photo' | 'voice';
+  progress: number;
+  badge: 'review' | 'mastered' | 'practice';
+  lastStudied: string;
+  difficulty: 'beginner' | 'intermediate' | 'advanced';
+}
 
+// Additional local interfaces that don't conflict with imported types
+interface Lesson {
+  id: number;
+  title: string;
+  subtitle: string;
+  date: string;
+  type: 'notes' | 'photo' | 'voice';
+  progress: number;
+  badge: 'review' | 'mastered' | 'practice';
+  lastStudied: string;
+  difficulty: 'beginner' | 'intermediate' | 'advanced';
+}
 
+interface Textbook {
+  id: number;
+  title: string;
+  author: string;
+  progress: number;
+  cover: string;
+  status: string;
+}
+
+interface Textbook {
+  id: number;
+  title: string;
+  author: string;
+  progress: number;
+  cover: string;
+  status: string;
+}
+
+// Component Props Interfaces
+interface DailyQuestCardProps {
+  quest: Quest;
+  onQuestAction: (quest: Quest) => void;
+  userProgress: UserProgress;
+}
+
+interface DailyQuestGridProps {
+  quests: Quest[];
+  onQuestAction: (quest: Quest) => void;
+  userProgress: UserProgress;
+}
+
+interface DailyProgressSummaryProps {
+  userProgress: UserProgress;
+  quests: Quest[];
+}
+
+interface LessonsCarouselProps {
+  lessons: Lesson[];
+  onLessonSelect: (lesson: Lesson) => void;
+  getBadgeConfig: (badgeType: string) => { color: string; icon: string; backgroundColor: string; textColor: string; text: string };
+}
+
+interface GameModeCarouselProps {
+  gameModes: GameMode[];
+  onGameModeSelect: (gameMode: GameMode) => void;
+  uploadCount: number;
+}
+
+interface WordBankCarouselProps {
+  words: WordBankEntry[];
+  getCategoryConfig: (category: string) => CategoryConfig;
+}
+
+interface LeaderboardModalProps {
+  visible: boolean;
+  onClose: () => void;
+  leaderboardData: LeaderboardEntry[];
+}
+
+interface AchievementsModalProps {
+  visible: boolean;
+  onClose: () => void;
+  achievementsData: Achievement[];
+}
+
+interface LearningPathModalProps {
+  visible: boolean;
+  onClose: () => void;
+  learningPathData: LearningPathItem[];
+}
+
+interface TextbookModalProps {
+  visible: boolean;
+  onClose: () => void;
+  selectedTextbook: string;
+  setSelectedTextbook: (textbook: string) => void;
+  selectedPage: string;
+  setSelectedPage: (page: string) => void;
+  textbooks: string[];
+}
+
+interface StreakModalProps {
+  visible: boolean;
+  onClose: () => void;
+  streakData: StreakData;
+}
 
 // Daily Quest Component
-const DailyQuestCard = ({ quest, onQuestAction, userProgress }) => {
+const DailyQuestCard = ({ quest, onQuestAction, userProgress }: DailyQuestCardProps) => {
   const progressPercentage = quest.maxProgress > 0 ? (quest.progress / quest.maxProgress) * 100 : 0;
   const isCompleted = quest.status === 'completed';
   const isClaimed = quest.status === 'claimed';
@@ -155,7 +287,7 @@ const DailyQuestCard = ({ quest, onQuestAction, userProgress }) => {
 };
 
 // Daily Quest Grid Component
-const DailyQuestGrid = ({ quests, onQuestAction, userProgress }) => {
+const DailyQuestGrid = ({ quests, onQuestAction, userProgress }: DailyQuestGridProps) => {
   return (
     <View style={styles.questGrid}>
       {quests.map((quest) => (
@@ -171,7 +303,7 @@ const DailyQuestGrid = ({ quests, onQuestAction, userProgress }) => {
 };
 
 // Daily Progress Summary Component
-const DailyProgressSummary = ({ userProgress, quests }) => {
+const DailyProgressSummary = ({ userProgress, quests }: DailyProgressSummaryProps) => {
   const completedQuests = quests.filter(q => q.status === 'completed' || q.status === 'claimed').length;
   const totalQuests = quests.length;
   const progressPercentage = (completedQuests / totalQuests) * 100;
@@ -219,11 +351,11 @@ const DailyProgressSummary = ({ userProgress, quests }) => {
 };
 
 // Lessons Carousel Component
-const LessonsCarousel = ({ lessons, onLessonSelect, getBadgeConfig }) => {
+const LessonsCarousel = ({ lessons, onLessonSelect, getBadgeConfig }: LessonsCarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const scrollViewRef = useRef();
+  const scrollViewRef = useRef<ScrollView>(null);
 
-  const handleScroll = (event) => {
+  const handleScroll = (event: any) => {
     const { contentOffset, layoutMeasurement } = event.nativeEvent;
     const currentPage = Math.floor(contentOffset.x / layoutMeasurement.width);
     setCurrentIndex(currentPage);
@@ -324,11 +456,11 @@ const LessonsCarousel = ({ lessons, onLessonSelect, getBadgeConfig }) => {
 };
 
 // Game Mode Carousel Component
-const GameModeCarousel = ({ gameModes, onGameModeSelect, uploadCount }) => {
-  const scrollViewRef = useRef(null);
+const GameModeCarousel = ({ gameModes, onGameModeSelect, uploadCount }: GameModeCarouselProps) => {
+  const scrollViewRef = useRef<ScrollView>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const handleScroll = (event) => {
+  const handleScroll = (event: any) => {
     const scrollPosition = event.nativeEvent.contentOffset.x;
     const index = Math.round(scrollPosition / (width - 80));
     setCurrentIndex(index);
@@ -349,8 +481,8 @@ const GameModeCarousel = ({ gameModes, onGameModeSelect, uploadCount }) => {
         bounces={false}
       >
         {gameModes.map((mode, index) => {
-          const isLocked = mode.requiresUploads && uploadCount < mode.requiresUploads;
-          const progress = mode.requiresUploads ? Math.min(uploadCount / mode.requiresUploads, 1) : 1;
+          const isLocked = mode.requiredUploads && uploadCount < mode.requiredUploads;
+          const progress = mode.requiredUploads ? Math.min(uploadCount / mode.requiredUploads, 1) : 1;
           
           return (
             <TouchableOpacity
@@ -367,7 +499,7 @@ const GameModeCarousel = ({ gameModes, onGameModeSelect, uploadCount }) => {
                       <LockIcon size={24} color="#FFFFFF" />
                     </View>
                     <Text style={styles.gameModeCardLockText}>
-                      {uploadCount}/{mode.requiresUploads} uploads
+                      {uploadCount}/{mode.requiredUploads} uploads
                     </Text>
                     <View style={styles.gameModeCardProgressBar}>
                       <View style={[styles.gameModeCardProgressFill, { width: `${progress * 100}%` }]} />
@@ -415,11 +547,11 @@ const GameModeCarousel = ({ gameModes, onGameModeSelect, uploadCount }) => {
 };
 
 // Word Bank Carousel Component
-const WordBankCarousel = ({ words, getCategoryConfig }) => {
+const WordBankCarousel = ({ words, getCategoryConfig }: WordBankCarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const scrollViewRef = useRef();
+  const scrollViewRef = useRef<ScrollView>(null);
 
-  const handleScroll = (event) => {
+  const handleScroll = (event: any) => {
     const { contentOffset, layoutMeasurement } = event.nativeEvent;
     const currentPage = Math.floor(contentOffset.x / layoutMeasurement.width);
     setCurrentIndex(currentPage);
@@ -484,7 +616,7 @@ const WordBankCarousel = ({ words, getCategoryConfig }) => {
                 
                 {/* Footer */}
                 <View style={styles.wordBankFooter}>
-                  <Text style={styles.wordBankDate}>{word.dateAdded}</Text>
+                  <Text style={styles.wordBankDate}>{word.lastReviewed}</Text>
                   <View style={styles.wordBankDifficultyContainer}>
                     <View style={[
                       styles.wordBankDifficultyDot,
@@ -517,7 +649,7 @@ const WordBankCarousel = ({ words, getCategoryConfig }) => {
 };
 
 // Leaderboard Ranking Modal Component
-const LeaderboardModal = ({ visible, onClose, leaderboardData }) => {
+const LeaderboardModal = ({ visible, onClose, leaderboardData }: LeaderboardModalProps) => {
   const slideAnim = useRef(new Animated.Value(height)).current;
   const opacityAnim = useRef(new Animated.Value(0)).current;
 
@@ -553,11 +685,11 @@ const LeaderboardModal = ({ visible, onClose, leaderboardData }) => {
 
   if (!visible) return null;
 
-  const getRankColor = (rank) => {
+  const getRankColor = (rank: RankType) => {
     return '#FFFFFF'; // All ranks are white
   };
 
-  const getRankIcon = (rank) => {
+  const getRankIcon = (rank: RankType) => {
     return `#${rank}`;
   };
 
@@ -615,7 +747,7 @@ const LeaderboardModal = ({ visible, onClose, leaderboardData }) => {
                 </View>
                 
                 <Image 
-                  source={player.profilePic} 
+                  source={player.avatar} 
                   style={[
                     styles.friendsModalAvatar,
                     player.isCurrentUser && styles.friendsModalAvatarCurrent
@@ -631,7 +763,7 @@ const LeaderboardModal = ({ visible, onClose, leaderboardData }) => {
                   </Text>
                                       <View style={styles.friendsModalStats}>
                       <View style={styles.friendsModalStatItem}>
-                        <Text style={styles.friendsModalStatValue}>{player.weeklyXP} XP</Text>
+                        <Text style={styles.friendsModalStatValue}>{player.xp} XP</Text>
                       </View>
                     </View>
                 </View>
@@ -645,7 +777,7 @@ const LeaderboardModal = ({ visible, onClose, leaderboardData }) => {
 };
 
 // Achievements Modal Component
-const AchievementsModal = ({ visible, onClose, achievementsData }) => {
+const AchievementsModal = ({ visible, onClose, achievementsData }: AchievementsModalProps) => {
   const slideAnim = useRef(new Animated.Value(height)).current;
   const opacityAnim = useRef(new Animated.Value(0)).current;
 
@@ -681,7 +813,7 @@ const AchievementsModal = ({ visible, onClose, achievementsData }) => {
 
   if (!visible) return null;
 
-  const getCategoryColor = (category) => {
+  const getCategoryColor = (category: CategoryType) => {
     const colors = {
       learning: '#58CC67',
       consistency: '#FF6B6B',
@@ -699,8 +831,8 @@ const AchievementsModal = ({ visible, onClose, achievementsData }) => {
     return colors[category] || '#FFFFFF';
   };
 
-  const earnedAchievements = achievementsData.filter(achievement => achievement.earned);
-  const inProgressAchievements = achievementsData.filter(achievement => !achievement.earned);
+  const earnedAchievements = achievementsData.filter(achievement => achievement.isUnlocked);
+  const inProgressAchievements = achievementsData.filter(achievement => !achievement.isUnlocked);
 
   return (
     <Animated.View style={[styles.achievementsModalOverlay, { opacity: opacityAnim }]}>
@@ -796,7 +928,7 @@ const AchievementsModal = ({ visible, onClose, achievementsData }) => {
 };
 
 // Learning Path Modal Component
-const LearningPathModal = ({ visible, onClose, learningPathData }) => {
+const LearningPathModal = ({ visible, onClose, learningPathData }: LearningPathModalProps) => {
   const slideAnim = useRef(new Animated.Value(height)).current;
   const opacityAnim = useRef(new Animated.Value(0)).current;
 
@@ -832,7 +964,7 @@ const LearningPathModal = ({ visible, onClose, learningPathData }) => {
 
   if (!visible) return null;
 
-  const getStatusColor = (status) => {
+  const getStatusColor = (status: string) => {
     switch (status) {
       case 'completed': return '#58CC67';
       case 'current': return '#3AB1FF';
@@ -841,7 +973,7 @@ const LearningPathModal = ({ visible, onClose, learningPathData }) => {
     }
   };
 
-  const getStatusIcon = (status) => {
+  const getStatusIcon = (status: string) => {
     switch (status) {
       case 'completed': return '✓';
       case 'current': return '▶';
@@ -967,7 +1099,7 @@ const LearningPathModal = ({ visible, onClose, learningPathData }) => {
   );
 };
 
-const TextbookModal = ({ visible, onClose, selectedTextbook, setSelectedTextbook, selectedPage, setSelectedPage, textbooks }) => {
+const TextbookModal = ({ visible, onClose, selectedTextbook, setSelectedTextbook, selectedPage, setSelectedPage, textbooks }: TextbookModalProps) => {
   const slideAnim = useRef(new Animated.Value(300)).current;
   const backdropOpacity = useRef(new Animated.Value(0)).current;
 
@@ -1155,7 +1287,7 @@ const TextbookModal = ({ visible, onClose, selectedTextbook, setSelectedTextbook
   );
 };
 
-const StreakModal = ({ visible, onClose, streakData }) => {
+const StreakModal = ({ visible, onClose, streakData }: StreakModalProps) => {
   const slideAnim = useRef(new Animated.Value(300)).current;
   const backdropOpacity = useRef(new Animated.Value(0)).current;
 
@@ -1189,7 +1321,7 @@ const StreakModal = ({ visible, onClose, streakData }) => {
     }
   }, [visible]);
 
-  const getRecommendationIcon = (type) => {
+  const getRecommendationIcon = (type: string) => {
     switch (type) {
       case 'review': return '📚';
       case 'practice': return '🎯';
@@ -1199,7 +1331,7 @@ const StreakModal = ({ visible, onClose, streakData }) => {
     }
   };
 
-  const getRecommendationColor = (type) => {
+  const getRecommendationColor = (type: string) => {
     switch (type) {
       case 'review': return '#4ECDC4';
       case 'practice': return '#45B7D1';
@@ -1337,8 +1469,8 @@ const StreakModal = ({ visible, onClose, streakData }) => {
 };
 
 export default function App() {
-  const [showSplash, setShowSplash] = useState(false);
-  const [showOnboarding, setShowOnboarding] = useState(false);
+  const [showSplash, setShowSplash] = useState(true);
+  const [showOnboarding, setShowOnboarding] = useState(true);
   const [onboardingStep, setOnboardingStep] = useState(0);
   const [screen, setScreen] = useState('home');
   const [notes, setNotes] = useState('');
@@ -1464,64 +1596,64 @@ export default function App() {
     {
       id: 1,
       name: "Maria",
-      profilePic: require('./assets/one.png'),
-      weeklyXP: 2450,
+      avatar: require('./assets/one.png'),
+      xp: 2450,
       rank: 1,
       isCurrentUser: false
     },
     {
       id: 2,
       name: "Carlos",
-      profilePic: require('./assets/two.png'),
-      weeklyXP: 2180,
+      avatar: require('./assets/two.png'),
+      xp: 2180,
       rank: 2,
       isCurrentUser: false
     },
     {
       id: 3,
       name: "Zander",
-      profilePic: require('./assets/zander.jpg'),
-      weeklyXP: 1950,
+      avatar: require('./assets/zander.jpg'),
+      xp: 1950,
       rank: 3,
       isCurrentUser: true
     },
     {
       id: 4,
       name: "Sophie",
-      profilePic: require('./assets/three.png'),
-      weeklyXP: 1780,
+      avatar: require('./assets/three.png'),
+      xp: 1780,
       rank: 4,
       isCurrentUser: false
     },
     {
       id: 5,
       name: "Diego",
-      profilePic: require('./assets/four.png'),
-      weeklyXP: 1650,
+      avatar: require('./assets/four.png'),
+      xp: 1650,
       rank: 5,
       isCurrentUser: false
     },
     {
       id: 6,
       name: "Emma",
-      profilePic: require('./assets/five.png'),
-      weeklyXP: 1520,
+      avatar: require('./assets/five.png'),
+      xp: 1520,
       rank: 6,
       isCurrentUser: false
     },
     {
       id: 7,
       name: "Alex",
-      profilePic: require('./assets/six.png'),
-      weeklyXP: 1380,
+      avatar: require('./assets/six.png'),
+      xp: 1380,
       rank: 7,
       isCurrentUser: false
     },
     {
       id: 8,
       name: "Luna",
-      profilePic: require('./assets/seven.png'),
-      weeklyXP: 1180,
+      avatar: require('./assets/seven.png'),
+      xp: 1180,
       rank: 8,
       isCurrentUser: false
     }
@@ -1535,9 +1667,10 @@ export default function App() {
       description: "Complete your first lesson",
       icon: "🎯",
       category: "learning",
-      earned: true,
+      isUnlocked: true,
       earnedDate: "Dec 28, 2024",
-      progress: 100
+      progress: 100,
+      maxProgress: 100
     },
     {
       id: 2,
@@ -1545,9 +1678,10 @@ export default function App() {
       description: "Maintain a 5-day learning streak",
       icon: "🔥",
       category: "consistency",
-      earned: true,
+      isUnlocked: true,
       earnedDate: "Dec 27, 2024",
-      progress: 100
+      progress: 100,
+      maxProgress: 100
     },
     {
       id: 3,
@@ -1555,9 +1689,10 @@ export default function App() {
       description: "Add 10 words to your Word Bank",
       icon: "📚",
       category: "vocabulary",
-      earned: true,
+      isUnlocked: true,
       earnedDate: "Dec 26, 2024",
-      progress: 100
+      progress: 100,
+      maxProgress: 100
     },
     {
       id: 4,
@@ -1565,9 +1700,10 @@ export default function App() {
       description: "Add 5 friends to your network",
       icon: "👥",
       category: "social",
-      earned: true,
+      isUnlocked: true,
       earnedDate: "Dec 25, 2024",
-      progress: 100
+      progress: 100,
+      maxProgress: 100
     },
     {
       id: 5,
@@ -1575,9 +1711,10 @@ export default function App() {
       description: "Master 3 grammar concepts",
       icon: "✍️",
       category: "grammar",
-      earned: true,
+      isUnlocked: true,
       earnedDate: "Dec 24, 2024",
-      progress: 100
+      progress: 100,
+      maxProgress: 100
     },
     {
       id: 6,
@@ -1585,9 +1722,10 @@ export default function App() {
       description: "Upload 5 lesson materials",
       icon: "📤",
       category: "content",
-      earned: true,
+      isUnlocked: true,
       earnedDate: "Dec 23, 2024",
-      progress: 100
+      progress: 100,
+      maxProgress: 100
     },
     {
       id: 7,
@@ -1595,9 +1733,10 @@ export default function App() {
       description: "Score 100% on 3 quizzes",
       icon: "🏆",
       category: "performance",
-      earned: true,
+      isUnlocked: true,
       earnedDate: "Dec 22, 2024",
-      progress: 100
+      progress: 100,
+      maxProgress: 100
     },
     {
       id: 8,
@@ -1605,9 +1744,10 @@ export default function App() {
       description: "Complete 10 lesson reviews",
       icon: "🔍",
       category: "review",
-      earned: true,
+      isUnlocked: true,
       earnedDate: "Dec 21, 2024",
-      progress: 100
+      progress: 100,
+      maxProgress: 100
     },
     {
       id: 9,
@@ -1615,9 +1755,10 @@ export default function App() {
       description: "Complete 5 lessons in one day",
       icon: "⚡",
       category: "speed",
-      earned: true,
+      isUnlocked: true,
       earnedDate: "Dec 20, 2024",
-      progress: 100
+      progress: 100,
+      maxProgress: 100
     },
     {
       id: 10,
@@ -1625,9 +1766,10 @@ export default function App() {
       description: "Get 10 perfect scores",
       icon: "💯",
       category: "accuracy",
-      earned: true,
+      isUnlocked: true,
       earnedDate: "Dec 19, 2024",
-      progress: 100
+      progress: 100,
+      maxProgress: 100
     },
     {
       id: 11,
@@ -1635,9 +1777,10 @@ export default function App() {
       description: "Complete 5 AI chat sessions",
       icon: "💬",
       category: "conversation",
-      earned: false,
+      isUnlocked: false,
       earnedDate: null,
-      progress: 60
+      progress: 60,
+      maxProgress: 100
     },
     {
       id: 12,
@@ -1645,9 +1788,10 @@ export default function App() {
       description: "Study for 30 days straight",
       icon: "🏃",
       category: "endurance",
-      earned: false,
+      isUnlocked: false,
       earnedDate: null,
-      progress: 17
+      progress: 17,
+      maxProgress: 30
     }
   ]);
 
@@ -1656,9 +1800,10 @@ export default function App() {
     {
       id: 1,
       title: "Spanish Basics",
-      type: "unit",
+      description: "Learn the fundamentals of Spanish",
       status: "completed",
       progress: 100,
+      xpReward: 200,
       lessons: [
         { id: 1, title: "Greetings", status: "completed", xp: 25 },
         { id: 2, title: "Numbers", status: "completed", xp: 25 },
@@ -1669,9 +1814,10 @@ export default function App() {
     {
       id: 2,
       title: "Present Tense",
-      type: "unit",
+      description: "Master the present tense conjugations",
       status: "completed",
       progress: 100,
+      xpReward: 250,
       lessons: [
         { id: 5, title: "Ser vs Estar", status: "completed", xp: 30 },
         { id: 6, title: "Regular Verbs", status: "completed", xp: 30 },
@@ -1681,9 +1827,10 @@ export default function App() {
     {
       id: 3,
       title: "Daily Activities",
-      type: "unit",
+      description: "Learn vocabulary for daily activities",
       status: "current",
       progress: 75,
+      xpReward: 300,
       lessons: [
         { id: 8, title: "Morning Routine", status: "completed", xp: 35 },
         { id: 9, title: "Work & Study", status: "completed", xp: 35 },
@@ -1694,9 +1841,10 @@ export default function App() {
     {
       id: 4,
       title: "Past Tense",
-      type: "unit",
+      description: "Explore the past tense conjugations",
       status: "locked",
       progress: 0,
+      xpReward: 350,
       lessons: [
         { id: 12, title: "Preterite Tense", status: "locked", xp: 0 },
         { id: 13, title: "Imperfect Tense", status: "locked", xp: 0 },
@@ -1706,9 +1854,10 @@ export default function App() {
     {
       id: 5,
       title: "Travel & Places",
-      type: "unit",
+      description: "Learn vocabulary for travel and places",
       status: "locked",
       progress: 0,
+      xpReward: 400,
       lessons: [
         { id: 15, title: "Directions", status: "locked", xp: 0 },
         { id: 16, title: "Transportation", status: "locked", xp: 0 },
@@ -1719,9 +1868,10 @@ export default function App() {
     {
       id: 6,
       title: "Advanced Grammar",
-      type: "unit",
+      description: "Dive into advanced grammar concepts",
       status: "locked",
       progress: 0,
+      xpReward: 500,
       lessons: [
         { id: 19, title: "Subjunctive Mood", status: "locked", xp: 0 },
         { id: 20, title: "Conditional Tense", status: "locked", xp: 0 },
@@ -1734,84 +1884,32 @@ export default function App() {
   const [streakData] = useState({
     currentStreak: 5,
     longestStreak: 12,
-    weeklyGoal: 7,
+    totalDays: 30,
     recommendations: [
       {
         type: "review",
         title: "Quick Review Session",
-        subtitle: "Past Tense Verbs",
-        description: "Review 8 verbs you learned last week to strengthen retention",
-        estimatedTime: "5 min",
-        xpReward: 15
+        description: "Review 8 verbs you learned last week to strengthen retention"
       },
       {
         type: "practice",
         title: "Grammar Practice",
-        subtitle: "Ser vs Estar",
-        description: "Practice distinguishing between ser and estar in context",
-        estimatedTime: "10 min",
-        xpReward: 25
+        description: "Practice distinguishing between ser and estar in context"
       },
       {
         type: "challenge",
         title: "Speed Challenge",
-        subtitle: "Family Vocabulary",
-        description: "Test your family vocabulary with a timed challenge",
-        estimatedTime: "3 min",
-        xpReward: 20
+        description: "Test your family vocabulary with a timed challenge"
       },
       {
         type: "lesson",
         title: "New Lesson",
-        subtitle: "Evening Activities",
-        description: "Continue your Daily Activities unit with evening vocabulary",
-        estimatedTime: "15 min",
-        xpReward: 35
+        description: "Continue your Daily Activities unit with evening vocabulary"
       },
       {
         type: "review",
         title: "Spaced Repetition",
-        subtitle: "Colors & Numbers",
-        description: "Review basic vocabulary using spaced repetition method",
-        estimatedTime: "7 min",
-        xpReward: 18
-      }
-    ],
-    reviewItems: [
-      {
-        word: "hermana",
-        translation: "sister",
-        dueDate: "today"
-      },
-      {
-        word: "cocinar",
-        translation: "to cook",
-        dueDate: "today"
-      },
-      {
-        word: "azul",
-        translation: "blue",
-        dueDate: "tomorrow"
-      },
-      {
-        word: "trabajar",
-        translation: "to work",
-        dueDate: "today"
-      },
-      {
-        word: "madre",
-        translation: "mother",
-        dueDate: "2 days"
-      },
-      {
-        word: "estudiar",
-        translation: "to study",
-        dueDate: "today"
-      },
-      {
-        word: "verde",
-        translation: "green",
-        dueDate: "tomorrow"
+        description: "Review basic vocabulary using spaced repetition method"
       }
     ]
   });
@@ -1929,7 +2027,7 @@ export default function App() {
   }, [showSplash]);
 
   // Enhanced screen transition functions with gradient-preserving animations
-  const animateToScreen = (targetScreen, transitionType = 'default') => {
+  const animateToScreen = (targetScreen: string, transitionType = 'default') => {
     setIsTransitioning(true);
     setNextScreen(targetScreen);
     
@@ -2086,8 +2184,7 @@ export default function App() {
         translation: "to conjugate",
         category: "verbs",
         difficulty: "intermediate",
-        dateAdded: "Just now",
-        source: "ai_review",
+        lastReviewed: "Just now",
         example: "Es importante conjugar los verbos correctamente",
         exampleTranslation: "It's important to conjugate verbs correctly"
       },
@@ -2097,8 +2194,7 @@ export default function App() {
         translation: "to study",
         category: "verbs",
         difficulty: "beginner",
-        dateAdded: "Just now",
-        source: "ai_review",
+        lastReviewed: "Just now",
         example: "Me gusta estudiar español todos los días",
         exampleTranslation: "I like to study Spanish every day"
       }
@@ -2120,12 +2216,12 @@ export default function App() {
     animateToScreen('review');
   };
 
-  const handleQuizAnswer = (answer) => {
+  const handleQuizAnswer = (answer: string) => {
     setSelectedAnswer(answer);
     setShowResult(true);
   };
 
-  const handleLessonSelect = (lesson) => {
+  const handleLessonSelect = (lesson: Lesson) => {
     // Set mock review content based on lesson
     setReview(
       `🧠 Reviewing: ${lesson.title}\n\n` +
@@ -2141,7 +2237,7 @@ export default function App() {
   };
 
   // Quest action handlers
-  const handleQuestAction = (quest) => {
+  const handleQuestAction = (quest: Quest) => {
     console.log('Quest action:', quest.title, quest.status);
     
     if (quest.status === 'completed') {
@@ -2153,7 +2249,7 @@ export default function App() {
     }
   };
 
-  const handleStartQuest = (quest) => {
+  const handleStartQuest = (quest: Quest) => {
     // Navigate to appropriate screen based on quest type
     switch (quest.type) {
       case 'practice':
@@ -2183,13 +2279,13 @@ export default function App() {
     );
   };
 
-  const handleClaimReward = (quest) => {
+  const handleClaimReward = (quest: Quest) => {
     // Add XP and gems to user progress
     setUserProgress(prevProgress => ({
       ...prevProgress,
-      totalXP: prevProgress.totalXP + quest.xpReward,
-      totalGems: prevProgress.totalGems + quest.gemReward,
-      dailyXP: prevProgress.dailyXP + quest.xpReward,
+      totalXP: prevProgress.totalXP + quest.reward.xp,
+      totalGems: prevProgress.totalGems + quest.reward.gems,
+      dailyXP: prevProgress.dailyXP + quest.reward.xp,
       questsCompleted: prevProgress.questsCompleted + 1
     }));
 
@@ -2203,10 +2299,10 @@ export default function App() {
     );
 
     // Show reward notification (could add animation here)
-    console.log(`Claimed: +${quest.xpReward} XP, +${quest.gemReward} gems`);
+    console.log(`Claimed: +${quest.reward.xp} XP, +${quest.reward.gems} gems`);
   };
 
-  const updateQuestProgress = (questType, progressAmount = 1) => {
+  const updateQuestProgress = (questType: string, progressAmount = 1) => {
     setDailyQuestsState(prevQuests => 
       prevQuests.map(quest => {
         if (quest.type === questType && quest.status !== 'claimed') {
@@ -2219,7 +2315,7 @@ export default function App() {
     );
   };
 
-  const handleGameModeSelect = (gameMode) => {
+  const handleGameModeSelect = (gameMode: GameMode) => {
     console.log('Game mode selected:', gameMode);
     if (gameMode.route === 'upload') {
       animateToScreen('upload');
@@ -2237,7 +2333,7 @@ export default function App() {
   };
 
   // Badge configuration function
-  const getBadgeConfig = (badgeType) => {
+  const getBadgeConfig = (badgeType: string) => {
     const badgeConfigs = {
       review: {
         text: "Review!",
@@ -2274,7 +2370,7 @@ export default function App() {
   };
 
   // Category configuration function for Word Bank
-  const getCategoryConfig = (category) => {
+  const getCategoryConfig = (category: string) => {
     const categoryConfigs = {
       verbs: {
         text: "Verbs",
@@ -2311,7 +2407,7 @@ export default function App() {
   };
 
   // Progress screen stat handlers
-  const handleStatPress = (statType) => {
+  const handleStatPress = (statType: string) => {
     setPressedStat(statType);
     // Add haptic feedback for premium feel
     if (Platform.OS === 'ios') {
@@ -4783,9 +4879,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 5,
+    shadowOpacity: 0.15,
+    shadowRadius: 16,
+    elevation: 8,
   },
   achievementTitle: {
     fontSize: 20,
